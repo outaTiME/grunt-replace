@@ -57,7 +57,7 @@ In details, we have one source `build/manifest.appcache` and want to inject `tim
 
 ### Usage variations
 
-#### Replace over `src` file list (one target)
+#### Replace over src file list (one target)
 
 ```javascript
 replace: {
@@ -72,7 +72,7 @@ replace: {
 }
 ```
 
-#### Replace over both `src` with variables at `replacer` space (multiple target)
+#### Replace over both src with variables at replacer space (multiple target)
 
 ```javascript
 replace: {
@@ -110,7 +110,7 @@ replace: {
 }
 ```
 
-#### Define prefix for pattern lookup (in `replacer` space)
+#### Define prefix for pattern lookup (in replacer space)
 
 ```javascript
 replace: {
