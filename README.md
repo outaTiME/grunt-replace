@@ -133,7 +133,7 @@ replacer: {
 ```javascript
 // default
 variables: {},
-prefix: '@@',
+prefix: '@@'
 ```
 
 ## Contribute
