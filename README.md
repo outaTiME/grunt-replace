@@ -20,7 +20,7 @@ grunt.loadNpmTasks('grunt-replace');
 
 In our source file we define the place where variable will be injected (default `prefix` used by replacer is `@@`):
 
-```javascript
+```
 // build/manifest.appcache
 
 CACHE MANIFEST
@@ -28,7 +28,7 @@ CACHE MANIFEST
 
 CACHE:
 
-/favicon.ico
+favicon.ico
 index.html
 
 NETWORK:
