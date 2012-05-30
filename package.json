@@ -1,0 +1,29 @@
+{
+  "name": "grunt-replace",
+  "version": "0.1.0",
+  "description": "Grunt task to replace inline patterns with defined variables to make the world a better place.",
+  "homepage": "http://github.com/outaTiME/grunt-replace",
+  "keywords": ["gruntplugin", "grunt", "plugin", "replace"],
+  "author": "outaTiME <afalduto@gmail.com> (http://outa.im)",
+  "licenses": [{
+    "type": "Apache-2.0",
+    "url": "http://www.apache.org/licenses/LICENSE-2.0"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/outaTiME/grunt-replace.git"
+  },
+  "bugs": "http://github.com/outaTiME/grunt-replace/issues",
+  "bin": "bin/grunt-replace",
+  "main": "grunt.js",
+  "dependencies": {
+    "grunt": "~0.3.9",
+    "recess": "~1.0.4"
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  },
+  "licenses": {
+    "type": "MIT"
+  }
+}
