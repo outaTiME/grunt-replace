@@ -1,6 +1,6 @@
 {
   "name": "grunt-replace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Grunt task to replace inline patterns with defined variables to make the world a better place.",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "keywords": ["gruntplugin", "grunt", "plugin", "replace"],
@@ -17,13 +17,9 @@
   "bin": "bin/grunt-replace",
   "main": "grunt.js",
   "dependencies": {
-    "grunt": "~0.3.9",
-    "recess": "~1.0.4"
+    "grunt": "~0.3.9"
   },
   "engines": {
     "node": ">=0.6.0"
-  },
-  "licenses": {
-    "type": "MIT"
   }
 }
