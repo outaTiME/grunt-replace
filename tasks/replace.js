@@ -48,7 +48,10 @@ module.exports = function (grunt) {
     grunt.verbose.writeflags(prefix, 'prefix');
 
     Object.keys(variables).forEach(function (variable) {
-      locals[variable] = grunt.template.process(variables[variable]);
+      var value = variables[variable];
+      if (typeof value === 'string') {
+        locals[variable] = grunt.template.process(value);
+      }
     });
 
     files.forEach(function (filepath, index) {
