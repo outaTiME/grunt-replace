@@ -51,7 +51,7 @@ replace: {
 //...
 ```
 
-#### Explain please
+#### Explain please !!
 
 In details, we have one source `build/manifest.appcache` and want to inject `timestamp` variable value and then put them in `dest` destination.
 
@@ -104,7 +104,7 @@ replace: {
     variables: {
       version: '<%= pkg.version %>',
       timestamp: '<%= grunt.template.today() %>'
-    }, 
+    },
     perfix: '@@'
   }
 }
