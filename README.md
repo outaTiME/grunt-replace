@@ -105,7 +105,7 @@ replace: {
       version: '<%= pkg.version %>',
       timestamp: '<%= grunt.template.today() %>'
     },
-    perfix: '@@'
+    prefix: '@@'
   }
 }
 ```
@@ -124,7 +124,7 @@ replacer: {
     version: '<%= pkg.version %>',
     timestamp: '<%= grunt.template.today() %>'
   },
-  perfix: '@@'
+  prefix: '@@'
 }
 ```
 
