@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/outaTiME/grunt-replace.png)](http://travis-ci.org/outaTiME/grunt-replace)
 # grunt-replace
 
 [Grunt][grunt] task to replace inline patterns with defined variables to make the world a better place.
