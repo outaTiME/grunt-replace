@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       prefix = config.prefix,
       locals = {},
       processed = 0;
-
+      
     if (typeof variables === 'object') {
       grunt.verbose.writeln('Using "' + target + '" replace variables options.');
     } else {
@@ -44,13 +44,15 @@ module.exports = function (grunt) {
       grunt.verbose.writeln('Using master replacer prefix options.');
       prefix = grunt.config('replacer.prefix') || '@@';
     }
-
+    
+    prefix = grunt.template.process(prefix);
+    
     grunt.verbose.writeflags(prefix, 'prefix');
 
     Object.keys(variables).forEach(function (variable) {
       var value = variables[variable];
       if (typeof value === 'string') {
-        locals[variable] = grunt.template.process(value);
+        locals[grunt.template.process(variable)] = grunt.template.process(value);
       }
     });
 
