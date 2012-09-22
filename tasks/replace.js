@@ -15,7 +15,25 @@
  */
 
 module.exports = function (grunt) {
-  
+  var fs = require('fs');
+
+  // make directory path
+  function mkdirp(_, path) {
+    var parts = path.split("/");
+    if( parts[0] == '' ) {
+      parts = _.rest(parts);
+    }
+    _.reduce(parts, function(curPath, part) {
+      try {
+        fs.statSync(curPath);
+      } catch(e) {
+        fs.mkdirSync(curPath, 0777);
+      }
+      curPath = curPath + "/" + part;
+      return curPath;
+    });
+  }
+
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
     var
@@ -57,7 +75,10 @@ module.exports = function (grunt) {
     });
 
     files.forEach(function (filepath, index) {
-      var filename = path.basename(filepath), dest_filepath = path.join(dest, filename);
+      var reldir = path.dirname(filepath), dest_dir = path.join(dest, reldir), dest_filepath = path.join(dest_dir, path.basename(filepath));
+
+      mkdirp(grunt.utils._, dest_dir);
+
       grunt.file.copy(filepath, dest_filepath, {
         process: function (contents) {
           var updated = false;
