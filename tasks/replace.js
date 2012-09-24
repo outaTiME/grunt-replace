@@ -26,6 +26,7 @@ module.exports = function (grunt) {
       dest = this.file.dest || '.',
       variables = config.variables,
       prefix = config.prefix,
+      overwrite = config.overwrite || 0,
       locals = {},
       processed = 0;
       
@@ -57,24 +58,39 @@ module.exports = function (grunt) {
     });
 
     files.forEach(function (filepath, index) {
-      var filename = path.basename(filepath), dest_filepath = path.join(dest, filename);
-      grunt.file.copy(filepath, dest_filepath, {
-        process: function (contents) {
-          var updated = false;
-          Object.keys(locals).forEach(function (local) {
-            var re = new RegExp(prefix + local, "g"), value = locals[local];
-            updated = updated || contents.match(re);
-            contents = contents.replace(re, value);
-          });
-          if (updated) {
-            grunt.log.writeln('Replace "' + filepath + '" > "' + dest_filepath + '"');
-            processed++;
-          } else {
-            return false;
+      if (overwrite===0) {
+        var filename = path.basename(filepath), dest_filepath = path.join(dest, filename);
+        grunt.file.copy(filepath, dest_filepath, {
+          process: function (contents) {
+            var updated = false;
+            Object.keys(locals).forEach(function (local) {
+              var re = new RegExp(prefix + local, "g"), value = locals[local];
+              updated = updated || contents.match(re);
+              contents = contents.replace(re, value);
+            });
+            if (updated) {
+              grunt.log.writeln('Replace "' + filepath + '" > "' + dest_filepath + '"');
+              processed++;
+            } else {
+              return false;
+            }
+            return contents;
           }
-          return contents;
+        });
+      } else {
+        var updated = false;
+        contents = grunt.file.read(filepath, 'utf8').toString();
+        Object.keys(locals).forEach(function (local) {
+          var re = new RegExp(prefix + local, "g"), value = locals[local];
+          updated = updated || contents.match(re);
+          contents = contents.replace(re, value);
+        });
+        if (updated) {
+          grunt.file.write(filepath, contents)
+          grunt.log.writeln('Overwrite "' + filepath + '"');
+          processed++;
         }
-      });
+      }
 
     });
 
