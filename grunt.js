@@ -50,14 +50,14 @@ module.exports = function (grunt) {
     replace: {
       simple: {
         src: ['test/fixtures/simple.txt'],
-        dest: 'tmp',
+        dest: 'tmp/output',
         variables: {
           key: 'value'
         }
       },
       prefix: {
         src: ['test/fixtures/prefix.txt'],
-        dest: 'tmp',
+        dest: 'tmp/output',
         variables: {
           key: 'value'
         },
@@ -65,14 +65,84 @@ module.exports = function (grunt) {
       },
       dynamic_key: {
         src: ['test/fixtures/dynamic_key.txt'],
-        dest: 'tmp',
+        dest: 'tmp/output',
         variables: {
           '<%= "key" %>': 'value'
         }
       },
       dynamic_value: {
         src: ['test/fixtures/dynamic_value.txt'],
-        dest: 'tmp',
+        dest: 'tmp/output',
+        variables: {
+          key: '<%= grunt.template.today("yyyy") %>'
+        }
+      },
+
+      // don't preserve dir structure
+      simple_flat: {
+        src: ['test/fixtures/simple.txt'],
+        dest: 'tmp/output_flat',
+        preserve_dirs: false,
+        variables: {
+          key: 'value'
+        }
+      },
+      prefix_flat: {
+        src: ['test/fixtures/prefix.txt'],
+        dest: 'tmp/output_flat',
+        preserve_dirs: false,
+        variables: {
+          key: 'value'
+        },
+        prefix: '@replace:'
+      },
+      dynamic_key_flat: {
+        src: ['test/fixtures/dynamic_key.txt'],
+        dest: 'tmp/output_flat',
+        preserve_dirs: false,
+        variables: {
+          '<%= "key" %>': 'value'
+        }
+      },
+      dynamic_value_flat: {
+        src: ['test/fixtures/dynamic_value.txt'],
+        dest: 'tmp/output_flat',
+        preserve_dirs: false,
+        variables: {
+          key: '<%= grunt.template.today("yyyy") %>'
+        }
+      },
+
+      // preserve dir structure from basepath
+      simple_basepath: {
+        src: ['test/fixtures/simple.txt'],
+        dest: 'tmp/output_basepath',
+        base_path: 'test',
+        variables: {
+          key: 'value'
+        }
+      },
+      prefix_basepath: {
+        src: ['test/fixtures/prefix.txt'],
+        dest: 'tmp/output_basepath',
+        base_path: 'test',
+        variables: {
+          key: 'value'
+        },
+        prefix: '@replace:'
+      },
+      dynamic_key_basepath: {
+        src: ['test/fixtures/dynamic_key.txt'],
+        dest: 'tmp/output_basepath',
+        base_path: 'test',
+        variables: {
+          '<%= "key" %>': 'value'
+        }
+      },
+      dynamic_value_basepath: {
+        src: ['test/fixtures/dynamic_value.txt'],
+        dest: 'tmp/output_basepath',
+        base_path: 'test',
         variables: {
           key: '<%= grunt.template.today("yyyy") %>'
         }

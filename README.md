@@ -57,6 +57,35 @@ replace: {
 
 In details, we have one source `build/manifest.appcache` and want to inject `timestamp` variable value and then put them in `dest` destination.
 
+### File structure options
+
+By default source directory structure is preserved and copied to destination.  Two options govern this behavior: `preserve_dirs` and `base_path`.
+
+```javascript
+replace: {
+  dist: {
+    src: ['base/path/static/']
+    dest: 'public',
+    preserve_dirs: false
+  }
+}
+```
+
+Copying source directory structure can be disabled by specifying `preserve_dirs: false`.  All files will be copied directly to the dest dir. In the above example, all files in `static/` will be copied directly into `public/`.
+
+```javascript
+replace: {
+  dist: {
+    src: ['base/path/static/']
+    dest: 'public',
+    base_path: 'base/path' 
+  }
+}
+```
+
+When preserving directories, the base path to exclude from resulting path can be set.  In the above example, the `static/` dir and all files inside are copied to `public/`.  If `base_path` was not set, `public/base/path/static` would be created.
+
+
 ### Usage variations
 
 #### Replace over src file list (one target)

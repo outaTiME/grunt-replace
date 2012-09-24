@@ -15,7 +15,25 @@
  */
 
 module.exports = function (grunt) {
-  
+  var fs = require('fs');
+
+  // make directory path
+  function mkdirp(_, path) {
+    var parts = path.split("/");
+    if( parts[0] == '' ) {
+      parts = _.rest(parts);
+    }
+    _.reduce(parts, function(curPath, part) {
+      try {
+        fs.statSync(curPath);
+      } catch(e) {
+        fs.mkdirSync(curPath, 0777);
+      }
+      curPath = curPath + "/" + part;
+      return curPath;
+    });
+  }
+
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
     var
@@ -26,9 +44,15 @@ module.exports = function (grunt) {
       dest = this.file.dest || '.',
       variables = config.variables,
       prefix = config.prefix,
+      preserve_dirs = config.preserve_dirs,
+      base_path = config.base_path,
       locals = {},
       processed = 0;
-      
+
+    if (typeof preserve_dirs === "undefined") {
+      preserve_dirs = true;
+    }
+
     if (typeof variables === 'object') {
       grunt.verbose.writeln('Using "' + target + '" replace variables options.');
     } else {
@@ -57,7 +81,21 @@ module.exports = function (grunt) {
     });
 
     files.forEach(function (filepath, index) {
-      var filename = path.basename(filepath), dest_filepath = path.join(dest, filename);
+      var dirname = path.dirname(filepath), dest_dir, dest_filepath;
+
+      if (preserve_dirs) {
+        if (base_path) {
+          dirname = dirname.replace(new RegExp('^'+base_path), '');
+        }
+        dest_dir = path.join(dest, dirname);
+      } else {
+        dest_dir = dest;
+      }
+
+      dest_filepath = path.join(dest_dir, path.basename(filepath));
+
+      mkdirp(grunt.utils._, dest_dir);
+
       grunt.file.copy(filepath, dest_filepath, {
         process: function (contents) {
           var updated = false;
