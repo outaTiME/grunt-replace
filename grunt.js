@@ -76,6 +76,14 @@ module.exports = function (grunt) {
         variables: {
           key: '<%= grunt.template.today("yyyy") %>'
         }
+      },
+      dynamic_prefix: {
+        src: ['test/fixtures/dynamic_prefix.txt'],
+        dest: 'tmp',
+        variables: {
+          key: 'value'
+        },
+        prefix: '<%= "@replace:" %>'
       }
     },
 

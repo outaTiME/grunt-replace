@@ -6,7 +6,7 @@ exports['replace'] = {
 
     var expect, result;
 
-    test.expect(4);
+    test.expect(5);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -23,6 +23,10 @@ exports['replace'] = {
     expect = grunt.template.today('yyyy') + "\n";
     result = grunt.file.read('tmp/dynamic_value.txt');
     test.equal(expect, result, 'should replace simple key with templated value');
+    
+    expect = 'value\n';
+    result = grunt.file.read('tmp/dynamic_prefix.txt');
+    test.equal(expect, result, 'should replace simple key with value using templated prefix');
 
     test.done();
   }
