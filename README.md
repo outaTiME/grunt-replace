@@ -71,7 +71,7 @@ replace: {
 }
 ```
 
-Copying source directory structure can be disabled by specifying `preserve_dirs: false`.  All files will be copied directly to the dest dir. In the above example, all files in 'static/' will be copied directly into `public`.
+Copying source directory structure can be disabled by specifying `preserve_dirs: false`.  All files will be copied directly to the dest dir. In the above example, all files in `static/` will be copied directly into `public/`.
 
 ```javascript
 replace: {
@@ -83,7 +83,7 @@ replace: {
 }
 ```
 
-When preserving directories, the base path to exclude from resulting path can be set.  In the above example, the `static/` dir and all files inside are copied to `public`.  If `base_path` was not set, `public/base/path/static` would be created.
+When preserving directories, the base path to exclude from resulting path can be set.  In the above example, the `static/` dir and all files inside are copied to `public/`.  If `base_path` was not set, `public/base/path/static` would be created.
 
 
 ### Usage variations
