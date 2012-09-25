@@ -80,9 +80,9 @@ replace: {
 
 #### Example usage
 
-##### Put variable pattern in source
+##### Variable pattern in source
 
-In our source file we define the place where variable will be injected (default `prefix` used by replacer is `@@`):
+Define the place where variable will be injected (default `prefix` used by replacer is `@@`):
 
 ```
 // build/manifest.appcache
@@ -99,9 +99,9 @@ NETWORK:
 *
 ```
 
-##### Define variables per file in gruntfile
+##### Gruntfile
 
-In our rule we define timestamp (`<%= grunt.template.today() %>`) variable and the destination of the source file (`public` directory):
+Define timestamp variable and destination of the source files:
 
 ```javascript
 replace: {
@@ -142,12 +142,6 @@ replace: {
 ## Contribute
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
-
-## License
-
-Copyright 2012 outaTiME.
-
-Licensed under the Apache License, Version 2.0: <http://www.apache.org/licenses/LICENSE-2.0>
 
 ## Release History
 
