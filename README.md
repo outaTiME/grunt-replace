@@ -46,7 +46,7 @@ options: {
 
 ##### prefix ```string```
 
-This option is used to create the real pattern for lookup in source files (Defaults to @@).
+This option is used to create the real pattern for lookup in source files (Defaults `@@`).
 
 ##### basePath ```string```
 
@@ -82,7 +82,7 @@ replace: {
 
 ##### Variable pattern in source
 
-Define the place where variable will be injected (default `prefix` used by replacer is `@@`):
+Define the place where variable will be injected:
 
 ```
 // build/manifest.appcache
