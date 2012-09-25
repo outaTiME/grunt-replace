@@ -15,39 +15,42 @@
  */
 
 module.exports = function (grunt) {
-  
+
+  'use strict';
+
+  // TODO: ditch this when grunt v0.4 is released
+  grunt.util = grunt.util || grunt.utils;
+
+  var path = require('path');
+
+  // TODO: remove if/when we officially drop node <= 0.7.9
+  path.sep = path.sep || path.normalize('/');
+
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
     var
-      path = require('path'),
-      files = grunt.file.expandFiles(this.file.src),
-      target = this.target,
-      config = grunt.config(['replace', this.target]),
-      dest = this.file.dest || '.',
-      variables = config.variables,
-      prefix = config.prefix,
+      helpers = require('grunt-contrib-lib').init(grunt),
+      options = helpers.options(this, {
+        variables: {},
+        prefix: '@@',
+        basePath: false,
+        flatten: false,
+        minimatch: {}
+      }),
+      variables = options.variables,
       locals = {},
-      processed = 0;
-      
-    if (typeof variables === 'object') {
-      grunt.verbose.writeln('Using "' + target + '" replace variables options.');
-    } else {
-      grunt.verbose.writeln('Using master replacer variables options.');
-      variables = grunt.config('replacer.variables') || {};
-    }
+      srcFiles,
+      destType,
+      basePath,
+      filename,
+      relative,
+      destFile,
+      srcFile;
 
-    grunt.verbose.writeflags(variables, 'variables');
+    // TODO: ditch this when grunt v0.4 is released
+    this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
 
-    if (typeof prefix === 'string') {
-      grunt.verbose.writeln('Using "' + target + '" replace prefix options.');
-    } else {
-      grunt.verbose.writeln('Using master replacer prefix options.');
-      prefix = grunt.config('replacer.prefix') || '@@';
-    }
-    
-    prefix = grunt.template.process(prefix);
-    
-    grunt.verbose.writeflags(prefix, 'prefix');
+    grunt.verbose.writeflags(options, 'Options');
 
     Object.keys(variables).forEach(function (variable) {
       var value = variables[variable];
@@ -56,32 +59,90 @@ module.exports = function (grunt) {
       }
     });
 
-    files.forEach(function (filepath, index) {
-      var filename = path.basename(filepath), dest_filepath = path.join(dest, filename);
-      grunt.file.copy(filepath, dest_filepath, {
-        process: function (contents) {
-          var updated = false;
-          Object.keys(locals).forEach(function (local) {
-            var re = new RegExp(prefix + local, "g"), value = locals[local];
-            updated = updated || contents.match(re);
-            contents = contents.replace(re, value);
-          });
-          if (updated) {
-            grunt.log.writeln('Replace "' + filepath + '" > "' + dest_filepath + '"');
-            processed++;
-          } else {
-            return false;
-          }
-          return contents;
-        }
-      });
+    grunt.verbose.writeflags(locals, 'Locals');
 
-    });
-
-    if (processed === 0) {
-      grunt.log.writeln('No documents updated.');
+    if (Object.keys(locals).length === 0) {
+      grunt.fail.warn('No valid variables for replace were found.');
     }
 
+    this.files.forEach(function (file, index) {
+      file.dest = path.normalize(file.dest);
+      srcFiles = grunt.file.expandFiles(options.minimatch, file.src);
+
+      grunt.verbose.writeflags(file, 'File');
+
+      if (srcFiles.length === 0) {
+        grunt.fail.warn('Unable to replace, no valid source files were found.');
+      }
+
+      destType = detectDestType(file.dest);
+
+      if (destType === 'file') {
+        if (srcFiles.length === 1) {
+          srcFile = path.normalize(srcFiles[0]);
+
+          replace(srcFile, file.dest, options, locals);
+
+          grunt.verbose.or.ok();
+        } else {
+          grunt.fail.warn('Unable to replace multiple files to the same destination filename, did you forget a trailing slash?');
+        }
+      } else if (destType === 'directory') {
+        basePath = helpers.findBasePath(srcFiles, options.basePath);
+
+        grunt.verbose.writeln('Base Path: ' + basePath.cyan);
+
+        srcFiles.forEach(function(srcFile) {
+          srcFile = path.normalize(srcFile);
+          filename = path.basename(srcFile);
+          relative = path.dirname(srcFile);
+
+          if (options.flatten) {
+            relative = '';
+          } else if (basePath && basePath.length >= 1) {
+            relative = grunt.util._(relative).strRight(basePath).trim(path.sep);
+          }
+
+          // make paths outside grunts working dir relative
+          relative = relative.replace(/\.\.(\/|\\)/g, '');
+
+          destFile = path.join(file.dest, relative, filename);
+
+          replace(srcFile, destFile, options, locals);
+        });
+
+        grunt.verbose.or.ok();
+      }
+    });
+
   });
+
+  var detectDestType = function (dest) {
+    if (grunt.util._.endsWith(dest, path.sep)) {
+      return 'directory';
+    } else {
+      return 'file';
+    }
+  };
+
+  var replace = function (srcFile, destFile, options, locals) {
+    grunt.file.copy(srcFile, destFile, {
+      process: function (contents) {
+        var updated = false;
+        Object.keys(locals).forEach(function (local) {
+          // TODO: create RegExp once ??
+          var re = new RegExp(options.prefix + local, "g"), value = locals[local];
+          updated = updated || contents.match(re);
+          contents = contents.replace(re, value);
+        });
+        if (updated) {
+          grunt.log.writeln('Replace ' + srcFile.cyan + ' to ' + destFile.cyan);
+        } else {
+          return false;
+        }
+        return contents;
+      }
+    });
+  };
 
 };

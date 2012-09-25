@@ -15,6 +15,7 @@
  */
 
 module.exports = function (grunt) {
+
   'use strict';
 
   // Project configuration.
@@ -49,32 +50,65 @@ module.exports = function (grunt) {
     // Configuration to be run (and then tested).
     replace: {
       simple: {
-        src: ['test/fixtures/simple.txt'],
-        dest: 'tmp',
-        variables: {
-          key: 'value'
+        options: {
+          variables: {
+            'key': 'value'
+          }
+        },
+        files: {
+          'tmp/': ['test/fixtures/simple.txt']
         }
       },
       prefix: {
-        src: ['test/fixtures/prefix.txt'],
-        dest: 'tmp',
-        variables: {
-          key: 'value'
+        options: {
+          variables: {
+            'key': 'value'
+          },
+          prefix: '@replace:'
         },
-        prefix: '@replace:'
+        files: {
+          'tmp/': ['test/fixtures/prefix.txt']
+        }
       },
       dynamic_key: {
-        src: ['test/fixtures/dynamic_key.txt'],
-        dest: 'tmp',
-        variables: {
-          '<%= "key" %>': 'value'
+        options: {
+          variables: {
+            '<%= "key" %>': 'value'
+          }
+        },
+        files: {
+          'tmp/': ['test/fixtures/dynamic_key.txt']
         }
       },
       dynamic_value: {
-        src: ['test/fixtures/dynamic_value.txt'],
-        dest: 'tmp',
-        variables: {
-          key: '<%= grunt.template.today("yyyy") %>'
+        options: {
+          variables: {
+            'key': '<%= grunt.template.today("yyyy") %>'
+          }
+        },
+        files: {
+          'tmp/': ['test/fixtures/dynamic_value.txt']
+        }
+      },
+      base_simple: {
+        options: {
+          variables: {
+            'key': 'value'
+          }
+        },
+        files: {
+          'tmp/base_simple/': ['test/fixtures/base_simple/**/*.txt']
+        }
+      },
+      flatten: {
+        options: {
+          variables: {
+            'key': 'value'
+          },
+          flatten: true
+        },
+        files: {
+          'tmp/flatten/': ['test/fixtures/flatten/**/*.txt']
         }
       }
     },

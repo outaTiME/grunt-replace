@@ -2,11 +2,12 @@ var grunt = require('grunt');
 
 exports['replace'] = {
   main: function(test) {
+
     'use strict';
 
-    var expect, result;
+    var expect, result, bool_result;
 
-    test.expect(4);
+    test.expect(6);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -23,6 +24,20 @@ exports['replace'] = {
     expect = grunt.template.today('yyyy') + "\n";
     result = grunt.file.read('tmp/dynamic_value.txt');
     test.equal(expect, result, 'should replace simple key with templated value');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/base_simple/foo.txt');
+    bool_result = expect === result;
+    result = grunt.file.read('tmp/base_simple/foo/bar.txt');
+    bool_result = bool_result && expect === result;
+    test.equal(true, bool_result, 'should replace simple key with value (in directory mode)');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/flatten/foo.txt');
+    bool_result = expect === result;
+    result = grunt.file.read('tmp/flatten/bar.txt');
+    bool_result = bool_result && expect === result;
+    test.equal(true, bool_result, 'should replace simple key with value (in directory flatten mode)');
 
     test.done();
   }
