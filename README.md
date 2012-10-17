@@ -36,7 +36,7 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 This option is used to define patterns that will be used to replace the contents of source files.
 
-``` javascript
+```javascript
 options: {
   variables: {
     'foo': 'bar'
@@ -62,7 +62,7 @@ These options will be forwarded on to expandFiles, as referenced in the [minimat
 
 #### Config Example
 
-``` javascript
+```javascript
 replace: {
   dist: {
     options: {
@@ -142,16 +142,16 @@ replace: {
 
 In app/assets/index.html:
 
-```
+```html
   <head>
     <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
     <script src="/js/app.js?rel=@@timestamp"></script>
   </head>
 ```
 
-In grunt file:
+In gruntfile:
 
-```
+```javascript
 replace: {
     dist: {
         options: {
