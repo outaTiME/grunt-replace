@@ -143,10 +143,10 @@ replace: {
 In app/assets/index.html:
 
 ```html
-  <head>
-    <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
-    <script src="/js/app.js?rel=@@timestamp"></script>
-  </head>
+<head>
+  <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
+  <script src="/js/app.js?rel=@@timestamp"></script>
+</head>
 ```
 
 In gruntfile:
