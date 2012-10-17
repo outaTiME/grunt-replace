@@ -156,7 +156,7 @@ replace: {
     dist: {
         options: {
             variables: {
-                'timestamp': '<%=grunt.template.today()%>'
+                'timestamp': '<%= new Date().getTime() %>'
             }
         },
         files: {
