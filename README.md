@@ -136,36 +136,36 @@ replace: {
     }
   }
 }
-}
 ```
 
-#### Usage variations pt. 2
+##### Easy cache busting
 
-##### HTML
-
-```
-   <head>
-        <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
-        <script src="/js/app.js?rel=@@timestamp"></script>
-    </head>
-```
-
-##### grunt
+In app/assets/index.html:
 
 ```
-    replace: {
-            dist: {
-                options: {
-                    variables: {
-                        'timestamp': '<%= new Date().getTime() %>'
-                    },
-                    prefix: '@@'
-                },
-                files: {
-                    'build/index.html': ['app/assets/index.html']
-                }
+  <head>
+    <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
+    <script src="/js/app.js?rel=@@timestamp"></script>
+  </head>
+```
+
+In grunt file:
+
+```
+replace: {
+    dist: {
+        options: {
+            variables: {
+                'timestamp': '<%=grunt.template.today()%>'
             }
+        },
+        files: {
+            'build/index.html': [
+                'app/assets/index.html'
+            ]
         }
+    }
+}
 ```
 
 ## Contribute
