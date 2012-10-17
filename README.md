@@ -139,6 +139,35 @@ replace: {
 }
 ```
 
+#### Usage variations pt. 2
+
+##### HTML
+
+```
+   <head>
+        <link rel="stylesheet" href="/css/style.css?rel=@@timestamp">
+        <script src="/js/app.js?rel=@@timestamp"></script>
+    </head>
+```
+
+##### grunt
+
+```
+    replace: {
+            dist: {
+                options: {
+                    variables: {
+                        'timestamp': '<%= new Date().getTime() %>'
+                    },
+                    prefix: '@@'
+                },
+                files: {
+                    'build/index.html': ['app/assets/index.html']
+                }
+            }
+        }
+```
+
 ## Contribute
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
