@@ -179,3 +179,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 
 * 2012/09/25 - v0.3.0 - general cleanup and consolidation. test refactoring. global options depreciated. revert normalize linefeeds for now.
+* 2012/09/25 - v0.3.1 - update to grunt-lib-contrib, add force flag.
