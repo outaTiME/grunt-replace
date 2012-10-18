@@ -36,7 +36,7 @@ module.exports = function (grunt) {
         basePath: false,
         flatten: false,
         minimatch: {},
-        forceCopy: false
+        force: false
       }),
       variables = options.variables,
       locals = {},
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 
     grunt.verbose.writeflags(locals, 'Locals');
 
-    if (Object.keys(locals).length === 0) {
+    if (Object.keys(locals).length === 0 && options.force === false) {
       grunt.fail.warn('No valid variables for replace were found.');
     }
 
@@ -138,7 +138,7 @@ module.exports = function (grunt) {
         });
         if (updated) {
           grunt.log.writeln('Replace ' + srcFile.cyan + ' to ' + destFile.cyan);
-        } else if (!options.forceCopy) {
+        } else if (options.force === false) {
           return false;
         }
         return contents;

@@ -110,6 +110,14 @@ module.exports = function (grunt) {
         files: {
           'tmp/flatten/': ['test/fixtures/flatten/**/*.txt']
         }
+      },
+      force: {
+        options: {
+          force: true
+        },
+        files: {
+          'tmp/': ['test/fixtures/force.txt']
+        }
       }
     },
 

@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result;
 
-    test.expect(6);
+    test.expect(7);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -38,6 +38,10 @@ exports['replace'] = {
     result = grunt.file.read('tmp/flatten/bar.txt');
     bool_result = bool_result && expect === result;
     test.equal(true, bool_result, 'should replace simple key with value (in directory flatten mode)');
+
+    expect = '@@key\n';
+    result = grunt.file.read('tmp/force.txt');
+    test.equal(expect, result, 'should force copy of files (dont have any replace token)');
 
     test.done();
   }

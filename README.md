@@ -60,6 +60,10 @@ This option performs a flat copy that dumps all the files into the root of the d
 
 These options will be forwarded on to expandFiles, as referenced in the [minimatch options section](https://github.com/isaacs/minimatch/#options)
 
+##### force ```boolean```
+
+This option force the copy of files even when those files don't have any replace token. Useful when copying a directory.
+
 #### Config Example
 
 ```javascript
