@@ -35,7 +35,8 @@ module.exports = function (grunt) {
         prefix: '@@',
         basePath: false,
         flatten: false,
-        minimatch: {}
+        minimatch: {},
+        forceCopy: false
       }),
       variables = options.variables,
       locals = {},
@@ -137,7 +138,7 @@ module.exports = function (grunt) {
         });
         if (updated) {
           grunt.log.writeln('Replace ' + srcFile.cyan + ' to ' + destFile.cyan);
-        } else {
+        } else if (!options.forceCopy) {
           return false;
         }
         return contents;
