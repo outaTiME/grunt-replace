@@ -29,7 +29,7 @@ module.exports = function (grunt) {
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
     var
-      helpers = require('grunt-contrib-lib').init(grunt),
+      helpers = require('grunt-lib-contrib').init(grunt),
       options = helpers.options(this, {
         variables: {},
         prefix: '@@',
