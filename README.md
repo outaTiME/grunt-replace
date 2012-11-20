@@ -136,7 +136,10 @@ replace: {
       }
     },
     files: {
-      'public/': ['build/manifest.appcache', 'build/humans.txt']
+      'public/': [
+        'build/manifest.appcache',
+        'build/humans.txt'
+      ]
     }
   }
 }
@@ -157,18 +160,47 @@ In gruntfile:
 
 ```javascript
 replace: {
-    dist: {
-        options: {
-            variables: {
-                'timestamp': '<%= new Date().getTime() %>'
-            }
-        },
-        files: {
-            'build/index.html': [
-                'app/assets/index.html'
-            ]
-        }
+  dist: {
+    options: {
+      variables: {
+        'timestamp': '<%= new Date().getTime() %>'
+      }
+    },
+    files: {
+      'build/index.html': [
+        'app/assets/index.html'
+      ]
     }
+  }
+}
+```
+
+##### Include file contents inplace
+
+In build/index.html:
+
+```html
+<body>
+  @@include
+</body>
+```
+
+In gruntfile:
+
+```javascript
+replace: {
+  dist: {
+    options: {
+      variables: {
+        'include': '<%= grunt.file.read("includes/content.html") %>'
+      }
+    },
+    files: {
+      'public/': [
+        'build/index.html'
+      ]
+    }
+  }
 }
 ```
 
@@ -180,3 +212,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 * 2012/09/25 - v0.3.0 - general cleanup and consolidation. test refactoring. global options depreciated. revert normalize linefeeds for now.
 * 2012/09/25 - v0.3.1 - update to grunt-lib-contrib, add force flag.
+* 2012/11/20 - v0.3.2 - add new examples.
