@@ -18,13 +18,7 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  // TODO: ditch this when grunt v0.4 is released
-  grunt.util = grunt.util || grunt.utils;
-
   var path = require('path');
-
-  // TODO: remove if/when we officially drop node <= 0.7.9
-  path.sep = path.sep || path.normalize('/');
 
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
@@ -48,9 +42,6 @@ module.exports = function (grunt) {
       destFile,
       srcFile;
 
-    // TODO: ditch this when grunt v0.4 is released
-    this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
-
     grunt.verbose.writeflags(options, 'Options');
 
     Object.keys(variables).forEach(function (variable) {
@@ -68,7 +59,7 @@ module.exports = function (grunt) {
 
     this.files.forEach(function (file, index) {
       file.dest = path.normalize(file.dest);
-      srcFiles = grunt.file.expandFiles(options.minimatch, file.src);
+      srcFiles = grunt.file.expand(options.minimatch, file.src);
 
       grunt.verbose.writeflags(file, 'File');
 
