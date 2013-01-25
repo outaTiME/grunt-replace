@@ -21,11 +21,8 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
 
-    lint: {
-      all: ['grunt.js', 'tasks/*.js', '<config:nodeunit.tasks>']
-    },
-
     jshint: {
+      src: ['grunt.js', 'tasks/*.js', '<config:nodeunit.tasks>'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -136,15 +133,16 @@ module.exports = function (grunt) {
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
-  // The clean plugin helps in testing.
+  // Load helper plugins for testing.
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   // Whenever the 'test' task is run, first clean the 'tmp' dir, then run this
   // plugin's task(s), then test the result.
-  grunt.renameTask('test', 'nodeunit');
-  grunt.registerTask('test', 'clean replace nodeunit');
+  grunt.registerTask('test', ['clean', 'replace', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', 'lint test');
+  grunt.registerTask('default', ['jshint', 'test']);
 
 };

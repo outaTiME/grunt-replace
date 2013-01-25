@@ -1,16 +1,18 @@
 {
   "name": "grunt-replace",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Grunt task to replace inline patterns with custom variables.",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "author": {
     "name": "outaTiME",
     "url": "http://outa.im/"
   },
-  "licenses": [{
-    "type": "Apache-2.0",
-    "url": "http://www.apache.org/licenses/LICENSE-2.0"
-  }],
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "http://github.com/outaTiME/grunt-replace.git"
@@ -18,9 +20,9 @@
   "bugs": {
     "url": "http://github.com/outaTiME/grunt-replace/issues"
   },
-  "main": "grunt.js",
+  "main": "Gruntfile.js",
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "grunt test"
@@ -29,8 +31,10 @@
     "grunt-lib-contrib": "~0.3.0"
   },
   "devDependencies": {
-    "grunt": "~0.3.15",
-    "grunt-contrib-clean": "~0.3.0"
+    "grunt": "~0.4.0",
+    "grunt-contrib-clean": "~0.4.0rc6",
+    "grunt-contrib-jshint": "~0.1.0",
+    "grunt-contrib-nodeunit": "~0.1.1"
   },
   "keywords": [
     "gruntplugin"
