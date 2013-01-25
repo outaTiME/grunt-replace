@@ -213,3 +213,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 2012/09/25 - v0.3.0 - general cleanup and consolidation. test refactoring. global options depreciated. revert normalize linefeeds for now.
 * 2012/09/25 - v0.3.1 - update to grunt-lib-contrib, add force flag.
 * 2012/11/20 - v0.3.2 - add new examples.
+* 2013/01/25 - v0.4.0 - grunt v0.4 support.

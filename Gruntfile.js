@@ -22,20 +22,13 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     jshint: {
-      src: ['grunt.js', 'tasks/*.js', '<config:nodeunit.tasks>'],
+      all: [
+        'Gruntfile.js',
+        'tasks/*.js',
+        '<%= nodeunit.tests %>'
+      ],
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        es5: true
+        jshintrc: '.jshintrc'
       }
     },
 
@@ -120,7 +113,7 @@ module.exports = function (grunt) {
 
     // Unit tests.
     nodeunit: {
-      tasks: ['test/*_test.js']
+      tests: ['test/*_test.js']
     },
 
     watch: {
