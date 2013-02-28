@@ -1,6 +1,6 @@
 
 /*
- *  Copyright 2012 outaTiME.
+ *  Copyright 2013 outaTiME.
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
@@ -45,9 +45,9 @@ module.exports = function (grunt) {
             'key': 'value'
           }
         },
-        files: {
-          'tmp/': ['test/fixtures/simple.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
+        ]
       },
       prefix: {
         options: {
@@ -56,9 +56,9 @@ module.exports = function (grunt) {
           },
           prefix: '@replace:'
         },
-        files: {
-          'tmp/': ['test/fixtures/prefix.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
+        ]
       },
       dynamic_key: {
         options: {
@@ -66,9 +66,9 @@ module.exports = function (grunt) {
             '<%= "key" %>': 'value'
           }
         },
-        files: {
-          'tmp/': ['test/fixtures/dynamic_key.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/dynamic_key.txt'], dest: 'tmp/'}
+        ]
       },
       dynamic_value: {
         options: {
@@ -76,38 +76,68 @@ module.exports = function (grunt) {
             'key': '<%= grunt.template.today("yyyy") %>'
           }
         },
-        files: {
-          'tmp/': ['test/fixtures/dynamic_value.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/dynamic_value.txt'], dest: 'tmp/'}
+        ]
       },
-      base_simple: {
+      cwd: {
         options: {
           variables: {
             'key': 'value'
           }
         },
-        files: {
-          'tmp/base_simple/': ['test/fixtures/base_simple/**/*.txt']
-        }
+        files: [
+          {expand: true, cwd: 'test/fixtures/cwd/', src: ['**/*.txt'], dest: 'tmp/cwd/'}
+        ]
       },
       flatten: {
         options: {
           variables: {
             'key': 'value'
-          },
-          flatten: true
+          }
         },
-        files: {
-          'tmp/flatten/': ['test/fixtures/flatten/**/*.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/flatten/**/*.txt'], dest: 'tmp/flatten/'}
+        ]
       },
       force: {
         options: {
           force: true
         },
-        files: {
-          'tmp/': ['test/fixtures/force.txt']
-        }
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/force.txt'], dest: 'tmp/'}
+        ]
+      },
+      sort: {
+        options: {
+          variables: {
+            'head': 'foo',
+            'header': 'bar'
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/sort.txt'], dest: 'tmp/'}
+        ]
+      },
+      doc_cache: {
+        options: {
+          variables: {
+            'year': '<%= grunt.template.today("yyyy") %>'
+          }
+        },
+        files: [
+          {src: ['test/fixtures/cache.html'], dest: 'tmp/cache.html'}
+        ]
+      },
+      doc_include: {
+        options: {
+          variables: {
+            'include': '<%= grunt.file.read("test/fixtures/content.txt") %>'
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/include.txt'], dest: 'tmp/'}
+        ]
       }
     },
 

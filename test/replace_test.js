@@ -5,9 +5,9 @@ exports['replace'] = {
 
     'use strict';
 
-    var expect, result, bool_result;
+    var expect, result, bool_result, re;
 
-    test.expect(7);
+    test.expect(10);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -26,11 +26,11 @@ exports['replace'] = {
     test.equal(expect, result, 'should replace simple key with templated value');
 
     expect = 'value\n';
-    result = grunt.file.read('tmp/base_simple/foo.txt');
+    result = grunt.file.read('tmp/cwd/foo.txt');
     bool_result = expect === result;
-    result = grunt.file.read('tmp/base_simple/foo/bar.txt');
+    result = grunt.file.read('tmp/cwd/foo/bar.txt');
     bool_result = bool_result && expect === result;
-    test.equal(true, bool_result, 'should replace simple key with value (in directory mode)');
+    test.equal(true, bool_result, 'should replace simple key with value (in directory cwd mode)');
 
     expect = 'value\n';
     result = grunt.file.read('tmp/flatten/foo.txt');
@@ -42,6 +42,19 @@ exports['replace'] = {
     expect = '@@key\n';
     result = grunt.file.read('tmp/force.txt');
     test.equal(expect, result, 'should force copy of files (dont have any replace token)');
+
+    expect = 'foobar\n';
+    result = grunt.file.read('tmp/sort.txt');
+    test.equal(expect, result, 'should sort the locals to prevent bad replaces');
+
+    expect = 2;
+    result = grunt.file.read('tmp/cache.html');
+    re = new RegExp("\\?rel=" + grunt.template.today('yyyy'), "g");
+    test.equal(expect, result.match(re).length, 'should expect two replaces in html cache file');
+
+    expect = 'foo\n\n';
+    result = grunt.file.read('tmp/include.txt');
+    test.equal(expect, result, 'should include the content file');
 
     test.done();
   }

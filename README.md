@@ -1,38 +1,36 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
+> Replace inline patterns with custom variables.
+
+
+
 ## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-replace`
+This plugin requires Grunt `~0.4.0`
 
-Then add this line to your project's `grunt.js` gruntfile:
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-```javascript
+```shell
+npm install grunt-replace --save-dev
+```
+
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
 grunt.loadNpmTasks('grunt-replace');
 ```
 
-[grunt]: https://github.com/cowboy/grunt
-[getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
+*This plugin was designed to work with Grunt 0.4.x. If you're still using grunt v0.3.x it's strongly recommended that [you upgrade](http://gruntjs.com/upgrading-from-0.3-to-0.4), but in case you can't please use [v0.3.2](https://github.com/outaTiME/grunt-replace/tree/grunt-0.3-stable).*
 
-### Overview
 
-Inside your `grunt.js` file add a section named `replace`. This section specifies the files to replace.
 
-#### Parameters
+## Replace task
+_Run this task with the `grunt replace` command._
 
-##### files ```object```
+Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+### Options
 
-This defines what files this task will copy and should contain key:value pairs.
-
-The key (destination) should be an unique path (supports [grunt.template](https://github.com/cowboy/grunt/blob/master/docs/api_template.md)) and the value (source) should be a filepath or an array of filepaths (supports [minimatch](https://github.com/isaacs/minimatch)).
-
-As of v0.3.0, when copying to a directory you must add a trailing slash to the destination due to added support of single file copy.
-
-##### options ```object```
-
-This controls how this task operates and should contain key:value pairs, see options below.
-
-#### Options
-
-##### variables ```object```
+##### variables
+Type: `Object`
 
 This option is used to define patterns that will be used to replace the contents of source files.
 
@@ -44,29 +42,19 @@ options: {
 }
 ```
 
-##### prefix ```string```
+##### prefix
+Type: `String`
 
 This option is used to create the real pattern for lookup in source files (Defaults `@@`).
 
-##### basePath ```string```
-
-This option adjusts the folder structure when copied to the destination directory. When not explicitly set, best effort is made to locate the basePath by comparing all source filepaths left to right for a common pattern.
-
-##### flatten ```boolean```
-
-This option performs a flat copy that dumps all the files into the root of the destination directory, overwriting files if they exist.
-
-##### minimatch ```object```
-
-These options will be forwarded on to expandFiles, as referenced in the [minimatch options section](https://github.com/isaacs/minimatch/#options)
-
-##### force ```boolean```
+##### force
+Type: `Boolean`
 
 This option force the copy of files even when those files don't have any replace token. Useful when copying a directory.
 
-#### Config Example
+### Usage Examples
 
-```javascript
+```js
 replace: {
   dist: {
     options: {
@@ -75,14 +63,12 @@ replace: {
       },
       prefix: '@@'
     },
-    files: {
-      'tmp/': ['test/fixtures/dist.txt']
-    }
+    files: [
+      {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
+    ]
   }
 }
 ```
-
-#### Example usage
 
 ##### Variable pattern in source
 
@@ -107,7 +93,7 @@ NETWORK:
 
 Define timestamp variable and destination of the source files:
 
-```javascript
+```js
 replace: {
   dist: {
     options: {
@@ -115,9 +101,9 @@ replace: {
         'timestamp': '<%= grunt.template.today() %>'
       }
     },
-    files: {
-      'public/': ['build/manifest.appcache']
-    }
+    files: [
+      {expand: true, flatten: true, src: ['build/manifest.appcache'], dest: 'public/'}
+    ]
   }
 }
 ```
@@ -126,7 +112,7 @@ replace: {
 
 ##### Replace over source files (deploy in one target)
 
-```javascript
+```js
 replace: {
   dist: {
     options: {
@@ -135,12 +121,9 @@ replace: {
         timestamp: '<%= grunt.template.today() %>'
       }
     },
-    files: {
-      'public/': [
-        'build/manifest.appcache',
-        'build/humans.txt'
-      ]
-    }
+    files: [
+      {expand: true, flatten: true, src: ['build/manifest.appcache', 'build/humans.txt'], dest: 'public/'}
+    ]
   }
 }
 ```
@@ -158,7 +141,7 @@ In app/assets/index.html:
 
 In gruntfile:
 
-```javascript
+```js
 replace: {
   dist: {
     options: {
@@ -166,11 +149,9 @@ replace: {
         'timestamp': '<%= new Date().getTime() %>'
       }
     },
-    files: {
-      'build/index.html': [
-        'app/assets/index.html'
-      ]
-    }
+    files: [
+      {src: ['app/assets/index.html'], dest: 'build/index.html'}
+    ]
   }
 }
 ```
@@ -187,7 +168,7 @@ In build/index.html:
 
 In gruntfile:
 
-```javascript
+```js
 replace: {
   dist: {
     options: {
@@ -195,21 +176,21 @@ replace: {
         'include': '<%= grunt.file.read("includes/content.html") %>'
       }
     },
-    files: {
-      'public/': [
-        'build/index.html'
-      ]
-    }
+    files: [
+      {expand: true, flatten: true, src: ['build/index.html'], dest: 'public/'}
+    ]
   }
 }
 ```
 
-## Contribute
-
-In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 2012/09/25 - v0.3.0 - general cleanup and consolidation. test refactoring. global options depreciated. revert normalize linefeeds for now.
-* 2012/09/25 - v0.3.1 - update to grunt-lib-contrib, add force flag.
-* 2012/11/20 - v0.3.2 - add new examples.
+ * 2013-02-28   v0.4.0   First official release for Grunt 0.4.0.
+ * 2012-11-20   v0.3.2   New examples added.
+ * 2012-09-25   v0.3.1   Rename grunt-contrib-lib dep to grunt-lib-contrib, add force flag.
+ * 2012-09-25   v0.3.0   General cleanup and consolidation. Global options depreciated.
+
+---
+
+Task submitted by [Ariel Falduto](http://outa.im/)

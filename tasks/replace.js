@@ -1,6 +1,6 @@
 
 /*
- *  Copyright 2012 outaTiME.
+ *  Copyright 2013 outaTiME.
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
@@ -23,8 +23,7 @@ module.exports = function (grunt) {
   grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
 
     var
-      helpers = require('grunt-lib-contrib').init(grunt),
-      options = helpers.options(this, {
+      options = this.options({
         variables: {},
         prefix: '@@',
         basePath: false,
@@ -33,14 +32,7 @@ module.exports = function (grunt) {
         force: false
       }),
       variables = options.variables,
-      locals = {},
-      srcFiles,
-      destType,
-      basePath,
-      filename,
-      relative,
-      destFile,
-      srcFile;
+      locals = {};
 
     grunt.verbose.writeflags(options, 'Options');
 
@@ -57,7 +49,33 @@ module.exports = function (grunt) {
       grunt.fail.warn('No valid variables for replace were found.');
     }
 
-    this.files.forEach(function (file, index) {
+    // took code from copy task
+
+    var dest;
+    var isExpandedPair;
+
+    this.files.forEach(function(filePair) {
+      isExpandedPair = filePair.orig.expand || false;
+
+      filePair.src.forEach(function(src) {
+        if (detectDestType(filePair.dest) === 'directory') {
+          dest = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest, src));
+        } else {
+          dest = filePair.dest;
+        }
+
+        if (grunt.file.isDir(src)) {
+          // grunt.log.writeln('Creating ' + dest.cyan);
+          grunt.file.mkdir(dest);
+        } else {
+          // grunt.log.writeln('Copying ' + src.cyan + ' -> ' + dest.cyan);
+          // grunt.file.copy(src, dest, copyOptions);
+          replace(src, dest, options, locals);
+        }
+      });
+    });
+
+    /* this.files.forEach(function (file, index) {
       file.dest = path.normalize(file.dest);
       srcFiles = grunt.file.expand(options.minimatch, file.src);
 
@@ -105,30 +123,41 @@ module.exports = function (grunt) {
 
         grunt.verbose.or.ok();
       }
-    });
+    }); */
 
   });
 
   var detectDestType = function (dest) {
-    if (grunt.util._.endsWith(dest, path.sep)) {
+    if (grunt.util._.endsWith(dest, '/')) {
       return 'directory';
     } else {
       return 'file';
     }
   };
 
+  var unixifyPath = function (filepath) {
+    if (process.platform === 'win32') {
+      return filepath.replace(/\\/g, '/');
+    } else {
+      return filepath;
+    }
+  };
+
   var replace = function (srcFile, destFile, options, locals) {
     grunt.file.copy(srcFile, destFile, {
       process: function (contents) {
-        var updated = false;
-        Object.keys(locals).forEach(function (local) {
+        var updated = false, keys = Object.keys(locals).sort(function (a, b) {
+          // sort locals (prevents replace issues like head, header)
+          return b.length - a.length;
+        });
+        keys.forEach(function (local) {
           // TODO: create RegExp once ??
           var re = new RegExp(options.prefix + local, "g"), value = locals[local];
           updated = updated || contents.match(re);
           contents = contents.replace(re, value);
         });
         if (updated) {
-          grunt.log.writeln('Replace ' + srcFile.cyan + ' to ' + destFile.cyan);
+          grunt.log.writeln('Replace ' + srcFile.cyan + ' -> ' + destFile.cyan);
         } else if (options.force === false) {
           return false;
         }
