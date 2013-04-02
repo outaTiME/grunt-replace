@@ -156,11 +156,10 @@ module.exports = function (grunt) {
           updated = updated || contents.match(re);
           contents = contents.replace(re, value);
         });
-        if (updated) {
-          grunt.log.writeln('Replace ' + srcFile.cyan + ' -> ' + destFile.cyan);
-        } else if (options.force === false) {
+        if (!updated && options.force === false) {
           return false;
         }
+        grunt.log.writeln('Replace ' + srcFile.cyan + ' -> ' + destFile.cyan);
         return contents;
       }
     });
