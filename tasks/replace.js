@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 
   var path = require('path');
 
-  grunt.registerMultiTask('replace', 'Replace inline patterns with defined variables.', function () {
+  grunt.registerMultiTask('replace', 'Replace inline patterns with variables.', function () {
 
     var
       options = this.options({

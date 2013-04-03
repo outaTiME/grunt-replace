@@ -1,7 +1,7 @@
 {
   "name": "grunt-replace",
-  "version": "0.4.1",
-  "description": "Grunt task to replace inline patterns with custom variables.",
+  "version": "0.4.2",
+  "description": "Replace inline patterns with variables.",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "author": {
     "name": "outaTiME",
@@ -35,6 +35,9 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-jshint": "~0.2.0",
     "grunt-contrib-nodeunit": "~0.1.2"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
   },
   "keywords": [
     "gruntplugin"

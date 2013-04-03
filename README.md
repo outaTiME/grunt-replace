@@ -1,6 +1,6 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
-> Replace inline patterns with custom variables.
+> Replace inline patterns with variables.
 
 
 
@@ -186,6 +186,7 @@ replace: {
 
 ## Release History
 
+ * 2013-04-02   v0.4.2   Add peerDependencies and update description.
  * 2013-04-02   v0.4.1   Add trace when force flag.
  * 2013-02-28   v0.4.0   First official release for Grunt 0.4.0.
  * 2012-11-20   v0.3.2   New examples added.
