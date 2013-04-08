@@ -70,7 +70,7 @@ replace: {
 }
 ```
 
-##### Variable pattern in source
+#### Variable pattern in source
 
 Define the place where variable will be injected:
 
@@ -108,9 +108,7 @@ replace: {
 }
 ```
 
-#### Usage variations
-
-##### Replace over source files (deploy in one target)
+#### Replace over source files (deploy in one target)
 
 ```js
 replace: {
@@ -128,7 +126,7 @@ replace: {
 }
 ```
 
-##### Easy cache busting
+#### Easy cache busting
 
 In app/assets/index.html:
 
@@ -139,7 +137,7 @@ In app/assets/index.html:
 </head>
 ```
 
-In gruntfile:
+##### Gruntfile
 
 ```js
 replace: {
@@ -156,7 +154,7 @@ replace: {
 }
 ```
 
-##### Include file contents inplace
+#### Include file contents inplace
 
 In build/index.html:
 
@@ -166,7 +164,7 @@ In build/index.html:
 </body>
 ```
 
-In gruntfile:
+##### Gruntfile
 
 ```js
 replace: {
