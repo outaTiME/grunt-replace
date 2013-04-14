@@ -75,60 +75,10 @@ module.exports = function (grunt) {
       });
     });
 
-    /* this.files.forEach(function (file, index) {
-      file.dest = path.normalize(file.dest);
-      srcFiles = grunt.file.expand(options.minimatch, file.src);
-
-      grunt.verbose.writeflags(file, 'File');
-
-      if (srcFiles.length === 0) {
-        grunt.fail.warn('Unable to replace, no valid source files were found.');
-      }
-
-      destType = detectDestType(file.dest);
-
-      if (destType === 'file') {
-        if (srcFiles.length === 1) {
-          srcFile = path.normalize(srcFiles[0]);
-
-          replace(srcFile, file.dest, options, locals);
-
-          grunt.verbose.or.ok();
-        } else {
-          grunt.fail.warn('Unable to replace multiple files to the same destination filename, did you forget a trailing slash?');
-        }
-      } else if (destType === 'directory') {
-        basePath = helpers.findBasePath(srcFiles, options.basePath);
-
-        grunt.verbose.writeln('Base Path: ' + basePath.cyan);
-
-        srcFiles.forEach(function(srcFile) {
-          srcFile = path.normalize(srcFile);
-          filename = path.basename(srcFile);
-          relative = path.dirname(srcFile);
-
-          if (options.flatten) {
-            relative = '';
-          } else if (basePath && basePath.length >= 1) {
-            relative = grunt.util._(relative).strRight(basePath).trim(path.sep);
-          }
-
-          // make paths outside grunts working dir relative
-          relative = relative.replace(/\.\.(\/|\\)/g, '');
-
-          destFile = path.join(file.dest, relative, filename);
-
-          replace(srcFile, destFile, options, locals);
-        });
-
-        grunt.verbose.or.ok();
-      }
-    }); */
-
   });
 
   var detectDestType = function (dest) {
-    if (grunt.util._.endsWith(dest, '/')) {
+    if (grunt.util._.endsWith(dest, path.sep)) {
       return 'directory';
     } else {
       return 'file';
