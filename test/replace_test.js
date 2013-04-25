@@ -56,6 +56,10 @@ exports['replace'] = {
     result = grunt.file.read('tmp/include.txt');
     test.equal(expect, result, 'should include the content file');
 
+    expect = "$'\n";
+    result = grunt.file.read('tmp/escape.txt');
+    test.equal(expect, result, 'should escape the dollar sign ($)'); //otherwise it would be used as special replacement pattern as described here: https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
+
     test.done();
   }
 };
