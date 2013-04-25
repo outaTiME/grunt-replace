@@ -138,6 +138,16 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/include.txt'], dest: 'tmp/'}
         ]
+      },
+      escape: {
+        options: {
+          variables: {
+            'key': "$'"
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/escape.txt'], dest: 'tmp/'}
+        ]
       }
     },
 
