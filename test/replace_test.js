@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(10);
+    test.expect(11);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -58,7 +58,7 @@ exports['replace'] = {
 
     expect = "$'\n";
     result = grunt.file.read('tmp/escape.txt');
-    test.equal(expect, result, 'should escape the dollar sign ($)'); //otherwise it would be used as special replacement pattern as described here: https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
+    test.equal(expect, result, 'should escape the dollar sign ($)');
 
     test.done();
   }

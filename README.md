@@ -184,6 +184,7 @@ replace: {
 
 ## Release History
 
+ * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
  * 2013-04-02   v0.4.2   Add peerDependencies and update description.
  * 2013-04-02   v0.4.1   Add trace when force flag.

@@ -101,10 +101,11 @@ module.exports = function (grunt) {
           return b.length - a.length;
         });
         keys.forEach(function (local) {
-          // TODO: create RegExp once ??
           var re = new RegExp(options.prefix + local, "g"), value = locals[local];
           updated = updated || contents.match(re);
-          value = value.replace(/\$/g, '$$$$'); //escape $ to $$. Otherwise it would be used as special replacement pattern as described here: https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
+          // escape $ to $$, otherwise it would be used as special replacement pattern as described here:
+          // https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
+          value = value.replace(/\$/g, '$$$$');
           contents = contents.replace(re, value);
         });
         if (!updated && options.force === false) {
