@@ -104,6 +104,7 @@ module.exports = function (grunt) {
           // TODO: create RegExp once ??
           var re = new RegExp(options.prefix + local, "g"), value = locals[local];
           updated = updated || contents.match(re);
+          value = value.replace(/\$/g, '$$$$'); //escape $ to $$. Otherwise it would be used as special replacement pattern as described here: https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
           contents = contents.replace(re, value);
         });
         if (!updated && options.force === false) {
