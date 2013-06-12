@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(11);
+    test.expect(12);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -59,6 +59,10 @@ exports['replace'] = {
     expect = "$'\n";
     result = grunt.file.read('tmp/escape.txt');
     test.equal(expect, result, 'should escape the dollar sign ($)');
+
+    expect = "detta är en sträng\n";
+    result = grunt.file.read('tmp/special_chars.txt');
+    test.equal(expect, result, 'should replace special characters');
 
     test.done();
   }
