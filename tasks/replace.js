@@ -1,4 +1,3 @@
-
 /*
  *  Copyright 2013 outaTiME.
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,6 +93,9 @@ module.exports = function (grunt) {
   };
 
   var replace = function (srcFile, destFile, options, locals) {
+    if( ! destFile ){
+        destFile = srcFile;
+    }
     grunt.file.copy(srcFile, destFile, {
       process: function (contents) {
         var updated = false, keys = Object.keys(locals).sort(function (a, b) {
