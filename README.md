@@ -87,7 +87,7 @@ options: {
 }
 ```
 
-#### expression
+#### patterns.expression
 Type: `Boolean`
 Default: `false`
 
