@@ -91,9 +91,9 @@ options: {
 Type: `Boolean`
 Default: `false`
 
-Specify the type of matching (sometimes for templated regexp we need to force them).
+Specify the type of matching (for templated regexp match we need to force in `true`).
 
-If detects regexp instance in `match` attribute we assume to works with and expression (in any other case should be forced).
+If detects regexp instance in `match` attribute we assume to works with expression matcher (in any other case should be forced).
 
 #### prefix
 Type: `String`
