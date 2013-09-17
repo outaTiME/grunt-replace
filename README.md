@@ -46,7 +46,41 @@ options: {
 }
 ```
 
-// FIXME: add details for match, replacement and expression ...
+###### patterns.match
+Type: `String|RegExp`
+
+Indicates the matching expression.
+
+If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we uses the default regexp replace logic).
+
+Templated regexps are allowed, `match` attribure must be quoted and `expression` attribute should be in `true`:
+
+```javascript
+options: {
+  patterns: [
+    {
+      match: '/<%= grunt.template.today("yyyy") %>/g',
+      replacement: '2014',  // replaces "2013" to "2014"
+      expression: true      // must be forced for templated regexp
+    }
+  ]
+}
+```
+
+###### patterns.replacement
+Type: `String|Function`
+
+Indicates the replacement for match.
+
+For regexp matching we can use the special replacement patterns like ($n or $nn).
+
+###### patterns.expression
+Type: `Boolean`
+Default: `false`
+
+Sets the type of matching (sometimes for templated regexp we need to force them).
+
+If detects regexp instance in `match` attribute we assume to works with and expression (in any other case should be forced).
 
 ##### prefix
 Type: `String`
@@ -68,32 +102,11 @@ Sets the file mode (permission and sticky bits).
 
 ### Usage Examples
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: 'key',
-          replacement: 'value'
-        }
-      ],
-      prefix: '@@'
-    },
-    files: [
-      {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
-    ]
-  }
-}
-```
-
 #### Short
 
-Define the pattern place:
+File `build/manifest.appcache`:
 
 ```
-// build/manifest.appcache
-
 CACHE MANIFEST
 # @@timestamp
 
@@ -106,9 +119,7 @@ NETWORK:
 *
 ```
 
-##### Gruntfile
-
-Define pattern (for timestamp) and the source files for lookup:
+Gruntfile, define pattern (for timestamp) and the source files for lookup:
 
 ```js
 replace: {
@@ -128,7 +139,47 @@ replace: {
 }
 ```
 
-#### Multiple
+#### Multiple matching
+
+File `build/manifest.appcache`:
+
+```
+CACHE MANIFEST
+# @@timestamp
+
+CACHE:
+
+favicon.ico
+index.html
+
+NETWORK:
+*
+```
+
+
+File `build/humans.txt`:
+
+```
+              __     _
+   _    _/__  /./|,//_`
+  /_//_// /_|///  //_, outaTiME v.@@version
+
+/* TEAM */
+  Web Developer / Graphic Designer: Ariel Oscar Falduto
+  Site: http://www.outa.im
+  Twitter: @outa7iME
+  Contact: afalduto at gmail dot com
+  From: Buenos Aires, Argentina
+
+/* SITE */
+  Last update: @@timestamp
+  Standards: HTML5, CSS3, robotstxt.org, humanstxt.org
+  Components: H5BP, Modernizr, jQuery, Twitter Bootstrap, LESS, Jade, Grunt
+  Software: Sublime Text 2, Photoshop, LiveReload
+
+```
+
+Gruntfile:
 
 ```js
 replace: {
@@ -154,7 +205,7 @@ replace: {
 
 #### Cache busting
 
-In app/assets/index.html:
+File `app/assets/index.html`:
 
 ```html
 <head>
@@ -163,7 +214,7 @@ In app/assets/index.html:
 </head>
 ```
 
-##### Gruntfile
+Gruntfile:
 
 ```js
 replace: {
@@ -185,7 +236,7 @@ replace: {
 
 #### Include file
 
-In build/index.html:
+File `build/index.html`:
 
 ```html
 <body>
@@ -193,7 +244,7 @@ In build/index.html:
 </body>
 ```
 
-##### Gruntfile
+Gruntfile:
 
 ```js
 replace: {
@@ -215,13 +266,13 @@ replace: {
 
 #### Regular expression
 
-In build/.username:
+File `build/username.txt`:
 
 ```
 John Smith
 ```
 
-##### Gruntfile
+Gruntfile:
 
 ```js
 replace: {
@@ -230,22 +281,21 @@ replace: {
       patterns: [
         {
           match: /(\w+)\s(\w+)/,
-          replacement: '$2, $1', // saves "Smith, John"
+          replacement: '$2, $1', // replaces "John Smith" to "Smith, John"
           expression: true
         }
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/.username'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['build/username.txt'], dest: 'public/'}
     ]
   }
 }
 ```
 
-
 ## Release History
 
- * 2013-09-17   v0.5.0   Regular expression matching now supported, the notation has been updated but is backward compatible.
+ * 2013-09-17   v0.5.0   Regular expression matching now supported, notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
  * 2013-04-02   v0.4.2   Add peerDependencies and update description.

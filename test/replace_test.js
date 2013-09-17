@@ -81,7 +81,7 @@ exports['replace'] = {
     test.equal(expect, result, 'should replace templated regexp key with value');
 
     expect = 'Smith, John\n';
-    result = grunt.file.read('tmp/regexp_john.txt');
+    result = grunt.file.read('tmp/username.txt');
     test.equal(expect, result, 'should replace "John Smith" for "Smith, John"');
 
     test.done();

@@ -30,7 +30,6 @@ module.exports = function (grunt) {
         patterns: [],
         prefix: '@@',
         force: false,
-        // processTemplates: true,
         mode: false
       }),
       variables = options.variables,
@@ -45,6 +44,7 @@ module.exports = function (grunt) {
       // sort variables (prevents replace issues like head, header)
       return b.length - a.length;
     }).forEach(function (variable) {
+      grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
       // grunt.fail.warn('Use the new patterns option instead of variables.');
       patterns.push({
         match: grunt.template.process(variable),
@@ -66,9 +66,6 @@ module.exports = function (grunt) {
           expression = true;
         }
       } else if (_.isString(match)) {
-        /* if (options.processTemplates === true) {
-          match = grunt.template.process(match);
-        } */
         if (match.length > 0) {
           if (expression === true) {
             var index = match.lastIndexOf('/');
@@ -103,11 +100,6 @@ module.exports = function (grunt) {
       // replacement
       if (_.isFunction(replacement)) {
         replacement = replacement.apply(this, [match]);
-      }
-      if (_.isString(replacement)) {
-        /* if (options.processTemplates === true) {
-          replacement = grunt.template.process(replacement);
-        } */
       }
       // create new object to preserve pattern instance
       locals.push({
@@ -174,6 +166,7 @@ module.exports = function (grunt) {
         patterns.forEach(function (pattern) {
           var re = pattern.match, replacement = pattern.replacement;
           updated = updated || contents.match(re);
+          // only for backward compatible support
           if (pattern.expression === false) {
             // escape $ to $$, otherwise it would be used as special replacement pattern as described here:
             // https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace

@@ -41,9 +41,12 @@ module.exports = function (grunt) {
     replace: {
       simple: {
         options: {
-          variables: {
-            'key': 'value'
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
@@ -51,9 +54,12 @@ module.exports = function (grunt) {
       },
       prefix: {
         options: {
-          variables: {
-            'key': 'value'
-          },
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ],
           prefix: '@replace:'
         },
         files: [
@@ -62,9 +68,12 @@ module.exports = function (grunt) {
       },
       template_key: {
         options: {
-          variables: {
-            '<%= "key" %>': 'value'
-          }
+          patterns: [
+            {
+              match: '<%= "key" %>',
+              replacement: 'value'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/template_key.txt'], dest: 'tmp/'}
@@ -72,9 +81,12 @@ module.exports = function (grunt) {
       },
       template_value: {
         options: {
-          variables: {
-            'key': '<%= grunt.template.today("yyyy") %>'
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: '<%= grunt.template.today("yyyy") %>'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/template_value.txt'], dest: 'tmp/'}
@@ -82,9 +94,12 @@ module.exports = function (grunt) {
       },
       cwd: {
         options: {
-          variables: {
-            'key': 'value'
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ]
         },
         files: [
           {expand: true, cwd: 'test/fixtures/cwd/', src: ['**/*.txt'], dest: 'tmp/cwd/'}
@@ -92,9 +107,12 @@ module.exports = function (grunt) {
       },
       flatten: {
         options: {
-          variables: {
-            'key': 'value'
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/flatten/**/*.txt'], dest: 'tmp/flatten/'}
@@ -110,10 +128,16 @@ module.exports = function (grunt) {
       },
       sort: {
         options: {
-          variables: {
-            'head': 'foo',
-            'header': 'bar'
-          }
+          patterns: [
+            {
+              match: 'header',
+              replacement: 'bar'
+            },
+            {
+              match: 'head',
+              replacement: 'foo'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/sort.txt'], dest: 'tmp/'}
@@ -121,9 +145,12 @@ module.exports = function (grunt) {
       },
       doc_cache: {
         options: {
-          variables: {
-            'year': '<%= grunt.template.today("yyyy") %>'
-          }
+          patterns: [
+            {
+              match: 'year',
+              replacement: '<%= grunt.template.today("yyyy") %>'
+            }
+          ]
         },
         files: [
           {src: ['test/fixtures/cache.html'], dest: 'tmp/cache.html'}
@@ -131,9 +158,12 @@ module.exports = function (grunt) {
       },
       doc_include: {
         options: {
-          variables: {
-            'include': '<%= grunt.file.read("test/fixtures/content.txt") %>'
-          }
+          patterns: [
+            {
+              match: 'include',
+              replacement: '<%= grunt.file.read("test/fixtures/content.txt") %>'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/include.txt'], dest: 'tmp/'}
@@ -141,9 +171,12 @@ module.exports = function (grunt) {
       },
       escape: {
         options: {
-          variables: {
-            'key': "$'"
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: '$\''
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/escape.txt'], dest: 'tmp/'}
@@ -151,9 +184,12 @@ module.exports = function (grunt) {
       },
       special_chars: {
         options: {
-          variables: {
-            'key': "detta är en sträng"
-          }
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'detta är en sträng'
+            }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/special_chars.txt'], dest: 'tmp/'}
@@ -161,11 +197,14 @@ module.exports = function (grunt) {
       },
       fn: {
         options: {
-          variables: {
-            'key': function () {
-              return 'value';
+          patterns: [
+            {
+              match: 'key',
+              replacement: function () {
+                return 'value';
+              }
             }
-          }
+          ]
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/function.txt'], dest: 'tmp/'}
@@ -213,7 +252,7 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/regexp_template.txt'], dest: 'tmp/'}
         ]
       },
-      regexp_john: {
+      doc_regexp: {
         options: {
           patterns: [
             {
@@ -224,7 +263,7 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/regexp_john.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/username.txt'], dest: 'tmp/'}
         ]
       }
     },
