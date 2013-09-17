@@ -44,8 +44,8 @@ module.exports = function (grunt) {
       // sort variables (prevents replace issues like head, header)
       return b.length - a.length;
     }).forEach(function (variable) {
-      grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
-      // grunt.fail.warn('Use the new patterns option instead of variables.');
+      // grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
+      grunt.fail.warn('Use the new patterns option instead of variables.');
       patterns.push({
         match: grunt.template.process(variable),
         replacement: variables[variable],
