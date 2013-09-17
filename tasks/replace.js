@@ -174,9 +174,11 @@ module.exports = function (grunt) {
         patterns.forEach(function (pattern) {
           var re = pattern.match, replacement = pattern.replacement;
           updated = updated || contents.match(re);
-          // escape $ to $$, otherwise it would be used as special replacement pattern as described here:
-          // https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
-          // replacement = replacement.replace(/\$/g, '$$$$');
+          if (pattern.expression === false) {
+            // escape $ to $$, otherwise it would be used as special replacement pattern as described here:
+            // https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
+            replacement = replacement.replace(/\$/g, '$$$$');
+          }
           contents = contents.replace(re, replacement);
         });
         if (!updated && options.force === false) {

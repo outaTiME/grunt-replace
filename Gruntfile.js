@@ -149,6 +149,16 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/escape.txt'], dest: 'tmp/'}
         ]
       },
+      special_chars: {
+        options: {
+          variables: {
+            'key': "detta är en sträng"
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/special_chars.txt'], dest: 'tmp/'}
+        ]
+      },
       fn: {
         options: {
           variables: {

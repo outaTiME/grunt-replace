@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(15);
+    test.expect(17);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -51,6 +51,14 @@ exports['replace'] = {
     result = grunt.file.read('tmp/cache.html');
     re = new RegExp("\\?rel=" + grunt.template.today('yyyy'), "g");
     test.equal(expect, result.match(re).length, 'should expect two replaces in html cache file');
+
+    expect = "$'\n";
+    result = grunt.file.read('tmp/escape.txt');
+    test.equal(expect, result, 'should escape the dollar sign ($)');
+
+    expect = "detta är en sträng\n";
+    result = grunt.file.read('tmp/special_chars.txt');
+    test.equal(expect, result, 'should replace special characters');
 
     expect = 'foo\n\n';
     result = grunt.file.read('tmp/include.txt');
