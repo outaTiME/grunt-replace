@@ -174,7 +174,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: 'key',
-              replacement: '$\''
+              replacement: '$$\''
             }
           ]
         },

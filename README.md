@@ -29,29 +29,29 @@ _Run this task with the `grunt replace` command._
 Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 ### Options
 
-##### patterns
+#### patterns
 Type: `Array`
 
 Define patterns that will be used to replace the contents of source files.
+
+#### patterns.match
+Type: `String|RegExp`
+
+Indicates the matching expression.
+
+If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we uses the default regexp replace logic):
 
 ```javascript
 options: {
   patterns: [
     {
       match: 'foo',
-      replacement: 'bar',
-      expression: false
+      replacement: 'bar', // replaces "@@foo" to "bar"
+      expression: false   // simple variable lookup
     }
   ]
 }
 ```
-
-###### patterns.match
-Type: `String|RegExp`
-
-Indicates the matching expression.
-
-If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we uses the default regexp replace logic).
 
 Templated regexps are allowed, `match` attribure must be quoted and `expression` attribute should be in `true`:
 
@@ -60,41 +60,54 @@ options: {
   patterns: [
     {
       match: '/<%= grunt.template.today("yyyy") %>/g',
-      replacement: '2014',  // replaces "2013" to "2014"
-      expression: true      // must be forced for templated regexp
+      replacement: '2014', // replaces "2013" to "2014"
+      expression: true     // must be forced for templated regexp
     }
   ]
 }
 ```
 
-###### patterns.replacement
+#### patterns.replacement
 Type: `String|Function`
 
-Indicates the replacement for match.
+Indicates the replacement for match, for more information about replacement checkout [String.replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace).
 
-For regexp matching we can use the special replacement patterns like ($n or $nn).
+You can specify a function as replacement. In this case, the function will be invoked after the match has been performed. The function's result (return value) will be used as the replacement string.
 
-###### patterns.expression
+```javascript
+options: {
+  patterns: [
+    {
+      match: /foo/g,
+      replacement: function () {
+        return 'bar'; // replaces "foo" to "bar"
+      }
+    }
+  ]
+}
+```
+
+#### expression
 Type: `Boolean`
 Default: `false`
 
-Sets the type of matching (sometimes for templated regexp we need to force them).
+Specify the type of matching (sometimes for templated regexp we need to force them).
 
 If detects regexp instance in `match` attribute we assume to works with and expression (in any other case should be forced).
 
-##### prefix
+#### prefix
 Type: `String`
 Default: `@@`
 
-This prefix is used to create the real replacement pattern for lookup only when expression is `false`.
+This prefix is used to create replacement pattern for simple variable lookup (only when expression is `false`).
 
-##### force
+#### force
 Type: `Boolean`
 Default: `false`
 
 Force the copy of files even when those files don't have any replace token.
 
-##### mode
+#### mode
 Type: `Number`
 Default: `0666`
 
