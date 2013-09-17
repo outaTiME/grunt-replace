@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(11);
+    test.expect(15);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -18,11 +18,11 @@ exports['replace'] = {
     test.equal(expect, result, 'should replace simple key with value using custom prefix');
 
     expect = 'value\n';
-    result = grunt.file.read('tmp/dynamic_key.txt');
+    result = grunt.file.read('tmp/template_key.txt');
     test.equal(expect, result, 'should replace templated key with defined value');
 
     expect = grunt.template.today('yyyy') + "\n";
-    result = grunt.file.read('tmp/dynamic_value.txt');
+    result = grunt.file.read('tmp/template_value.txt');
     test.equal(expect, result, 'should replace simple key with templated value');
 
     expect = 'value\n';
@@ -56,9 +56,25 @@ exports['replace'] = {
     result = grunt.file.read('tmp/include.txt');
     test.equal(expect, result, 'should include the content file');
 
-    expect = "$'\n";
-    result = grunt.file.read('tmp/escape.txt');
-    test.equal(expect, result, 'should escape the dollar sign ($)');
+    expect = 'value\n';
+    result = grunt.file.read('tmp/function.txt');
+    test.equal(expect, result, 'should replace simple key with function return value');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/new_way.txt');
+    test.equal(expect, result, 'should replace simple key with value in the new way');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/regexp.txt');
+    test.equal(expect, result, 'should replace regexp key with value');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/regexp_template.txt');
+    test.equal(expect, result, 'should replace templated regexp key with value');
+
+    expect = 'Smith, John\n';
+    result = grunt.file.read('tmp/regexp_john.txt');
+    test.equal(expect, result, 'should replace "John Smith" for "Smith, John"');
 
     test.done();
   }

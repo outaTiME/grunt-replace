@@ -1,6 +1,6 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
-> Replace inline patterns with variables.
+> Replace text patterns with a given string.
 
 
 
@@ -29,28 +29,42 @@ _Run this task with the `grunt replace` command._
 Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
 ### Options
 
-##### variables
-Type: `Object`
+##### patterns
+Type: `Array`
 
-This option is used to define patterns that will be used to replace the contents of source files.
+Define patterns that will be used to replace the contents of source files.
 
 ```javascript
 options: {
-  variables: {
-    'foo': 'bar'
-  }
+  patterns: [
+    {
+      match: 'foo',
+      replacement: 'bar',
+      expression: false
+    }
+  ]
 }
 ```
 
+// FIXME: add details for match, replacement and expression ...
+
 ##### prefix
 Type: `String`
+Default: `@@`
 
-This option is used to create the real pattern for lookup in source files (Defaults `@@`).
+This prefix is used to create the real replacement pattern for lookup only when expression is `false`.
 
 ##### force
 Type: `Boolean`
+Default: `false`
 
-This option force the copy of files even when those files don't have any replace token. Useful when copying a directory.
+Force the copy of files even when those files don't have any replace token.
+
+##### mode
+Type: `Number`
+Default: `0666`
+
+Sets the file mode (permission and sticky bits).
 
 ### Usage Examples
 
@@ -58,9 +72,12 @@ This option force the copy of files even when those files don't have any replace
 replace: {
   dist: {
     options: {
-      variables: {
-        'key': 'value'
-      },
+      patterns: [
+        {
+          match: 'key',
+          replacement: 'value'
+        }
+      ],
       prefix: '@@'
     },
     files: [
@@ -70,9 +87,9 @@ replace: {
 }
 ```
 
-#### Variable pattern in source
+#### Short
 
-Define the place where variable will be injected:
+Define the pattern place:
 
 ```
 // build/manifest.appcache
@@ -91,15 +108,18 @@ NETWORK:
 
 ##### Gruntfile
 
-Define timestamp variable and destination of the source files:
+Define pattern (for timestamp) and the source files for lookup:
 
 ```js
 replace: {
   dist: {
     options: {
-      variables: {
-        'timestamp': '<%= grunt.template.today() %>'
-      }
+      patterns: [
+        {
+          match: 'timestamp',
+          replacement: '<%= grunt.template.today() %>'
+        }
+      ]
     },
     files: [
       {expand: true, flatten: true, src: ['build/manifest.appcache'], dest: 'public/'}
@@ -108,16 +128,22 @@ replace: {
 }
 ```
 
-#### Replace over source files (deploy in one target)
+#### Multiple
 
 ```js
 replace: {
   dist: {
     options: {
-      variables: {
-        version: '<%= pkg.version %>',
-        timestamp: '<%= grunt.template.today() %>'
-      }
+      patterns: [
+        {
+          match: 'version',
+          replacement: '<%= pkg.version %>'
+        },
+        {
+          match: 'timestamp',
+          replacement: '<%= grunt.template.today() %>'
+        }
+      ]
     },
     files: [
       {expand: true, flatten: true, src: ['build/manifest.appcache', 'build/humans.txt'], dest: 'public/'}
@@ -126,7 +152,7 @@ replace: {
 }
 ```
 
-#### Easy cache busting
+#### Cache busting
 
 In app/assets/index.html:
 
@@ -143,9 +169,12 @@ In app/assets/index.html:
 replace: {
   dist: {
     options: {
-      variables: {
-        'timestamp': '<%= new Date().getTime() %>'
-      }
+      patterns: [
+        {
+          match: 'timestamp',
+          replacement: '<%= new Date().getTime() %>'
+        }
+      ]
     },
     files: [
       {src: ['app/assets/index.html'], dest: 'build/index.html'}
@@ -154,7 +183,7 @@ replace: {
 }
 ```
 
-#### Include file contents inplace
+#### Include file
 
 In build/index.html:
 
@@ -170,9 +199,12 @@ In build/index.html:
 replace: {
   dist: {
     options: {
-      variables: {
-        'include': '<%= grunt.file.read("includes/content.html") %>'
-      }
+      patterns: [
+        {
+          match: 'include',
+          replacement: '<%= grunt.file.read("includes/content.html") %>'
+        }
+      ]
     },
     files: [
       {expand: true, flatten: true, src: ['build/index.html'], dest: 'public/'}
@@ -181,9 +213,39 @@ replace: {
 }
 ```
 
+#### Regular expression
+
+In build/.username:
+
+```
+John Smith
+```
+
+##### Gruntfile
+
+```js
+replace: {
+  dist: {
+    options: {
+      patterns: [
+        {
+          match: /(\w+)\s(\w+)/,
+          replacement: '$2, $1', // saves "Smith, John"
+          expression: true
+        }
+      ]
+    },
+    files: [
+      {expand: true, flatten: true, src: ['build/.username'], dest: 'public/'}
+    ]
+  }
+}
+```
+
 
 ## Release History
 
+ * 2013-09-17   v0.5.0   Regular expression matching now supported, the notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
  * 2013-04-02   v0.4.2   Add peerDependencies and update description.

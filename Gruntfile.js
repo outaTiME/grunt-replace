@@ -60,24 +60,24 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
         ]
       },
-      dynamic_key: {
+      template_key: {
         options: {
           variables: {
             '<%= "key" %>': 'value'
           }
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/dynamic_key.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/template_key.txt'], dest: 'tmp/'}
         ]
       },
-      dynamic_value: {
+      template_value: {
         options: {
           variables: {
             'key': '<%= grunt.template.today("yyyy") %>'
           }
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/dynamic_value.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/template_value.txt'], dest: 'tmp/'}
         ]
       },
       cwd: {
@@ -147,6 +147,74 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/escape.txt'], dest: 'tmp/'}
+        ]
+      },
+      fn: {
+        options: {
+          variables: {
+            'key': function () {
+              return 'value';
+            }
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/function.txt'], dest: 'tmp/'}
+        ]
+      },
+      new_way: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value',
+              expression: false
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/new_way.txt'], dest: 'tmp/'}
+        ]
+      },
+      regexp: {
+        options: {
+          patterns: [
+            {
+              match: /@@key/g,
+              replacement: 'value',
+              expression: true
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/regexp.txt'], dest: 'tmp/'}
+        ]
+      },
+      regexp_template: {
+        options: {
+          patterns: [
+            {
+              match: '/@@<%= "key" %>/g',
+              replacement: 'value',
+              expression: true
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/regexp_template.txt'], dest: 'tmp/'}
+        ]
+      },
+      regexp_john: {
+        options: {
+          patterns: [
+            {
+              match: /(\w+)\s(\w+)/,
+              replacement: '$2, $1',
+              expression: true
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/regexp_john.txt'], dest: 'tmp/'}
         ]
       }
     },
