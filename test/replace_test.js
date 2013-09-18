@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(17);
+    test.expect(19);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -83,6 +83,14 @@ exports['replace'] = {
     expect = 'Smith, John\n';
     result = grunt.file.read('tmp/username.txt');
     test.equal(expect, result, 'should replace "John Smith" for "Smith, John"');
+
+    expect = 'value_1 value_2\n';
+    result = grunt.file.read('tmp/json_external.txt');
+    test.equal(expect, result, 'should replace from external json file an make multiple replaces');
+
+    expect = 'value_3 value_4\n';
+    result = grunt.file.read('tmp/json_external_nested.txt');
+    test.equal(expect, result, 'should replace from external json file and make multiple replaces in nested context');
 
     test.done();
   }

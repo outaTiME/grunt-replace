@@ -20,6 +20,7 @@ module.exports = function (grunt) {
 
   var path = require('path');
   var fs = require('fs');
+  var flatten = require('flat').flatten;
 
   grunt.registerMultiTask('replace', 'Replace text patterns with a given string.', function () {
 
@@ -34,7 +35,55 @@ module.exports = function (grunt) {
       }),
       variables = options.variables,
       patterns = options.patterns,
-      locals = [];
+      locals = [],
+      registerPattern = function (pattern) {
+        var match = pattern.match, replacement = pattern.replacement,
+          expression = pattern.expression === true;
+        if (_.isRegExp(match)) {
+          if (expression === false) {
+            /* grunt.fail.warn('RegExp found in match, we force expression for: ' +
+              match); */
+            expression = true;
+          }
+        } else if (_.isString(match)) {
+          if (match.length > 0) {
+            if (expression === true) {
+              var index = match.lastIndexOf('/');
+              if (match[0] === '/' && index > 0) {
+                try {
+                  match = new RegExp(match.slice(1, index), match.slice(index + 1));
+                } catch (error) {
+                  grunt.fail.fatal(error);
+                  return;
+                }
+              } else {
+                grunt.fail.fatal('Invalid expression found for match: ' + match);
+                return;
+              }
+            } else {
+              // old school
+              try {
+                match = new RegExp(options.prefix + match, "g");
+              } catch (error) {
+                grunt.fail.fatal(error);
+                return;
+              }
+            }
+          } else {
+            // invalid match, ignore rule
+            // grunt.fail.fatal('Empty value found for match: ' + match);
+            return;
+          }
+        } else {
+          grunt.fail.fatal('Unsupported type for match (RegExp or String expected).');
+          return;
+        }
+        locals.push({
+          match: match,
+          replacement: replacement,
+          expression: expression
+        });
+      };
 
     grunt.verbose.writeflags(options, 'Options');
 
@@ -44,7 +93,7 @@ module.exports = function (grunt) {
       // sort variables (prevents replace issues like head, header)
       return b.length - a.length;
     }).forEach(function (variable) {
-      //  grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
+      // grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
       grunt.fail.warn('Use the new patterns option instead of variables, will be deprecated soon.');
       patterns.push({
         match: grunt.template.process(variable),
@@ -56,62 +105,28 @@ module.exports = function (grunt) {
     // process patterns
 
     patterns.forEach(function (pattern) {
-      var match = pattern.match, replacement = pattern.replacement,
-        expression = pattern.expression === true;
-      // match
-      if (_.isRegExp(match)) {
-        if (expression === false) {
-          /* grunt.fail.warn('RegExp found in match, we force expression for: ' +
-            match); */
-          expression = true;
-        }
-      } else if (_.isString(match)) {
-        if (match.length > 0) {
-          if (expression === true) {
-            var index = match.lastIndexOf('/');
-            if (match[0] === '/' && index > 0) {
-              try {
-                match = new RegExp(match.slice(1, index), match.slice(index + 1));
-              } catch (error) {
-                grunt.fail.fatal(error);
-                return;
-              }
-            } else {
-              grunt.fail.fatal('Invalid expression found for match: ' + match);
-              return;
-            }
-          } else {
-            // old school
-            try {
-              match = new RegExp(options.prefix + match, "g");
-            } catch (error) {
-              grunt.fail.fatal(error);
-              return;
-            }
-          }
+      var json = pattern.json;
+      if (typeof json !== "undefined") {
+        // json
+        if (_.isObject(json)) {
+          _.forOwn(flatten(json), function(value, key) {
+            // grunt.log.writeln(('flatten key: ' + key + ', value: ' + value).yellow);
+            registerPattern({
+              match: key,
+              replacement: value
+            });
+          });
         } else {
-          // invalid
-          grunt.fail.fatal('Empty value found for match: ' + match);
+          grunt.fail.fatal('Unsupported type for json (Object expected).');
+          return;
         }
       } else {
-        grunt.fail.fatal('Unsupported type for match (RegExp or String expected).');
-        return;
+        // match
+        registerPattern(pattern);
       }
-      // replacement
-      /* if (_.isFunction(replacement)) {
-        replacement = replacement.apply(this, [match]);
-      } */
-      // create new object to preserve pattern instance
-      locals.push({
-        match: match,
-        replacement: replacement,
-        expression: expression
-      });
     });
 
-    /* locals.forEach(function (local) {
-      grunt.verbose.writeln(local.match.toString());
-    }); */
+    // grunt.verbose.writeflags({patterns: locals}, 'Patterns');
 
     if (locals.length === 0 && options.force === false) {
       grunt.fail.warn('Not found valid patterns to be replaced.');

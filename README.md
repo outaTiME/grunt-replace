@@ -99,13 +99,13 @@ If detects regexp instance in `match` attribute we assume to works with expressi
 Type: `String`
 Default: `@@`
 
-This prefix is used to create replacement pattern for simple variable lookup (only when expression is `false`).
+This prefix is used to create an replacement pattern for simple variable lookup, only when `match` type is `String` and `expression` attribute is `false`.
 
 #### force
 Type: `Boolean`
 Default: `false`
 
-Force the copy of files even when those files don't have any replace token.
+Force the copy of files even when those files don't have any match found for replacement.
 
 #### mode
 Type: `Number`
@@ -308,7 +308,8 @@ replace: {
 
 ## Release History
 
- * 2013-09-17   v0.5.0   Regular expression matching now supported, notation has been updated but is backward compatible.
+ * 2013-09-18   v0.5.1   Readme file updated.
+ * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
  * 2013-04-02   v0.4.2   Add peerDependencies and update description.

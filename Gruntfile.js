@@ -265,6 +265,30 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/username.txt'], dest: 'tmp/'}
         ]
+      },
+      json_external: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/config.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json_external.txt'], dest: 'tmp/'}
+        ]
+      },
+      json_external_nested: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/config.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json_external_nested.txt'], dest: 'tmp/'}
+        ]
       }
     },
 
