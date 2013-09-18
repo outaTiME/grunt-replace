@@ -266,6 +266,20 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/username.txt'], dest: 'tmp/'}
         ]
       },
+      json: {
+        options: {
+          patterns: [
+            {
+              json: {
+                "key": "value"
+              }
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json.txt'], dest: 'tmp/'}
+        ]
+      },
       json_external: {
         options: {
           patterns: [

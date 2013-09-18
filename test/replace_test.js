@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(19);
+    test.expect(20);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -83,6 +83,10 @@ exports['replace'] = {
     expect = 'Smith, John\n';
     result = grunt.file.read('tmp/username.txt');
     test.equal(expect, result, 'should replace "John Smith" for "Smith, John"');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/json.txt');
+    test.equal(expect, result, 'should replace from json simple key with value');
 
     expect = 'value_1 value_2\n';
     result = grunt.file.read('tmp/json_external.txt');
