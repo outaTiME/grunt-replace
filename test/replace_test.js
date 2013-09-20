@@ -7,7 +7,7 @@ exports['replace'] = {
 
     var expect, result, bool_result, re;
 
-    test.expect(20);
+    test.expect(22);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -19,7 +19,7 @@ exports['replace'] = {
 
     expect = 'value\n';
     result = grunt.file.read('tmp/template_key.txt');
-    test.equal(expect, result, 'should replace templated key with defined value');
+    test.equal(expect, result, 'should replace templated key with value');
 
     expect = grunt.template.today('yyyy') + "\n";
     result = grunt.file.read('tmp/template_value.txt');
@@ -86,15 +86,23 @@ exports['replace'] = {
 
     expect = 'value\n';
     result = grunt.file.read('tmp/json.txt');
-    test.equal(expect, result, 'should replace from json simple key with value');
+    test.equal(expect, result, 'should read from json and replace simple key with value');
 
     expect = 'value_1 value_2\n';
     result = grunt.file.read('tmp/json_external.txt');
-    test.equal(expect, result, 'should replace from external json file an make multiple replaces');
+    test.equal(expect, result, 'should read from external json file an make multiple replaces');
 
     expect = 'value_3 value_4\n';
     result = grunt.file.read('tmp/json_external_nested.txt');
-    test.equal(expect, result, 'should replace from external json file and make multiple replaces in nested context');
+    test.equal(expect, result, 'should read external json file and make multiple replaces in nested context');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/json_external_template_key.txt');
+    test.equal(expect, result, 'should read external json file and replace templated key with value');
+
+    expect = grunt.template.today('yyyy') + "\n";
+    result = grunt.file.read('tmp/json_external_template_value.txt');
+    test.equal(expect, result, 'should read external json file and replace simple key with templated value');
 
     test.done();
   }

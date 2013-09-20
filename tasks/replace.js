@@ -39,6 +39,9 @@ module.exports = function (grunt) {
       registerPattern = function (pattern) {
         var match = pattern.match, replacement = pattern.replacement,
           expression = pattern.expression === true;
+
+        // grunt.log.writeln(('registerPattern match: ' + match + ', replacement: ' + replacement).yellow);
+
         if (_.isRegExp(match)) {
           if (expression === false) {
             /* grunt.fail.warn('RegExp found in match, we force expression for: ' +
@@ -46,6 +49,8 @@ module.exports = function (grunt) {
             expression = true;
           }
         } else if (_.isString(match)) {
+          // force process templating
+          match = grunt.template.process(match);
           if (match.length > 0) {
             if (expression === true) {
               var index = match.lastIndexOf('/');
@@ -78,6 +83,11 @@ module.exports = function (grunt) {
           grunt.fail.fatal('Unsupported type for match (RegExp or String expected).');
           return;
         }
+        // replacement check
+        if (_.isString(replacement)) {
+          // force process templating
+          replacement = grunt.template.process(replacement);
+        }
         locals.push({
           match: match,
           replacement: replacement,
@@ -94,9 +104,10 @@ module.exports = function (grunt) {
       return b.length - a.length;
     }).forEach(function (variable) {
       // grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
-      grunt.fail.warn('Use the new patterns option instead of variables, will be deprecated soon.');
+      // grunt.fail.warn('Use the new patterns option instead of variables, will be deprecated soon.');
       patterns.push({
-        match: grunt.template.process(variable),
+        // match: grunt.template.process(variable),
+        match: variable,
         replacement: variables[variable],
         expression: false
       });
@@ -110,7 +121,9 @@ module.exports = function (grunt) {
         // json
         if (_.isObject(json)) {
           _.forOwn(flatten(json), function(value, key) {
+
             // grunt.log.writeln(('flatten key: ' + key + ', value: ' + value).yellow);
+
             registerPattern({
               match: key,
               replacement: value

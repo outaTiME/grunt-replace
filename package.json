@@ -40,6 +40,15 @@
     "grunt": "~0.4.0"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "replace",
+    "replacement",
+    "patterns",
+    "match",
+    "text",
+    "string",
+    "regex",
+    "json",
+    "variables"
   ]
 }

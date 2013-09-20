@@ -41,12 +41,9 @@ module.exports = function (grunt) {
     replace: {
       simple: {
         options: {
-          patterns: [
-            {
-              match: 'key',
-              replacement: 'value'
-            }
-          ]
+          variables: {
+            'key': 'value'
+          }
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
@@ -302,6 +299,30 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/json_external_nested.txt'], dest: 'tmp/'}
+        ]
+      },
+      json_external_template_key: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/config.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json_external_template_key.txt'], dest: 'tmp/'}
+        ]
+      },
+      json_external_template_value: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/config.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json_external_template_value.txt'], dest: 'tmp/'}
         ]
       }
     },
