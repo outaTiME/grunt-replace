@@ -90,21 +90,21 @@ options: {
 #### patterns.json
 Type: `Object`
 
-If an attribute `json` found in pattern definition we flatten the object using [Flat dependency](https://github.com/hughsk/flat) and each key–value pair will be used for the replacement (in simple variable lookup mechanism).
+If an attribute `json` found in pattern definition we flatten the object using [Flat dependency](https://github.com/hughsk/flat) and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 options: {
   patterns: [
     {
       json: {
-        "key": "value"
+        "key": "value" // replaces "@@key" to "value"
       }
     }
   ]
 }
 ```
 
-Also supports inner objects and templating:
+Also supports nested objects and templating:
 
 ```javascript
 options: {
@@ -142,11 +142,24 @@ Indicates the type of matching (for templated regexp match we need to force in `
 
 If detects regexp instance in `match` attribute we assume to works with expression matcher (in any other case should be forced).
 
+#### variables
+Type: `Object`
+
+This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support), you can still using but for more control you should use the new `patterns` way.
+
+```javascript
+options: {
+  variables: {
+    'key': 'value' // replaces "@@key" to "value"
+  }
+}
+```
+
 #### prefix
 Type: `String`
 Default: `@@`
 
-This prefix is used to create an replacement pattern for simple variable lookup, only when `match` type is `String` and `expression` attribute is `false`.
+This prefix is used to create an replacement pattern for simple variable lookup mechanism.
 
 #### force
 Type: `Boolean`

@@ -39,13 +39,8 @@ module.exports = function (grunt) {
       registerPattern = function (pattern) {
         var match = pattern.match, replacement = pattern.replacement,
           expression = pattern.expression === true;
-
-        // grunt.log.writeln(('registerPattern match: ' + match + ', replacement: ' + replacement).yellow);
-
         if (_.isRegExp(match)) {
           if (expression === false) {
-            /* grunt.fail.warn('RegExp found in match, we force expression for: ' +
-              match); */
             expression = true;
           }
         } else if (_.isString(match)) {
@@ -76,7 +71,6 @@ module.exports = function (grunt) {
             }
           } else {
             // invalid match, ignore rule
-            // grunt.fail.fatal('Empty value found for match: ' + match);
             return;
           }
         } else {
@@ -103,10 +97,7 @@ module.exports = function (grunt) {
       // sort variables (prevents replace issues like head, header)
       return b.length - a.length;
     }).forEach(function (variable) {
-      // grunt.log.writeln('Use the new patterns option instead of variables.'.yellow);
-      // grunt.fail.warn('Use the new patterns option instead of variables, will be deprecated soon.');
       patterns.push({
-        // match: grunt.template.process(variable),
         match: variable,
         replacement: variables[variable],
         expression: false
@@ -121,9 +112,6 @@ module.exports = function (grunt) {
         // json
         if (_.isObject(json)) {
           _.forOwn(flatten(json), function(value, key) {
-
-            // grunt.log.writeln(('flatten key: ' + key + ', value: ' + value).yellow);
-
             registerPattern({
               match: key,
               replacement: value
@@ -138,8 +126,6 @@ module.exports = function (grunt) {
         registerPattern(pattern);
       }
     });
-
-    // grunt.verbose.writeflags({patterns: locals}, 'Patterns');
 
     if (locals.length === 0 && options.force === false) {
       grunt.fail.warn('Not found valid patterns to be replaced.');
@@ -194,12 +180,6 @@ module.exports = function (grunt) {
         patterns.forEach(function (pattern) {
           var re = pattern.match, replacement = pattern.replacement;
           updated = updated || contents.match(re);
-          // only for backward compatible support
-          /* if (pattern.expression === false) {
-            // escape $ to $$, otherwise it would be used as special replacement pattern as described here:
-            // https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String/replace
-            replacement = replacement.replace(/\$/g, '$$$$');
-          } */
           contents = contents.replace(re, replacement);
         });
         if (!updated && options.force === false) {
