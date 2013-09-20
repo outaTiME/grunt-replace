@@ -32,7 +32,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 #### patterns
 Type: `Array`
 
-Define patterns that will be used to replace the contents of source files.
+Define patterns that will be used to replace the contents of source files, replacement order will be the same as defined in the `Array`.
 
 #### patterns.match
 Type: `String|RegExp`
@@ -90,12 +90,32 @@ options: {
 #### patterns.json
 Type: `Object`
 
+If an attribute `json` found in pattern definition we flatten the object using [Flat dependency](https://github.com/hughsk/flat) and each key–value pair will be used for the replacement (in simple variable lookup mechanism).
+
 ```javascript
 options: {
   patterns: [
     {
       json: {
         "key": "value"
+      }
+    }
+  ]
+}
+```
+
+Also supports inner objects and templating:
+
+```javascript
+options: {
+  patterns: [
+    {
+      json: {
+        "key": "value",                     // replaces "@@key" to "value"
+        "inner": {
+          "key": "value"                    // replaces "@@inner.key" to "value"
+        },
+        "templated_<%= \"key\" %>": "value" // replaces "@@templated_key" to "value"
       }
     }
   ]
@@ -335,7 +355,7 @@ replace: {
 
 ## Release History
 
- * 2013-09-18   v0.5.1   Readme file updated.
+ * 2013-09-18   v0.5.1   New pattern matchig for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
