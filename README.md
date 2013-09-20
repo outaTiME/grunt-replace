@@ -95,6 +95,33 @@ Indicates the type of matching (for templated regexp match we need to force in `
 
 If detects regexp instance in `match` attribute we assume to works with expression matcher (in any other case should be forced).
 
+#### patterns.json
+Type: `Object`
+
+```javascript
+options: {
+  patterns: [
+    {
+      json: {
+        "key": "value"
+      }
+    }
+  ]
+}
+```
+
+Alternatively, you can specify a external file:
+
+```javascript
+options: {
+  patterns: [
+    {
+      json: grunt.file.readJSON('config.json')
+    }
+  ]
+}
+```
+
 #### prefix
 Type: `String`
 Default: `@@`
