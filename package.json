@@ -42,13 +42,9 @@
   "keywords": [
     "gruntplugin",
     "replace",
-    "replacement",
-    "patterns",
-    "match",
     "text",
     "string",
     "regex",
-    "json",
-    "variables"
+    "json"
   ]
 }
