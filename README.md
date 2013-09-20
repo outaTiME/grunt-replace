@@ -87,14 +87,6 @@ options: {
 }
 ```
 
-#### patterns.expression
-Type: `Boolean`
-Default: `false`
-
-Indicates the type of matching (for templated regexp match we need to force in `true`).
-
-If detects regexp instance in `match` attribute we assume to works with expression matcher (in any other case should be forced).
-
 #### patterns.json
 Type: `Object`
 
@@ -121,6 +113,14 @@ options: {
   ]
 }
 ```
+
+#### patterns.expression
+Type: `Boolean`
+Default: `false`
+
+Indicates the type of matching (for templated regexp match we need to force in `true`).
+
+If detects regexp instance in `match` attribute we assume to works with expression matcher (in any other case should be forced).
 
 #### prefix
 Type: `String`
