@@ -368,7 +368,7 @@ replace: {
 
 ## Release History
 
- * 2013-09-18   v0.5.1   New pattern matchig for JSON object.
+ * 2013-09-18   v0.5.1   New pattern matching for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
