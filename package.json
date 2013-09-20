@@ -43,6 +43,7 @@
     "gruntplugin",
     "replace",
     "text",
+    "patterns",
     "string",
     "regex",
     "json"
