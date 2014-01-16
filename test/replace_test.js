@@ -1,13 +1,19 @@
+
 var grunt = require('grunt');
+var util = require('util');
 
 exports['replace'] = {
-  main: function(test) {
+
+  main: function (test) {
 
     'use strict';
 
-    var expect, result, bool_result, re;
+    var expect;
+    var result;
+    var bool_result;
+    var re;
 
-    test.expect(22);
+    test.expect(29);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -21,7 +27,7 @@ exports['replace'] = {
     result = grunt.file.read('tmp/template_key.txt');
     test.equal(expect, result, 'should replace templated key with value');
 
-    expect = grunt.template.today('yyyy') + "\n";
+    expect = '1996\n';
     result = grunt.file.read('tmp/template_value.txt');
     test.equal(expect, result, 'should replace simple key with templated value');
 
@@ -43,20 +49,16 @@ exports['replace'] = {
     result = grunt.file.read('tmp/force.txt');
     test.equal(expect, result, 'should force copy of files (dont have any replace token)');
 
-    expect = 'foobar\n';
-    result = grunt.file.read('tmp/sort.txt');
-    test.equal(expect, result, 'should sort the locals to prevent bad replaces');
-
     expect = 2;
     result = grunt.file.read('tmp/cache.html');
-    re = new RegExp("\\?rel=" + grunt.template.today('yyyy'), "g");
+    re = new RegExp('\\?rel=' + grunt.template.today('yyyy'), 'g');
     test.equal(expect, result.match(re).length, 'should expect two replaces in html cache file');
 
-    expect = "$'\n";
+    expect = '$\'\n';
     result = grunt.file.read('tmp/escape.txt');
     test.equal(expect, result, 'should escape the dollar sign ($)');
 
-    expect = "detta är en sträng\n";
+    expect = 'detta är en sträng\n';
     result = grunt.file.read('tmp/special_chars.txt');
     test.equal(expect, result, 'should replace special characters');
 
@@ -96,14 +98,50 @@ exports['replace'] = {
     result = grunt.file.read('tmp/json_external_nested.txt');
     test.equal(expect, result, 'should read external json file and make multiple replaces in nested context');
 
-    expect = 'value\n';
-    result = grunt.file.read('tmp/json_external_template_key.txt');
-    test.equal(expect, result, 'should read external json file and replace templated key with value');
+    expect = '{"key_3":"value_3"}\n';
+    result = grunt.file.read('tmp/json_external_nested_object.txt');
+    test.equal(expect, result, 'should read external json file and make object replace in nested context');
 
-    expect = grunt.template.today('yyyy') + "\n";
+    expect = grunt.template.today('yyyy') + '\n';
     result = grunt.file.read('tmp/json_external_template_value.txt');
     test.equal(expect, result, 'should read external json file and replace simple key with templated value');
 
+    expect = '[1,2,3,4]\n';
+    result = grunt.file.read('tmp/array.txt');
+    test.equal(expect, result, 'should replace simple key with array object representation');
+
+    expect = '["1996"]\n';
+    result = grunt.file.read('tmp/array_template_value.txt');
+    test.equal(expect, result, 'should replace simple key with templated array object representation');
+
+    expect = '{"foo":"bar"}\n';
+    result = grunt.file.read('tmp/object.txt');
+    test.equal(expect, result, 'should replace simple key with plain object representation');
+
+    expect = '{"foo":"bar"}\n';
+    result = grunt.file.read('tmp/object_template_value.txt');
+    test.equal(expect, result, 'should replace simple key with templated plain object representation');
+
+    expect = '\n\'use strict\';\n\nangular.module(\'services.config\', [])\n  .constant(\'configuration\', {\n    key: {"foo":"bar"}\n  });\n';
+    result = grunt.file.read('tmp/object_angular.txt');
+    test.equal(expect, result, 'should replace simple key with external json file');
+
+    // sort
+
+    expect = '1-2-3\n';
+    result = grunt.file.read('tmp/sort.txt');
+    test.equal(expect, result, 'should sort the locals to prevent bad replaces');
+
+    expect = '1-2-3\n';
+    result = grunt.file.read('tmp/json_sort.txt');
+    test.equal(expect, result, 'should sort the json locals to prevent bad replaces');
+
+    expect = '1a-2a-3a\n';
+    result = grunt.file.read('tmp/multiple_replacement.txt');
+    test.equal(expect, result, 'should replace multiple times (for each pattern definition)');
+
     test.done();
+
   }
+
 };

@@ -59,8 +59,8 @@ Templated regexps are allowed, `match` attribure must be quoted and `expression`
 options: {
   patterns: [
     {
-      match: '/<%= grunt.template.today("yyyy") %>/g',
-      replacement: '2014', // replaces "2013" to "2014"
+      match: '/<%= grunt.template.date(847602000000, 'yyyy') %>/g',
+      replacement: '2014', // replaces "1996" to "2014"
       expression: true     // must be forced for templated regexp
     }
   ]
@@ -111,11 +111,10 @@ options: {
   patterns: [
     {
       json: {
-        "key": "value",                     // replaces "@@key" to "value"
-        "inner": {
-          "key": "value"                    // replaces "@@inner.key" to "value"
-        },
-        "templated_<%= \"key\" %>": "value" // replaces "@@templated_key" to "value"
+        "key": "value",   // replaces "@@key" to "value"
+        "inner": {        // replaces "@@inner" with string representation of "inner" object
+          "key": "value"  // replaces "@@inner.key" to "value"
+        }
       }
     }
   ]
@@ -167,11 +166,17 @@ Default: `false`
 
 Force the copy of files even when those files don't have any match found for replacement.
 
-#### mode
-Type: `Number`
-Default: `0666`
+#### encoding
+Type: `String`
+Default: `grunt.file.defaultEncoding`
 
-Sets the file mode (permission and sticky bits).
+The file encoding to copy files with.
+
+#### mode
+Type: `Boolean` or `Number`
+Default: `false`
+
+Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
 
 ### Usage Examples
 
@@ -366,8 +371,72 @@ replace: {
 }
 ```
 
+#### Lookup for `foo` instead of `@@foo`
+
+The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode you must to define any of the below rules (make your choice):
+
+Gruntfile:
+
+```js
+
+// option 1
+
+replace: {
+  dist: {
+    options: {
+      patterns: [
+        {
+          match: /foo/g,
+          replacement: 'bar'
+        }
+      ]
+    },
+    files: [
+      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+    ]
+  }
+}
+
+// option 2
+
+replace: {
+  dist: {
+    options: {
+      patterns: [
+        {
+          match: 'foo',
+          replacement: 'bar'
+        }
+      ],
+      prefix: '' // remove prefix
+    },
+    files: [
+      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+    ]
+  }
+}
+
+// option 3 (the old way)
+
+replace: {
+  dist: {
+    options: {
+      variables: {
+        'foo': 'bar'
+      },
+      prefix: '' // remove prefix
+    },
+    files: [
+      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+    ]
+  }
+}
+
+```
+
 ## Release History
 
+ * 2014-01-15   v0.5.2   Encoding / Mode options added.
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).

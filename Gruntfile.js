@@ -1,17 +1,11 @@
 
 /*
- *  Copyright 2013 outaTiME.
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
+ * grunt-replace
+ * http://gruntjs.com/
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Copyright (c) 2014 outaTiME
+ * Licensed under the MIT license.
+ * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
  */
 
 module.exports = function (grunt) {
@@ -81,7 +75,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: 'key',
-              replacement: '<%= grunt.template.today("yyyy") %>'
+              replacement: '<%= grunt.template.date(847602000000, "yyyy") %>'
             }
           ]
         },
@@ -121,23 +115,6 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/force.txt'], dest: 'tmp/'}
-        ]
-      },
-      sort: {
-        options: {
-          patterns: [
-            {
-              match: 'header',
-              replacement: 'bar'
-            },
-            {
-              match: 'head',
-              replacement: 'foo'
-            }
-          ]
-        },
-        files: [
-          {expand: true, flatten: true, src: ['test/fixtures/sort.txt'], dest: 'tmp/'}
         ]
       },
       doc_cache: {
@@ -301,7 +278,7 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/json_external_nested.txt'], dest: 'tmp/'}
         ]
       },
-      json_external_template_key: {
+      json_external_nested_object: {
         options: {
           patterns: [
             {
@@ -310,7 +287,7 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/json_external_template_key.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/json_external_nested_object.txt'], dest: 'tmp/'}
         ]
       },
       json_external_template_value: {
@@ -323,6 +300,144 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/json_external_template_value.txt'], dest: 'tmp/'}
+        ]
+      },
+      array: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: [1, 2, 3, 4]
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/array.txt'], dest: 'tmp/'}
+        ]
+      },
+      array_template_value: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: [ '<%= grunt.template.date(847602000000, "yyyy") %>' ]
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/array_template_value.txt'], dest: 'tmp/'}
+        ]
+      },
+      object: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: {
+                foo: 'bar'
+              }
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/object.txt'], dest: 'tmp/'}
+        ]
+      },
+      object_template_value: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: {
+                foo: '<%= "bar" %>'
+              }
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/object_template_value.txt'], dest: 'tmp/'}
+        ]
+      },
+      object_angular: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: grunt.file.readJSON('test/fixtures/object_angular.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/object_angular.txt'], dest: 'tmp/'}
+        ]
+      },
+      sort: {
+        options: {
+          patterns: [
+            {
+              match: 'smaller',
+              replacement: '2'
+            },
+            {
+              match: 'small',
+              replacement: '1'
+            },
+            {
+              match: 'smallest',
+              replacement: '3'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/sort.txt'], dest: 'tmp/'}
+        ]
+      },
+      json_sort: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/json_sort.json')
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/json_sort.txt'], dest: 'tmp/'}
+        ]
+      },
+      multiple_replacement: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/multiple_replacement.json')
+            },
+            {
+              match: /@@smallest/g,
+              replacement: 'regex-3a'
+            },
+            {
+              match: 'smallest',
+              replacement: '3a'
+            },
+            {
+              match: /@@smaller/g,
+              replacement: 'regex-2a'
+            },
+            {
+              match: 'smaller',
+              replacement: '2a'
+            },
+            {
+              match: /@@small/g,
+              replacement: 'regex-1a'
+            },
+            {
+              match: 'small',
+              replacement: '1a'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/multiple_replacement.txt'], dest: 'tmp/'}
         ]
       }
     },

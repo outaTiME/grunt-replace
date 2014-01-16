@@ -4,6 +4,7 @@
 .DS_Store
 Icon?
 node_modules
+npm-debug.log
 tmp
 
 # Thumbnails
