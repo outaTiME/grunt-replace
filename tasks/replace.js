@@ -60,11 +60,11 @@ module.exports = function (grunt) {
     // only sort non regex patterns (prevents replace issues like head, header)
 
     patterns.sort(function (a, b) {
-      var aMatch = a.match;
-      var bMatch = b.match;
-      if (_.isString(aMatch) && _.isString(bMatch)) {
-        return bMatch.length - aMatch.length;
-      } else if (_.isString(aMatch)) {
+      var x = a.match;
+      var y = b.match;
+      if (_.isString(x) && _.isString(y)) {
+        return y.length - x.length;
+      } else if (_.isString(x)) {
         return -1;
       }
       return 1;
