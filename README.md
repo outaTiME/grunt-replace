@@ -160,6 +160,12 @@ Default: `@@`
 
 This prefix is used to create an replacement pattern for simple variable lookup mechanism.
 
+#### excludePrefix
+Type: `Boolean`
+Default: `false`
+
+If this is set to `true`, only the strings that match `patterns.match` will be replaced and the prefixes will not be replaced, when using a simple variable lookup mechanism.
+
 #### force
 Type: `Boolean`
 Default: `false`
