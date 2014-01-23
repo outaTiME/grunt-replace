@@ -25,6 +25,7 @@ module.exports = function (grunt) {
       mode: false,
       patterns: [],
       prefix: '@@',
+      excludePrefix: false,
       force: false
     });
     var patterns = options.patterns;
