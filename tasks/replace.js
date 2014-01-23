@@ -16,10 +16,10 @@ module.exports = function (grunt) {
   var fs = require('fs');
   var util = require('util');
   var chalk = require('chalk');
+  var _ = require('lodash-node/modern/objects');
 
   grunt.registerMultiTask('replace', 'Replace text patterns with a given string.', function () {
 
-    var _ = grunt.util._;
     var options = this.options({
       encoding: grunt.file.defaultEncoding,
       mode: false,
@@ -111,8 +111,8 @@ module.exports = function (grunt) {
   });
 
   var detectDestType = function (dest) {
-    var _ = grunt.util._;
-    if (_.endsWith(dest, '/')) {
+    var lastChar = dest.slice(-1);
+    if (lastChar === '/') {
       return 'directory';
     } else {
       return 'file';
@@ -128,7 +128,6 @@ module.exports = function (grunt) {
   };
 
   var registerPattern = function (pattern, locals, options) {
-    var _ = grunt.util._;
     var match = pattern.match;
     var replacement = pattern.replacement;
     var expression = pattern.expression === true;
@@ -195,6 +194,9 @@ module.exports = function (grunt) {
         locals.forEach(function (pattern) {
           var re = pattern.match;
           var replacement = pattern.replacement;
+          if (pattern.expression === false && options.excludePrefix) {
+            replacement = options.prefix + replacement;
+          }
           updated = updated || contents.match(re);
           contents = contents.replace(re, replacement);
         });

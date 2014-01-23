@@ -27,7 +27,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.2",
+    "grunt-contrib-jshint": "~0.8.0",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-internal": "~0.4.5",
@@ -50,6 +50,7 @@
     "LICENSE-MIT"
   ],
   "dependencies": {
-    "chalk": "~0.4.0"
+    "chalk": "~0.4.0",
+    "lodash-node": "~2.4.1"
   }
 }
