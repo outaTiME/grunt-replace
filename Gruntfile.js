@@ -57,6 +57,20 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
         ]
       },
+      exclude_prefix: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ],
+          excludePrefix: true
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/exclude_prefix.txt'], dest: 'tmp/'}
+        ]
+      },
       template_key: {
         options: {
           patterns: [
