@@ -34,7 +34,7 @@ Type: `Array`
 
 Define patterns that will be used to replace the contents of source files.
 
-The `matches` will be sorted to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
+The matches will be sorted to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
 #### patterns.match
 Type: `String|RegExp`
@@ -394,7 +394,7 @@ replace: {
 
 #### Lookup for `foo` instead of `@@foo`
 
-The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode you must to define any of the below rules (make your choice):
+The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode use one of the below rules ... make your choice:
 
 Gruntfile:
 
@@ -460,7 +460,7 @@ replace: {
 
 ## Release History
 
- * 2014-01-15   v0.5.2   Encoding / Mode options added. Object replacement allowed. New excludePrefix flag (thks [@shinnn](https://github.com/shinnn)).
+ * 2014-01-15   v0.6.0   Encoding / Mode options added. Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)).
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks [@warpech](https://github.com/warpech)).
