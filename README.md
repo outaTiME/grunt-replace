@@ -32,7 +32,9 @@ Task targets, files and options may be specified according to the grunt [Configu
 #### patterns
 Type: `Array`
 
-Define patterns that will be used to replace the contents of source files, replacement order will be the same as defined in the `Array`.
+Define patterns that will be used to replace the contents of source files.
+
+The `matches` will be sorted to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
 #### patterns.match
 Type: `String|RegExp`
@@ -458,10 +460,10 @@ replace: {
 
 ## Release History
 
- * 2014-01-15   v0.5.2   Encoding / Mode options added.
+ * 2014-01-15   v0.5.2   Encoding / Mode options added. Object replacement allowed. New excludePrefix flag (thks [@shinnn]).
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
- * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks @warpech).
+ * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks [@warpech]).
  * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
  * 2013-04-02   v0.4.2   Add peerDependencies and update description.
  * 2013-04-02   v0.4.1   Add trace when force flag.

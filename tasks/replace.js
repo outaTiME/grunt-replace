@@ -42,11 +42,9 @@ module.exports = function (grunt) {
 
     // intercept and transform json objects
 
-    // grunt.log.debug('Patterns: ' + chalk.yellow(JSON.stringify(patterns)));
-
     for (var i = patterns.length - 1; i >= 0; i -= 1) {
       var json = patterns[i].json;
-      if (typeof json !== "undefined") {
+      if (typeof json !== 'undefined') {
         if (_.isPlainObject(json)) {
           var items = flatten(json);
           // replace json with flatten data
@@ -155,7 +153,7 @@ module.exports = function (grunt) {
         } else {
           // old school
           try {
-            match = new RegExp(options.prefix + match, "g");
+            match = new RegExp(options.prefix + match, 'g');
           } catch (error) {
             grunt.fail.fatal(error);
             return;
@@ -218,13 +216,13 @@ module.exports = function (grunt) {
         if (cur.hasOwnProperty(key)) {
           var item = cur[key];
           result.push({
-            match: prop ? prop + "." + key : key,
+            match: prop ? prop + '.' + key : key,
             replacement: item,
             expression: false
           });
           // deep scan
           if (typeof item === 'object') {
-            recurse(item, prop ? prop + "." + key : key);
+            recurse(item, prop ? prop + '.' + key : key);
           }
         }
       }
