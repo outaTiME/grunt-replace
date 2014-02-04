@@ -18,7 +18,7 @@ module.exports = function (grunt) {
   var chalk = require('chalk');
   var _ = require('lodash-node/modern/objects');
 
-  grunt.registerMultiTask('replace', 'Replace text patterns with a given string.', function () {
+  grunt.registerMultiTask('replace', 'Replace text patterns with a given replacement.', function () {
 
     var options = this.options({
       encoding: grunt.file.defaultEncoding,

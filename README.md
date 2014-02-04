@@ -1,6 +1,6 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
-> Replace text patterns with a given string.
+> Replace text patterns with a given replacement.
 
 
 

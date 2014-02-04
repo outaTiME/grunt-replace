@@ -1,6 +1,6 @@
 {
   "name": "grunt-replace",
-  "description": "Replace text patterns with a given string.",
+  "description": "Replace text patterns with a given replacement.",
   "version": "0.5.2",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "author": {
