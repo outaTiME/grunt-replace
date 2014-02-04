@@ -59,7 +59,7 @@ Templated regexps are allowed, `match` attribure must be quoted and `expression`
 options: {
   patterns: [
     {
-      match: '/<%= grunt.template.date(847602000000, 'yyyy') %>/g',
+      match: '/<%= grunt.template.date(847602000000, "yyyy") %>/g',
       replacement: '2014', // replaces "1996" to "2014"
       expression: true     // must be forced for templated regexp
     }
@@ -68,7 +68,7 @@ options: {
 ```
 
 #### patterns.replacement
-Type: `String|Function`
+Type: `String|Function|Object`
 
 Indicates the replacement for match, for more information about replacement checkout [String.replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace).
 
@@ -87,10 +87,23 @@ options: {
 }
 ```
 
+Also supports object as replacement (we create string representation of object using [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)):
+
+```javascript
+options: {
+  patterns: [
+    {
+      match: /foo/g,
+      replacement: [1, 2, 3] // replaces "foo" with string representation of "array" object
+    }
+  ]
+}
+```
+
 #### patterns.json
 Type: `Object`
 
-If an attribute `json` found in pattern definition we flatten the object using [Flat dependency](https://github.com/hughsk/flat) and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If an attribute `json` found in pattern definition we flatten the object using `dotted` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 options: {
@@ -385,7 +398,7 @@ Gruntfile:
 
 ```js
 
-// option 1
+// option 1 (explicitly using an regexp)
 
 replace: {
   dist: {
@@ -403,7 +416,7 @@ replace: {
   }
 }
 
-// option 2
+// option 2 (easy way)
 
 replace: {
   dist: {
@@ -414,7 +427,7 @@ replace: {
           replacement: 'bar'
         }
       ],
-      prefix: '' // remove prefix
+      excludePrefix: true
     },
     files: [
       {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
@@ -422,14 +435,17 @@ replace: {
   }
 }
 
-// option 3 (the old way)
+// option 3 (old way)
 
 replace: {
   dist: {
     options: {
-      variables: {
-        'foo': 'bar'
-      },
+      patterns: [
+        {
+          match: 'foo',
+          replacement: 'bar'
+        }
+      ],
       prefix: '' // remove prefix
     },
     files: [
