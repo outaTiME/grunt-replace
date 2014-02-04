@@ -41,7 +41,7 @@ Type: `String|RegExp`
 
 Indicates the matching expression.
 
-If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we uses the default regexp replace logic):
+If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we use the default regexp replace logic):
 
 ```javascript
 options: {
