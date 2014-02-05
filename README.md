@@ -173,13 +173,17 @@ options: {
 Type: `String`
 Default: `@@`
 
-This prefix is used to create an replacement pattern for simple variable lookup mechanism.
+The prefix added to `patterns.match` for easy matching and replace error prevention.
+
+> This only applies for simple variable lookup mechanism.
 
 #### excludePrefix
 Type: `Boolean`
 Default: `false`
 
-If this is set to `true`, only the strings that match `patterns.match` will be replaced and the prefixes will not be replaced, when using a simple variable lookup mechanism.
+If this is set to `true`, only the string that match `patterns.match` will be replaced ignoring prefix.
+
+> This only applies for simple variable lookup mechanism.
 
 #### force
 Type: `Boolean`

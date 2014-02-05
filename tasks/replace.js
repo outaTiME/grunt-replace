@@ -31,6 +31,12 @@ module.exports = function (grunt) {
     var patterns = options.patterns;
     var locals = [];
 
+    // clear prefix
+
+    if (options.excludePrefix === true) {
+      options.prefix =  '';
+    }
+
     // backward compatible support
 
     var variables = options.variables;
@@ -69,7 +75,7 @@ module.exports = function (grunt) {
       return 1;
     });
 
-    grunt.log.debug('Patterns: ' + JSON.stringify(patterns));
+    // grunt.log.debug('Patterns: ' + JSON.stringify(patterns));
 
     // register patterns
 
@@ -88,9 +94,9 @@ module.exports = function (grunt) {
     var dest;
     var isExpandedPair;
 
-    this.files.forEach(function(filePair) {
+    this.files.forEach(function (filePair) {
       isExpandedPair = filePair.orig.expand || false;
-      filePair.src.forEach(function(src) {
+      filePair.src.forEach(function (src) {
         if (detectDestType(filePair.dest) === 'directory') {
           dest = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest, src));
         } else {
@@ -132,9 +138,8 @@ module.exports = function (grunt) {
     var expression = pattern.expression === true;
     // check matching type
     if (_.isRegExp(match)) {
-      if (expression === false) {
-        expression = true;
-      }
+      // force expression flag
+      expression = true;
     } else if (_.isString(match)) {
       if (match.length > 0) {
         if (expression === true) {
@@ -193,9 +198,6 @@ module.exports = function (grunt) {
         locals.forEach(function (pattern) {
           var re = pattern.match;
           var replacement = pattern.replacement;
-          if (pattern.expression === false && options.excludePrefix) {
-            replacement = options.prefix + replacement;
-          }
           updated = updated || contents.match(re);
           contents = contents.replace(re, replacement);
         });
