@@ -25,11 +25,11 @@ exports['replace'] = {
 
     expect = '@@value\n';
     result = grunt.file.read('tmp/preserve_prefix.txt');
-    test.equal(expect, result, 'should replace simple key with value preserving prefix');
+    test.equal(expect, result, 'should replace simple key with value but preserve prefix');
 
-    expect = 'value\n';
+    expect = '@@value\n';
     result = grunt.file.read('tmp/preserve_prefix_function.txt');
-    test.equal(expect, result, 'should replace simple key with value preserving prefix but with function replacement');
+    test.notEqual(expect, result, 'should replace simple key with value and not preserve prefix (function in replacement)');
 
     expect = 'value\n';
     result = grunt.file.read('tmp/template_key.txt');
