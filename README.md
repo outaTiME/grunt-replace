@@ -181,7 +181,7 @@ The prefix added to `patterns.match` for easy matching and replace error prevent
 Type: `Boolean`
 Default: `true`
 
-If set to `false`, we use the the "real" string in `patterns.match` without `prefix` concatenation. It was useful when you want to look up an simple string.
+If set to `false`, we match the string in `patterns.match` without `prefix` concatenation. It was useful when you want to look up an simple string.
 
 > This only applies for simple variable lookup mechanism.
 
@@ -189,7 +189,7 @@ If set to `false`, we use the the "real" string in `patterns.match` without `pre
 Type: `Boolean`
 Default: `false`
 
-If this is set to `true`, only the strings that match `patterns.match` will be replaced and the prefixes will not be replaced.
+If set to `true`, we use default matching mechanism but preserve prefix in target.
 
 > This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
 
