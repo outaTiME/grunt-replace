@@ -13,7 +13,7 @@ exports['replace'] = {
     var bool_result;
     var re;
 
-    test.expect(30);
+    test.expect(31);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -24,8 +24,12 @@ exports['replace'] = {
     test.equal(expect, result, 'should replace simple key with value using custom prefix');
 
     expect = '@@value\n';
-    result = grunt.file.read('tmp/exclude_prefix.txt');
-    test.equal(expect, result, 'should replace simple key with value except for prefix');
+    result = grunt.file.read('tmp/preserve_prefix.txt');
+    test.equal(expect, result, 'should replace simple key with value preserving prefix');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/preserve_prefix_function.txt');
+    test.equal(expect, result, 'should replace simple key with value preserving prefix but with function replacement');
 
     expect = 'value\n';
     result = grunt.file.read('tmp/template_key.txt');

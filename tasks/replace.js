@@ -25,15 +25,17 @@ module.exports = function (grunt) {
       mode: false,
       patterns: [],
       prefix: '@@',
-      excludePrefix: false,
-      force: false
+      usePrefix: true,
+      preservePrefix: false,
+      force: false,
+      processContentExclude: []
     });
     var patterns = options.patterns;
     var locals = [];
 
-    // clear prefix
+    // add prefix
 
-    if (options.excludePrefix === true) {
+    if (options.usePrefix === false) {
       options.prefix =  '';
     }
 
@@ -179,6 +181,12 @@ module.exports = function (grunt) {
         replacement = JSON.stringify(replacement);
       } else {
         // easy way
+
+        // grunt.log.debug('Patterns: ' + JSON.stringify(patterns));
+
+        if (expression === false && options.preservePrefix === true) {
+          replacement = options.prefix + replacement;
+        }
       }
     } else {
       // replace using function return value
@@ -207,7 +215,8 @@ module.exports = function (grunt) {
         grunt.log.writeln('Replace ' + chalk.cyan(srcFile) + ' -> ' +
           chalk.cyan(destFile));
         return contents;
-      }
+      },
+      noProcess: options.noProcess || options.processContentExclude
     });
   };
 

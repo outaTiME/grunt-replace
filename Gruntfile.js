@@ -57,7 +57,7 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
         ]
       },
-      exclude_prefix: {
+      preserve_prefix: {
         options: {
           patterns: [
             {
@@ -65,10 +65,26 @@ module.exports = function (grunt) {
               replacement: 'value'
             }
           ],
-          excludePrefix: true
+          preservePrefix: true
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/exclude_prefix.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix.txt'], dest: 'tmp/'}
+        ]
+      },
+      preserve_prefix_function: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: function () {
+                return 'value';
+              }
+            }
+          ],
+          preservePrefix: true
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix_function.txt'], dest: 'tmp/'}
         ]
       },
       template_key: {
@@ -385,6 +401,12 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/object_angular.txt'], dest: 'tmp/'}
         ]
       },
+
+
+
+
+      // sort
+
       sort: {
         options: {
           patterns: [

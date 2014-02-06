@@ -177,19 +177,34 @@ The prefix added to `patterns.match` for easy matching and replace error prevent
 
 > This only applies for simple variable lookup mechanism.
 
-#### excludePrefix
+#### usePrefix
+Type: `Boolean`
+Default: `true`
+
+If set to `false`, we use the the "real" string in `patterns.match` without `prefix` concatenation. It was useful when you want to look up an simple string.
+
+> This only applies for simple variable lookup mechanism.
+
+#### preservePrefix
 Type: `Boolean`
 Default: `false`
 
-If this is set to `true`, only the string that match `patterns.match` will be replaced ignoring prefix.
+If this is set to `true`, only the strings that match `patterns.match` will be replaced and the prefixes will not be replaced.
 
-> This only applies for simple variable lookup mechanism.
+> This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
 
 #### force
 Type: `Boolean`
 Default: `false`
 
 Force the copy of files even when those files don't have any match found for replacement.
+
+#### noProcess
+Type: `String`
+
+This option is an advanced way to control which file contents are processed.
+
+> `processContentExclude` has been renamed to `noProcess` and the option name will be removed in the future.
 
 #### encoding
 Type: `String`
@@ -433,7 +448,7 @@ replace: {
           replacement: 'bar'
         }
       ],
-      excludePrefix: true
+      usePrefix: false
     },
     files: [
       {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
