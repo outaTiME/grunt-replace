@@ -189,7 +189,7 @@ If set to `false`, we match the string in `patterns.match` without `prefix` conc
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, we use default matching mechanism but preserve prefix in target.
+If set to `true`, we preserve the `prefix` in target.
 
 > This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
 
