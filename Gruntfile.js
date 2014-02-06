@@ -43,50 +43,6 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
         ]
       },
-      prefix: {
-        options: {
-          patterns: [
-            {
-              match: 'key',
-              replacement: 'value'
-            }
-          ],
-          prefix: '@replace:'
-        },
-        files: [
-          {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
-        ]
-      },
-      preserve_prefix: {
-        options: {
-          patterns: [
-            {
-              match: 'key',
-              replacement: 'value'
-            }
-          ],
-          preservePrefix: true
-        },
-        files: [
-          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix.txt'], dest: 'tmp/'}
-        ]
-      },
-      preserve_prefix_function: {
-        options: {
-          patterns: [
-            {
-              match: 'key',
-              replacement: function () {
-                return 'value';
-              }
-            }
-          ],
-          preservePrefix: true
-        },
-        files: [
-          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix_function.txt'], dest: 'tmp/'}
-        ]
-      },
       template_key: {
         options: {
           patterns: [
@@ -402,9 +358,6 @@ module.exports = function (grunt) {
         ]
       },
 
-
-
-
       // sort
 
       sort: {
@@ -475,7 +428,91 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/multiple_replacement.txt'], dest: 'tmp/'}
         ]
-      }
+      },
+
+      // usePrefix
+
+      prefix: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ],
+          prefix: '@replace:'
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/prefix.txt'], dest: 'tmp/'}
+        ]
+      },
+
+      use_prefix: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ],
+          usePrefix: false
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/use_prefix.txt'], dest: 'tmp/'}
+        ]
+      },
+
+      // preservePrefix
+
+      preserve_prefix: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            }
+          ],
+          preservePrefix: true
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix.txt'], dest: 'tmp/'}
+        ]
+      },
+      preserve_prefix_function: {
+        options: {
+          patterns: [
+            {
+              match: 'key',
+              replacement: function () {
+                return 'value';
+              }
+            }
+          ],
+          preservePrefix: true
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix_function.txt'], dest: 'tmp/'}
+        ]
+      },
+      preserve_prefix_regexp: {
+        options: {
+          patterns: [
+            {
+              match: /@@key/g,
+              replacement: 'value'
+            }
+          ],
+          preservePrefix: true
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/preserve_prefix_regexp.txt'], dest: 'tmp/'}
+        ]
+      },
+
+      // noProcess
+
+
+
     },
 
     // Unit tests.

@@ -13,23 +13,11 @@ exports['replace'] = {
     var bool_result;
     var re;
 
-    test.expect(31);
+    test.expect(27);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
     test.equal(expect, result, 'should replace simple key with value');
-
-    expect = 'value\n';
-    result = grunt.file.read('tmp/prefix.txt');
-    test.equal(expect, result, 'should replace simple key with value using custom prefix');
-
-    expect = '@@value\n';
-    result = grunt.file.read('tmp/preserve_prefix.txt');
-    test.equal(expect, result, 'should replace simple key with value but preserve prefix');
-
-    expect = '@@value\n';
-    result = grunt.file.read('tmp/preserve_prefix_function.txt');
-    test.notEqual(expect, result, 'should replace simple key with value and not preserve prefix (function in replacement)');
 
     expect = 'value\n';
     result = grunt.file.read('tmp/template_key.txt');
@@ -134,7 +122,34 @@ exports['replace'] = {
     result = grunt.file.read('tmp/object_angular.txt');
     test.equal(expect, result, 'should replace simple key with external json file');
 
-    // sort
+    // usePrefix
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/prefix.txt');
+    test.equal(expect, result, 'should replace simple key with value using custom prefix');
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/use_prefix.txt');
+    test.equal(expect, result, 'should replace simple key with value without prefix');
+
+    // noProcess
+
+
+
+    test.done();
+
+  },
+
+  sort: function (test) {
+
+    'use strict';
+
+    var expect;
+    var result;
+    var bool_result;
+    var re;
+
+    test.expect(3);
 
     expect = '1-2-3\n';
     result = grunt.file.read('tmp/sort.txt');
@@ -147,6 +162,33 @@ exports['replace'] = {
     expect = '1a-2a-3a\n';
     result = grunt.file.read('tmp/multiple_replacement.txt');
     test.equal(expect, result, 'should replace multiple times (for each pattern definition)');
+
+    test.done();
+
+  },
+
+  preservePrefix: function (test) {
+
+    'use strict';
+
+    var expect;
+    var result;
+    var bool_result;
+    var re;
+
+    test.expect(3);
+
+    expect = '@@value\n';
+    result = grunt.file.read('tmp/preserve_prefix.txt');
+    test.equal(expect, result, 'should replace simple key with value but preserve prefix');
+
+    expect = '@@value\n';
+    result = grunt.file.read('tmp/preserve_prefix_function.txt');
+    test.notEqual(expect, result, 'should replace simple key with value and not preserve prefix (function in replacement)');
+
+    expect = '@@value\n';
+    result = grunt.file.read('tmp/preserve_prefix_regexp.txt');
+    test.notEqual(expect, result, 'should replace simple key with value and not preserve prefix (regexp in match)');
 
     test.done();
 

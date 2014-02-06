@@ -479,7 +479,8 @@ replace: {
 
 ## Release History
 
- * 2014-02-05   v0.6.0   Encoding / Mode options added. Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)).
+ * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
+ * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
  * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
  * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks [@warpech](https://github.com/warpech)).
