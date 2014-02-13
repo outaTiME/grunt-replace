@@ -180,7 +180,7 @@ module.exports = function (grunt) {
     var replacement = pattern.replacement;
     var expression = pattern.expression === true;
     var context = pattern.context === true;
-    // check matching type
+    // match check
     if (_.isRegExp(match)) {
       expression = true;
     } else if (_.isString(match)) {
@@ -208,7 +208,7 @@ module.exports = function (grunt) {
           }
         }
       } else {
-        // invalid match, ignore rule
+        // empty match
         return;
       }
     } else {
