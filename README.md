@@ -104,7 +104,7 @@ options: {
 }
 ```
 
-> The previous code is part of [Built-in Replacements](#built-in-replacements).
+> The previous snippet is part of [Built-in Replacements](#built-in-replacements).
 
 Also supports object as replacement (we create string representation of object using [JSON.stringify]):
 
