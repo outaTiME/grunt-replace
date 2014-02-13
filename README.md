@@ -246,7 +246,7 @@ The delimiter used to flatten when using object as replacement.
 
 ### Built-in Replacements
 
-Few replacements are provided, these will be affected by the `options` given:
+Few replacements are provided and these will be affected by the `options` given:
 
  *  `__SOURCE_FILE__`:
 
@@ -272,7 +272,7 @@ Few replacements are provided, these will be affected by the `options` given:
 
     Replace match with the filename of target file.
 
-> Looking for example, checkout [How put filename in target](#how-put-filename-in-target) in [Usage Examples].
+> If you are looking `built-in` example, checkout [How put filename in target](#how-put-filename-in-target).
 
 ### Usage Examples
 
@@ -562,8 +562,6 @@ replace: {
   }
 }
 ```
-
-[Usage Examples]: #usage-examples
 
 ## Release History
 
