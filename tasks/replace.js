@@ -69,33 +69,33 @@ module.exports = function (grunt) {
 
     patterns.push({
       match: '__SOURCE_FILE__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return srcFile;
+      replacement: function (match, offset, string, source, target) {
+        return source;
       }
     }, {
       match: '__SOURCE_PATH__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return path.dirname(srcFile);
+      replacement: function (match, offset, string, source, target) {
+        return path.dirname(source);
       }
     }, {
       match: '__SOURCE_FILENAME__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return path.basename(srcFile);
+      replacement: function (match, offset, string, source, target) {
+        return path.basename(source);
       }
     }, {
       match: '__TARGET_FILE__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return destFile;
+      replacement: function (match, offset, string, source, target) {
+        return target;
       }
     }, {
       match: '__TARGET_PATH__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return path.dirname(destFile);
+      replacement: function (match, offset, string, source, target) {
+        return path.dirname(target);
       }
     }, {
       match: '__TARGET_FILENAME__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return path.basename(destFile);
+      replacement: function (match, offset, string, source, target) {
+        return path.basename(target);
       }
     });
 
@@ -231,8 +231,8 @@ module.exports = function (grunt) {
     });
   };
 
-  var replace = function (srcFile, destFile, locals, options) {
-    grunt.file.copy(srcFile, destFile, {
+  var replace = function (source, target, locals, options) {
+    grunt.file.copy(source, target, {
       encoding: options.encoding,
       process: function (contents) {
         var updated = false;
@@ -243,7 +243,7 @@ module.exports = function (grunt) {
           if (_.isFunction(replacement)) {
             replacement = function () {
               var args = Array.prototype.slice.call(arguments);
-              args.push(srcFile, destFile);
+              args.push(source, target);
               return pattern.replacement.apply(this, args);
             };
           }
@@ -253,8 +253,8 @@ module.exports = function (grunt) {
         if (!updated && options.force === false) {
           return false;
         }
-        grunt.log.writeln('Replace ' + chalk.cyan(srcFile) + ' -> ' +
-          chalk.cyan(destFile));
+        grunt.log.writeln('Replace ' + chalk.cyan(source) + ' -> ' +
+          chalk.cyan(target));
         return contents;
       },
       noProcess: options.noProcess || options.processContentExclude

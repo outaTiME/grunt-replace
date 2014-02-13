@@ -91,8 +91,6 @@ options: {
 
 The arguments to the function are the same as [String.replace] but we expose `source` and `target` for better processing:
 
-> The following snippet is part of [`built-in` replacements](#built-in-replacements).
-
 ```javascript
 options: {
   patterns: [
@@ -105,6 +103,8 @@ options: {
   ]
 }
 ```
+
+> The previous code was part of [Built-in Replacements](#built-in-replacements).
 
 Also supports object as replacement (we create string representation of object using [JSON.stringify]):
 
