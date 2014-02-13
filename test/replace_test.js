@@ -196,7 +196,7 @@ exports['replace'] = {
 
   },
 
-  context: function (test) {
+  'built-in': function (test) {
 
     'use strict';
 
@@ -207,29 +207,29 @@ exports['replace'] = {
 
     test.expect(6);
 
-    expect = 'test/fixtures/context_source_file.txt\n';
-    result = grunt.file.read('tmp/context_source_file.txt');
-    test.equal(expect, result, 'should replace context key with source file value');
+    expect = 'test/fixtures/built-in_source_file.txt\n';
+    result = grunt.file.read('tmp/built-in_source_file.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__SOURCE_FILE__)');
 
     expect = 'test/fixtures\n';
-    result = grunt.file.read('tmp/context_source_path.txt');
-    test.equal(expect, result, 'should replace context key with source path value');
+    result = grunt.file.read('tmp/built-in_source_path.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__SOURCE_PATH__)');
 
-    expect = 'context_source_filename.txt\n';
-    result = grunt.file.read('tmp/context_source_filename.txt');
-    test.equal(expect, result, 'should replace context key with source filename value');
+    expect = 'built-in_source_filename.txt\n';
+    result = grunt.file.read('tmp/built-in_source_filename.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__SOURCE_FILENAME__)');
 
-    expect = 'tmp/context_target_file.txt\n';
-    result = grunt.file.read('tmp/context_target_file.txt');
-    test.equal(expect, result, 'should replace context key with target file value');
+    expect = 'tmp/built-in_target_file.txt\n';
+    result = grunt.file.read('tmp/built-in_target_file.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__TARGET_FILE__)');
 
     expect = 'tmp\n';
-    result = grunt.file.read('tmp/context_target_path.txt');
-    test.equal(expect, result, 'should replace context key with target path value');
+    result = grunt.file.read('tmp/built-in_target_path.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__TARGET_PATH__)');
 
-    expect = 'context_target_filename.txt\n';
-    result = grunt.file.read('tmp/context_target_filename.txt');
-    test.equal(expect, result, 'should replace context key with target filename value');
+    expect = 'built-in_target_filename.txt\n';
+    result = grunt.file.read('tmp/built-in_target_filename.txt');
+    test.equal(expect, result, 'should replace using built-in replacement (__TARGET_FILENAME__)');
 
     test.done();
 

@@ -43,11 +43,16 @@
   "keywords": [
     "gruntplugin",
     "replace",
-    "text",
+    "replacement",
+    "pattern",
     "patterns",
+    "match",
+    "text",
     "string",
     "regex",
-    "json"
+    "regexp",
+    "json",
+    "flatten"
   ],
   "files": [
     "tasks",

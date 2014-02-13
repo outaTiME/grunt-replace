@@ -525,14 +525,14 @@ module.exports = function (grunt) {
         ]
       },
 
-      // context
+      // built-in
 
-      context: {
+      'built-in': {
         options: {
           // pass
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/context_*.txt'], dest: 'tmp/'}
+          {expand: true, flatten: true, src: ['test/fixtures/built-in_*.txt'], dest: 'tmp/'}
         ]
       }
 

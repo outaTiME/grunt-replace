@@ -89,15 +89,17 @@ options: {
 }
 ```
 
-The arguments to the function are the same as [String.replace] but we expose `srcFile` and `desFile` for better processing:
+The arguments to the function are the same as [String.replace] but we expose `source` and `target` for better processing:
+
+> The following snippet is part of [`built-in` replacements](#built-in-replacements).
 
 ```javascript
 options: {
   patterns: [
     {
       match: '__SOURCE_FILE__',
-      replacement: function (match, offset, string, srcFile, destFile) {
-        return srcFile;
+      replacement: function (match, offset, string, source, target) {
+        return source;
       }
     }
   ]
@@ -550,7 +552,7 @@ Gruntfile:
 replace: {
   dist: {
     options: {
-      // pass, we use build-in replacements
+      // pass, we use built-in replacements
     },
     files: [
       {expand: true, flatten: true, src: ['src/**/*.js'], dest: 'build/'}
