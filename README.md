@@ -242,6 +242,34 @@ Default: `.`
 
 The delimiter used to flatten when using object as replacement.
 
+### Built-in Replacements
+
+Few replacements are provided, these will be affected by the `options` given:
+
+* `__SOURCE_FILE__`
+
+Replace match with the source file.
+
+* `__SOURCE_PATH__`
+
+Replace match with the path of source file.
+
+* `__SOURCE_FILENAME__`
+
+Replace match with the filename of source file.
+
+* `__TARGET_FILE__`
+
+Replace match with the target file.
+
+* `__TARGET_PATH__`
+
+Replace match with the path of target file.
+
+* `__TARGET_FILENAME__`
+
+Replace match with the filename of target file.
+
 ### Usage Examples
 
 #### Short
@@ -439,6 +467,12 @@ replace: {
 
 The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode use one of the below rules ... make your choice:
 
+File `build/foo.txt`:
+
+```
+foo
+```
+
 Gruntfile:
 
 ```js
@@ -499,6 +533,43 @@ replace: {
   }
 }
 
+```
+
+#### Attach filename to target
+
+File `src/app.js`:
+
+```js
+
+// filename: @@__SOURCE_FILENAME__
+
+var App = App || (function () {
+
+  return {
+
+    // app contents
+
+  }
+
+}());
+
+window.App = App;
+
+```
+
+Gruntfile:
+
+```js
+replace: {
+  dist: {
+    options: {
+      // pass, we use build-in replacements
+    },
+    files: [
+      {expand: true, flatten: true, src: ['src/**/*.js'], dest: 'public/'}
+    ]
+  }
+}
 ```
 
 ## Release History

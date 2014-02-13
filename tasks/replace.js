@@ -40,7 +40,7 @@ module.exports = function (grunt) {
       options.prefix =  '';
     }
 
-    // backward compatible support
+    // backward compatibility
 
     var variables = options.variables;
     if (typeof variables !== 'undefined') {
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
       }
     }
 
-    // register global patterns
+    // register processing patterns
 
     patterns.push({
       match: '__SOURCE_FILE__',
@@ -121,6 +121,8 @@ module.exports = function (grunt) {
     // verbose
 
     grunt.verbose.writeln(util.inspect(locals));
+
+    // replacements ?
 
     if (locals.length === 0 && options.force === false) {
       grunt.fail.warn('Not found valid patterns to be replaced.');
@@ -237,7 +239,7 @@ module.exports = function (grunt) {
         locals.forEach(function (pattern) {
           var re = pattern.match;
           var replacement = pattern.replacement;
-          // wraps real replacement function and attach process data
+          // wrap replacement function to add process arguments
           if (_.isFunction(replacement)) {
             replacement = function () {
               var args = Array.prototype.slice.call(arguments);
