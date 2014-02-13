@@ -68,39 +68,33 @@ module.exports = function (grunt) {
     // register global patterns
 
     patterns.push({
-      context: true,
       match: '__SOURCE_FILE__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return srcFile;
       }
     }, {
-      context: true,
       match: '__SOURCE_PATH__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return path.dirname(srcFile);
       }
     }, {
-      context: true,
       match: '__SOURCE_FILENAME__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return path.basename(srcFile);
       }
     }, {
-      context: true,
       match: '__TARGET_FILE__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return destFile;
       }
     }, {
-      context: true,
       match: '__TARGET_PATH__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return path.dirname(destFile);
       }
     }, {
-      context: true,
       match: '__TARGET_FILENAME__',
-      replacement: function (srcFile, destFile, options) {
+      replacement: function (match, offset, string, srcFile, destFile) {
         return path.basename(destFile);
       }
     });
@@ -179,7 +173,6 @@ module.exports = function (grunt) {
     var match = pattern.match;
     var replacement = pattern.replacement;
     var expression = pattern.expression === true;
-    var context = pattern.context === true;
     // match check
     if (_.isRegExp(match)) {
       expression = true;
@@ -217,18 +210,13 @@ module.exports = function (grunt) {
     }
     // replacement check
     if (!_.isFunction(replacement)) {
-      if (context === true) {
-        grunt.fail.fatal('Context matching must require function as replacement.');
-        return;
+      if (!_.isString(replacement)) {
+        // transform object to string
+        replacement = JSON.stringify(replacement);
       } else {
-        if (!_.isString(replacement)) {
-          // transform object to string
-          replacement = JSON.stringify(replacement);
-        } else {
-          // easy way
-          if (expression === false && options.preservePrefix === true) {
-            replacement = options.prefix + replacement;
-          }
+        // easy way
+        if (expression === false && options.preservePrefix === true) {
+          replacement = options.prefix + replacement;
         }
       }
     } else {
@@ -237,8 +225,7 @@ module.exports = function (grunt) {
     locals.push({
       match: match,
       replacement: replacement,
-      expression: expression,
-      context: context
+      expression: expression
     });
   };
 
@@ -250,9 +237,13 @@ module.exports = function (grunt) {
         locals.forEach(function (pattern) {
           var re = pattern.match;
           var replacement = pattern.replacement;
-          var context = pattern.context;
-          if (context === true) {
-            replacement = replacement.call(this, srcFile, destFile, options);
+          // wraps real replacement function and attach process data
+          if (_.isFunction(replacement)) {
+            replacement = function () {
+              var args = Array.prototype.slice.call(arguments);
+              args.push(srcFile, destFile);
+              return pattern.replacement.apply(this, args);
+            };
           }
           updated = updated || contents.match(re);
           contents = contents.replace(re, replacement);

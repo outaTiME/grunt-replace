@@ -485,7 +485,7 @@ replace: {
 
 ## Release History
 
- * 2014-02-14   v0.6.2   New context match for replacements in process phase. Add delimiter option for object as replacement. Dependencies updated.
+ * 2014-02-14   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
  * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
  * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
