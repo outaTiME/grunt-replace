@@ -259,12 +259,15 @@ Few replacements are provided, these will be affected by the `options` given:
     Replace match with the filename of source file.
 
  *  `__TARGET_FILE__`:
+
     Replace match with the target file.
 
  *  `__TARGET_PATH__`:
+
     Replace match with the path of target file.
 
  *  `__TARGET_FILENAME__`:
+
     Replace match with the filename of target file.
 
 ### Usage Examples
