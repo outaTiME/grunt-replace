@@ -59,7 +59,7 @@ module.exports = function (grunt) {
           // replace json with flatten data
           Array.prototype.splice.apply(patterns, [i, 1].concat(items));
         } else {
-          grunt.log.error('Unsupported type for json (plain object expected).');
+          grunt.fail.fatal('Unsupported type for json (plain object expected).');
           return;
         }
       }
@@ -195,7 +195,7 @@ module.exports = function (grunt) {
               return;
             }
           } else {
-            grunt.log.error('Invalid expression found for match: ' + match);
+            grunt.fail.fatal('Invalid expression found for match: ' + match);
             return;
           }
         } else {
@@ -203,7 +203,7 @@ module.exports = function (grunt) {
           try {
             match = new RegExp(options.prefix + match, 'g');
           } catch (error) {
-            grunt.log.error(error);
+            grunt.fail.fatal(error);
             return;
           }
         }
@@ -212,18 +212,23 @@ module.exports = function (grunt) {
         return;
       }
     } else {
-      grunt.log.error('Unsupported type for match (RegExp or String expected).');
+      grunt.fail.fatal('Unsupported type for match (RegExp or String expected).');
       return;
     }
     // replacement check
     if (!_.isFunction(replacement)) {
-      if (!_.isString(replacement)) {
-        // transform object to string
-        replacement = JSON.stringify(replacement);
+      if (context === true) {
+        grunt.fail.fatal('Context matching must require function as replacement.');
+        return;
       } else {
-        // easy way
-        if (expression === false && options.preservePrefix === true) {
-          replacement = options.prefix + replacement;
+        if (!_.isString(replacement)) {
+          // transform object to string
+          replacement = JSON.stringify(replacement);
+        } else {
+          // easy way
+          if (expression === false && options.preservePrefix === true) {
+            replacement = options.prefix + replacement;
+          }
         }
       }
     } else {
