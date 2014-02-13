@@ -246,29 +246,29 @@ The delimiter used to flatten when using object as replacement.
 
 Few replacements are provided, these will be affected by the `options` given:
 
- *  `__SOURCE_FILE__`
+ *  Match: `__SOURCE_FILE__`
 
-    Replace match with the source file.
+    Replace with the source file.
 
- *  `__SOURCE_PATH__`
+ *  Match: `__SOURCE_PATH__`
 
-    Replace match with the path of source file.
+    Replace with the path of source file.
 
- *  `__SOURCE_FILENAME__`
+ *  Match: `__SOURCE_FILENAME__`
 
-    Replace match with the filename of source file.
+    Replace with the filename of source file.
 
- *  `__TARGET_FILE__`
+ *  Match: `__TARGET_FILE__`
 
-    Replace match with the target file.
+    Replace with the target file.
 
- *  `__TARGET_PATH__`
+ *  Match: `__TARGET_PATH__`
 
-    Replace match with the path of target file.
+    Replace with the path of target file.
 
- *  `__TARGET_FILENAME__`
+ *  Match: `__TARGET_FILENAME__`
 
-    Replace match with the filename of target file.
+    Replace with the filename of target file.
 
 ### Usage Examples
 
