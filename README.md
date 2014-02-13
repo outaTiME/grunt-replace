@@ -272,6 +272,8 @@ Few replacements are provided, these will be affected by the `options` given:
 
     Replace match with the filename of target file.
 
+> Looking for example, checkout [How put filename in target](#how-put-filename-in-target) in [Usage Examples].
+
 ### Usage Examples
 
 #### Short
@@ -526,7 +528,7 @@ replace: {
 }
 ```
 
-#### Put filename in target
+#### How put filename in target
 
 File `src/app.js`:
 
@@ -560,6 +562,8 @@ replace: {
   }
 }
 ```
+
+[Usage Examples]: #usage-examples
 
 ## Release History
 
