@@ -23,7 +23,7 @@ grunt.loadNpmTasks('grunt-replace');
 
 
 
-## Replace task
+## Replace Task
 _Run this task with the `grunt replace` command._
 
 Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
@@ -246,29 +246,12 @@ The delimiter used to flatten when using object as replacement.
 
 Few replacements are provided, these will be affected by the `options` given:
 
- *  Match: `__SOURCE_FILE__`
-
-    Replace with the source file.
-
- *  Match: `__SOURCE_PATH__`
-
-    Replace with the path of source file.
-
- *  Match: `__SOURCE_FILENAME__`
-
-    Replace with the filename of source file.
-
- *  Match: `__TARGET_FILE__`
-
-    Replace with the target file.
-
- *  Match: `__TARGET_PATH__`
-
-    Replace with the path of target file.
-
- *  Match: `__TARGET_FILENAME__`
-
-    Replace with the filename of target file.
+ *  `__SOURCE_FILE__`: Replace match with the source file.
+ *  `__SOURCE_PATH__`: Replace match with the path of source file.
+ *  `__SOURCE_FILENAME__`: Replace match with the filename of source file.
+ *  `__TARGET_FILE__`: Replace match with the target file.
+ *  `__TARGET_PATH__`: Replace match with the path of target file.
+ *  `__TARGET_FILENAME__`: Replace match with the filename of target file.
 
 ### Usage Examples
 
