@@ -246,35 +246,35 @@ The delimiter used to flatten when using object as replacement.
 
 Few replacements are provided, these will be affected by the `options` given:
 
-* `__SOURCE_FILE__`
+#### `__SOURCE_FILE__`
 
-Replace match with the source file.
+> Replace match with the source file.
 
-* `__SOURCE_PATH__`
+#### `__SOURCE_PATH__`
 
-Replace match with the path of source file.
+> Replace match with the path of source file.
 
-* `__SOURCE_FILENAME__`
+#### `__SOURCE_FILENAME__`
 
-Replace match with the filename of source file.
+> Replace match with the filename of source file.
 
-* `__TARGET_FILE__`
+#### `__TARGET_FILE__`
 
-Replace match with the target file.
+> Replace match with the target file.
 
-* `__TARGET_PATH__`
+#### `__TARGET_PATH__`
 
-Replace match with the path of target file.
+> Replace match with the path of target file.
 
-* `__TARGET_FILENAME__`
+#### `__TARGET_FILENAME__`
 
-Replace match with the filename of target file.
+> Replace match with the filename of target file.
 
 ### Usage Examples
 
 #### Short
 
-File `build/manifest.appcache`:
+File `src/manifest.appcache`:
 
 ```
 CACHE MANIFEST
@@ -303,7 +303,7 @@ replace: {
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/manifest.appcache'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/manifest.appcache'], dest: 'build/'}
     ]
   }
 }
@@ -311,7 +311,7 @@ replace: {
 
 #### Multiple matching
 
-File `build/manifest.appcache`:
+File `src/manifest.appcache`:
 
 ```
 CACHE MANIFEST
@@ -327,7 +327,7 @@ NETWORK:
 ```
 
 
-File `build/humans.txt`:
+File `src/humans.txt`:
 
 ```
               __     _
@@ -367,7 +367,7 @@ replace: {
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/manifest.appcache', 'build/humans.txt'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/manifest.appcache', 'src/humans.txt'], dest: 'build/'}
     ]
   }
 }
@@ -375,7 +375,7 @@ replace: {
 
 #### Cache busting
 
-File `app/assets/index.html`:
+File `src/assets/index.html`:
 
 ```html
 <head>
@@ -398,7 +398,7 @@ replace: {
       ]
     },
     files: [
-      {src: ['app/assets/index.html'], dest: 'build/index.html'}
+      {src: ['src/assets/index.html'], dest: 'build/index.html'}
     ]
   }
 }
@@ -406,7 +406,7 @@ replace: {
 
 #### Include file
 
-File `build/index.html`:
+File `src/index.html`:
 
 ```html
 <body>
@@ -428,7 +428,7 @@ replace: {
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/index.html'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'}
     ]
   }
 }
@@ -436,7 +436,7 @@ replace: {
 
 #### Regular expression
 
-File `build/username.txt`:
+File `src/username.txt`:
 
 ```
 John Smith
@@ -457,7 +457,7 @@ replace: {
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/username.txt'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/username.txt'], dest: 'build/'}
     ]
   }
 }
@@ -467,18 +467,10 @@ replace: {
 
 The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode use one of the below rules ... make your choice:
 
-File `build/foo.txt`:
-
-```
-foo
-```
-
 Gruntfile:
 
 ```js
-
 // option 1 (explicitly using an regexp)
-
 replace: {
   dist: {
     options: {
@@ -490,13 +482,12 @@ replace: {
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
     ]
   }
 }
 
 // option 2 (easy way)
-
 replace: {
   dist: {
     options: {
@@ -509,13 +500,12 @@ replace: {
       usePrefix: false
     },
     files: [
-      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
     ]
   }
 }
 
 // option 3 (old way)
-
 replace: {
   dist: {
     options: {
@@ -528,19 +518,17 @@ replace: {
       prefix: '' // remove prefix
     },
     files: [
-      {expand: true, flatten: true, src: ['build/foo.txt'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
     ]
   }
 }
-
 ```
 
-#### Attach filename to target
+#### Put filename in target
 
 File `src/app.js`:
 
 ```js
-
 // filename: @@__SOURCE_FILENAME__
 
 var App = App || (function () {
@@ -549,12 +537,11 @@ var App = App || (function () {
 
     // app contents
 
-  }
+  };
 
 }());
 
 window.App = App;
-
 ```
 
 Gruntfile:
@@ -566,7 +553,7 @@ replace: {
       // pass, we use build-in replacements
     },
     files: [
-      {expand: true, flatten: true, src: ['src/**/*.js'], dest: 'public/'}
+      {expand: true, flatten: true, src: ['src/**/*.js'], dest: 'build/'}
     ]
   }
 }
