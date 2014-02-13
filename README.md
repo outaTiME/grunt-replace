@@ -72,7 +72,7 @@ options: {
 #### patterns.replacement
 Type: `String|Function|Object`
 
-Indicates the replacement for match, for more information about replacement checkout [String.replace](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace).
+Indicates the replacement for match, for more information about replacement checkout [String.replace].
 
 You can specify a function as replacement. In this case, the function will be invoked after the match has been performed. The function's result (return value) will be used as the replacement string.
 
@@ -104,7 +104,7 @@ options: {
 }
 ```
 
-Also supports object as replacement (we create string representation of object using [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)):
+Also supports object as replacement (we create string representation of object using [JSON.stringify]):
 
 ```javascript
 options: {
@@ -116,6 +116,9 @@ options: {
   ]
 }
 ```
+
+[String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+[JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 
 #### patterns.json
 Type: `Object`
