@@ -272,7 +272,7 @@ Few replacements are provided and these will be affected by the `options` given:
 
     Replace match with the filename of target file.
 
-> If you are looking `built-in` example, checkout [How put filename in target](#how-put-filename-in-target).
+> If you are looking for how you use an `built-in` replacement, checkout [How put filename in target](#how-put-filename-in-target) for more information.
 
 ### Usage Examples
 
