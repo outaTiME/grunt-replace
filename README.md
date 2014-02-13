@@ -246,7 +246,7 @@ The delimiter used to flatten when using object as replacement.
 
 ### Built-in Replacements
 
-Few replacements are provided and these will be affected by the `options` given:
+Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
 
  *  `__SOURCE_FILE__`:
 
@@ -272,7 +272,7 @@ Few replacements are provided and these will be affected by the `options` given:
 
     Replace match with the filename of target file.
 
-> If you are looking for how you use an `built-in` replacement, checkout [How put filename in target](#how-put-filename-in-target) for more information.
+> If you are looking how you use an `built-in` replacements, checkout [How put filename in target](#how-put-filename-in-target) example.
 
 ### Usage Examples
 
@@ -565,7 +565,7 @@ replace: {
 
 ## Release History
 
- * 2014-02-14   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
+ * 2014-02-13   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
  * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
  * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
