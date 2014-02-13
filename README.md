@@ -89,6 +89,21 @@ options: {
 }
 ```
 
+The arguments to the function are the same as [String.replace] but we expose `srcFile` and `desFile` for better processing:
+
+```javascript
+options: {
+  patterns: [
+    {
+      match: '__SOURCE_FILE__',
+      replacement: function (match, offset, string, srcFile, destFile) {
+        return srcFile;
+      }
+    }
+  ]
+}
+```
+
 Also supports object as replacement (we create string representation of object using [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)):
 
 ```javascript
