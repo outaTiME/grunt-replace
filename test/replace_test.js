@@ -13,7 +13,7 @@ exports['replace'] = {
     var bool_result;
     var re;
 
-    test.expect(27);
+    test.expect(28);
 
     expect = 'value\n';
     result = grunt.file.read('tmp/simple.txt');
@@ -132,9 +132,11 @@ exports['replace'] = {
     result = grunt.file.read('tmp/use_prefix.txt');
     test.equal(expect, result, 'should replace simple key with value without prefix');
 
-    // noProcess
+    // delimiter
 
-
+    expect = 'value_3\n';
+    result = grunt.file.read('tmp/delimiter.txt');
+    test.equal(expect, result, 'should read external json file and replace inner object key (custom delimiter) with value');
 
     test.done();
 
@@ -189,6 +191,45 @@ exports['replace'] = {
     expect = '@@value\n';
     result = grunt.file.read('tmp/preserve_prefix_regexp.txt');
     test.notEqual(expect, result, 'should replace simple key with value and not preserve prefix (regexp in match)');
+
+    test.done();
+
+  },
+
+  context: function (test) {
+
+    'use strict';
+
+    var expect;
+    var result;
+    var bool_result;
+    var re;
+
+    test.expect(6);
+
+    expect = 'test/fixtures/context_source_file.txt\n';
+    result = grunt.file.read('tmp/context_source_file.txt');
+    test.equal(expect, result, 'should replace context key with source file value');
+
+    expect = 'test/fixtures\n';
+    result = grunt.file.read('tmp/context_source_path.txt');
+    test.equal(expect, result, 'should replace context key with source path value');
+
+    expect = 'context_source_filename.txt\n';
+    result = grunt.file.read('tmp/context_source_filename.txt');
+    test.equal(expect, result, 'should replace context key with source filename value');
+
+    expect = 'tmp/context_target_file.txt\n';
+    result = grunt.file.read('tmp/context_target_file.txt');
+    test.equal(expect, result, 'should replace context key with target file value');
+
+    expect = 'tmp\n';
+    result = grunt.file.read('tmp/context_target_path.txt');
+    test.equal(expect, result, 'should replace context key with target path value');
+
+    expect = 'context_target_filename.txt\n';
+    result = grunt.file.read('tmp/context_target_filename.txt');
+    test.equal(expect, result, 'should replace context key with target filename value');
 
     test.done();
 

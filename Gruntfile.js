@@ -509,9 +509,32 @@ module.exports = function (grunt) {
         ]
       },
 
-      // noProcess
+      // delimiter
 
+      delimiter: {
+        options: {
+          patterns: [
+            {
+              json: grunt.file.readJSON('test/fixtures/config.json')
+            }
+          ],
+          delimiter: '-'
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/delimiter.txt'], dest: 'tmp/'}
+        ]
+      },
 
+      // context
+
+      context: {
+        options: {
+          // pass
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/context_*.txt'], dest: 'tmp/'}
+        ]
+      }
 
     },
 

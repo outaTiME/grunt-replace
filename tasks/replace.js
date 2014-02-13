@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   var fs = require('fs');
   var util = require('util');
   var chalk = require('chalk');
-  var _ = require('lodash-node/modern/objects');
+  var _ = require('lodash');
 
   grunt.registerMultiTask('replace', 'Replace text patterns with a given replacement.', function () {
 
@@ -28,6 +28,7 @@ module.exports = function (grunt) {
       usePrefix: true,
       preservePrefix: false,
       force: false,
+      delimiter: '.',
       processContentExclude: []
     });
     var patterns = options.patterns;
@@ -54,15 +55,55 @@ module.exports = function (grunt) {
       var json = patterns[i].json;
       if (typeof json !== 'undefined') {
         if (_.isPlainObject(json)) {
-          var items = flatten(json);
+          var items = flatten(json, options);
           // replace json with flatten data
           Array.prototype.splice.apply(patterns, [i, 1].concat(items));
         } else {
-          grunt.fail.fatal('Unsupported type for json (plain object expected).');
+          grunt.log.error('Unsupported type for json (plain object expected).');
           return;
         }
       }
     }
+
+    // register global patterns
+
+    patterns.push({
+      context: true,
+      match: '__SOURCE_FILE__',
+      replacement: function (srcFile, destFile, options) {
+        return srcFile;
+      }
+    }, {
+      context: true,
+      match: '__SOURCE_PATH__',
+      replacement: function (srcFile, destFile, options) {
+        return path.dirname(srcFile);
+      }
+    }, {
+      context: true,
+      match: '__SOURCE_FILENAME__',
+      replacement: function (srcFile, destFile, options) {
+        return path.basename(srcFile);
+      }
+    }, {
+      context: true,
+      match: '__TARGET_FILE__',
+      replacement: function (srcFile, destFile, options) {
+        return destFile;
+      }
+    }, {
+      context: true,
+      match: '__TARGET_PATH__',
+      replacement: function (srcFile, destFile, options) {
+        return path.dirname(destFile);
+      }
+    }, {
+      context: true,
+      match: '__TARGET_FILENAME__',
+      replacement: function (srcFile, destFile, options) {
+        return path.basename(destFile);
+      }
+    });
 
     // only sort non regex patterns (prevents replace issues like head, header)
 
@@ -77,19 +118,19 @@ module.exports = function (grunt) {
       return 1;
     });
 
-    // grunt.log.debug('Patterns: ' + JSON.stringify(patterns));
-
     // register patterns
 
     patterns.forEach(function (pattern) {
       registerPattern(pattern, locals, options);
     });
 
+    // verbose
+
+    grunt.verbose.writeln(util.inspect(locals));
+
     if (locals.length === 0 && options.force === false) {
       grunt.fail.warn('Not found valid patterns to be replaced.');
     }
-
-    // grunt.log.debug('Locals: ' + chalk.yellow(JSON.stringify(locals)));
 
     // took code from copy task
 
@@ -138,9 +179,9 @@ module.exports = function (grunt) {
     var match = pattern.match;
     var replacement = pattern.replacement;
     var expression = pattern.expression === true;
+    var context = pattern.context === true;
     // check matching type
     if (_.isRegExp(match)) {
-      // force expression flag
       expression = true;
     } else if (_.isString(match)) {
       if (match.length > 0) {
@@ -150,11 +191,11 @@ module.exports = function (grunt) {
             try {
               match = new RegExp(match.slice(1, index), match.slice(index + 1));
             } catch (error) {
-              grunt.fail.fatal(error);
+              grunt.log.error(error);
               return;
             }
           } else {
-            grunt.fail.fatal('Invalid expression found for match: ' + match);
+            grunt.log.error('Invalid expression found for match: ' + match);
             return;
           }
         } else {
@@ -162,7 +203,7 @@ module.exports = function (grunt) {
           try {
             match = new RegExp(options.prefix + match, 'g');
           } catch (error) {
-            grunt.fail.fatal(error);
+            grunt.log.error(error);
             return;
           }
         }
@@ -171,7 +212,7 @@ module.exports = function (grunt) {
         return;
       }
     } else {
-      grunt.fail.fatal('Unsupported type for match (RegExp or String expected).');
+      grunt.log.error('Unsupported type for match (RegExp or String expected).');
       return;
     }
     // replacement check
@@ -181,9 +222,6 @@ module.exports = function (grunt) {
         replacement = JSON.stringify(replacement);
       } else {
         // easy way
-
-        // grunt.log.debug('Patterns: ' + JSON.stringify(patterns));
-
         if (expression === false && options.preservePrefix === true) {
           replacement = options.prefix + replacement;
         }
@@ -194,7 +232,8 @@ module.exports = function (grunt) {
     locals.push({
       match: match,
       replacement: replacement,
-      expression: expression
+      expression: expression,
+      context: context
     });
   };
 
@@ -206,6 +245,10 @@ module.exports = function (grunt) {
         locals.forEach(function (pattern) {
           var re = pattern.match;
           var replacement = pattern.replacement;
+          var context = pattern.context;
+          if (context === true) {
+            replacement = replacement.call(this, srcFile, destFile, options);
+          }
           updated = updated || contents.match(re);
           contents = contents.replace(re, replacement);
         });
@@ -220,20 +263,21 @@ module.exports = function (grunt) {
     });
   };
 
-  var flatten = function (data) {
+  var flatten = function (data, options) {
+    var delimiter = options.delimiter;
     var result = [];
     function recurse (cur, prop) {
       for (var key in cur) {
         if (cur.hasOwnProperty(key)) {
           var item = cur[key];
           result.push({
-            match: prop ? prop + '.' + key : key,
+            match: prop ? prop + delimiter + key : key,
             replacement: item,
             expression: false
           });
           // deep scan
           if (typeof item === 'object') {
-            recurse(item, prop ? prop + '.' + key : key);
+            recurse(item, prop ? prop + delimiter + key : key);
           }
         }
       }

@@ -105,7 +105,7 @@ options: {
 #### patterns.json
 Type: `Object`
 
-If an attribute `json` found in pattern definition we flatten the object using `dotted` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If an attribute `json` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 options: {
@@ -217,6 +217,12 @@ Type: `Boolean` or `Number`
 Default: `false`
 
 Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
+
+#### delimiter
+Type: `String`
+Default: `.`
+
+The delimiter used to flatten when using object as replacement.
 
 ### Usage Examples
 
@@ -479,6 +485,7 @@ replace: {
 
 ## Release History
 
+ * 2014-02-14   v0.6.2   New context match for replacements in process phase. Add delimiter option for object as replacement. Dependencies updated.
  * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
  * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
  * 2013-09-18   v0.5.1   New pattern matching for JSON object.
