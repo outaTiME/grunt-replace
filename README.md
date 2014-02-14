@@ -272,7 +272,7 @@ Few matching rules are provided by default and can be used anytime (these will b
 
     Replace match with the filename of target file.
 
-> If you are looking how you use an `built-in` replacements, checkout [How to insert filename in target](#how-to-insert-filename-in-target) example.
+> If you are looking how to use an `built-in` replacements, checkout [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
 ### Usage Examples
 
