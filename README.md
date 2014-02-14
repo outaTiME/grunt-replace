@@ -272,7 +272,7 @@ Few matching rules are provided by default and can be used anytime (these will b
 
     Replace match with the filename of target file.
 
-> If you are looking how you use an `built-in` replacements, checkout [How put filename in target](#how-put-filename-in-target) example.
+> If you are looking how you use an `built-in` replacements, checkout [How to insert filename in target](#how-to-insert-filename-in-target) example.
 
 ### Usage Examples
 
@@ -528,7 +528,7 @@ replace: {
 }
 ```
 
-#### How put filename in target
+#### How to insert filename in target
 
 File `src/app.js`:
 
