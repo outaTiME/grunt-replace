@@ -276,7 +276,7 @@ Few matching rules are provided by default and can be used anytime (these will b
 
 ### Usage Examples
 
-#### Short
+#### Basic
 
 File `src/manifest.appcache`:
 
