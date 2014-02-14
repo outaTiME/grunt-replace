@@ -72,7 +72,7 @@ options: {
 #### patterns.replacement
 Type: `String|Function|Object`
 
-Indicates the replacement for match, for more information about replacement checkout [String.replace].
+Indicates the replacement for match, for more information about replacement check out the [String.replace].
 
 You can specify a function as replacement. In this case, the function will be invoked after the match has been performed. The function's result (return value) will be used as the replacement string.
 
@@ -104,7 +104,7 @@ options: {
 }
 ```
 
-> The previous code is already provided and was used for demonstration purposes only, checkout [Built-in Replacements](#built-in-replacements) for more information.
+> The previous code is already provided and was used for demonstration purposes only, check out the [Built-in Replacements](#built-in-replacements) for more information.
 
 Also supports object as replacement (we create string representation of object using [JSON.stringify]):
 
@@ -272,7 +272,7 @@ Few matching rules are provided by default and can be used anytime (these will b
 
     Replace match with the filename of target file.
 
-> If you are looking how to use an `built-in` replacements, checkout [How to insert filename in target](#how-to-insert-filename-in-target) usage.
+> If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
 ### Usage Examples
 
