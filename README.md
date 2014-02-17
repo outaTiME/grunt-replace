@@ -89,7 +89,7 @@ options: {
 }
 ```
 
-The arguments to the function are the same as [String.replace] but we expose `source` and `target` for better processing:
+The arguments to the function are the same as [String.replace] but we also expose `source` and `target` for better processing:
 
 ```javascript
 options: {

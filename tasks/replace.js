@@ -255,6 +255,9 @@ module.exports = function (grunt) {
         }
         grunt.log.writeln('Replace ' + chalk.cyan(source) + ' -> ' +
           chalk.cyan(target));
+        /* grunt.log.write('Replace ' + chalk.cyan(source) + ' -> ' +
+          chalk.cyan(target) + ' ');
+        grunt.log.ok(); */
         return contents;
       },
       noProcess: options.noProcess || options.processContentExclude
