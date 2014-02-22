@@ -233,6 +233,25 @@ exports['replace'] = {
 
     test.done();
 
+  },
+
+  'yaml': function (test) {
+
+    'use strict';
+
+    var expect;
+    var result;
+    var bool_result;
+    var re;
+
+    test.expect(1);
+
+    expect = 'value\n';
+    result = grunt.file.read('tmp/yaml.txt');
+    test.equal(expect, result, 'should read from yaml and replace simple key with value');
+
+    test.done();
+
   }
 
 };

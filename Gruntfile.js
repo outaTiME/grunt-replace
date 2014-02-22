@@ -534,6 +534,21 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/built-in_*.txt'], dest: 'tmp/'}
         ]
+      },
+
+      // yaml
+
+      yaml: {
+        options: {
+          patterns: [
+            {
+              yaml: 'key: value'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/yaml.txt'], dest: 'tmp/'}
+        ]
       }
 
     },
