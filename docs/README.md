@@ -30,187 +30,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 ### Options
 
-
-
-#### patterns
-Type: `Array`
-
-Define patterns that will be used to replace the contents of source files.
-
-The matches will be sorted to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
-
-#### patterns.match
-Type: `String|RegExp`
-
-Indicates the matching expression.
-
-If matching type is `String` and `expression` attribute is `false` we use a simple variable lookup mechanism `@@string` (in any other case we use the default regexp replace logic):
-
-```javascript
-{
-  patterns: [
-    {
-      match: 'foo',
-      replacement: 'bar', // replaces "@@foo" to "bar"
-      expression: false   // simple variable lookup
-    }
-  ]
-}
-```
-
-#### patterns.replacement
-Type: `String|Function|Object`
-
-Indicates the replacement for match, for more information about replacement check out the [String.replace].
-
-You can specify a function as replacement. In this case, the function will be invoked after the match has been performed. The function's result (return value) will be used as the replacement string.
-
-```javascript
-{
-  patterns: [
-    {
-      match: /foo/g,
-      replacement: function () {
-        return 'bar'; // replaces "foo" to "bar"
-      }
-    }
-  ]
-}
-```
-
-The arguments to the function are the same as [String.replace] but we also expose `source` and `target` for better processing:
-
-```javascript
-{
-  patterns: [
-    {
-      match: '__SOURCE_FILE__',
-      replacement: function (match, offset, string, source, target) {
-        return source;
-      }
-    }
-  ]
-}
-```
-
-> The previous code is already provided and was used for demonstration purposes only, check out the [Built-in Replacements](#built-in-replacements) for more information.
-
-Also supports object as replacement (we create string representation of object using [JSON.stringify]):
-
-```javascript
-{
-  patterns: [
-    {
-      match: /foo/g,
-      replacement: [1, 2, 3] // replaces "foo" with string representation of "array" object
-    }
-  ]
-}
-```
-
-[String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
-[JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-
-#### patterns.json
-Type: `Object`
-
-If an attribute `json` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
-
-```javascript
-{
-  patterns: [
-    {
-      json: {
-        "key": "value" // replaces "@@key" to "value"
-      }
-    }
-  ]
-}
-```
-
-Also supports nested objects:
-
-```javascript
-{
-  patterns: [
-    {
-      json: {
-        "key": "value",   // replaces "@@key" to "value"
-        "inner": {        // replaces "@@inner" with string representation of "inner" object
-          "key": "value"  // replaces "@@inner.key" to "value"
-        }
-      }
-    }
-  ]
-}
-```
-
-#### patterns.yaml
-Type: `String`
-
-If an attribute `yaml` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
-
-```javascript
-{
-  patterns: [
-    {
-      yaml: 'key: value'  // replaces "@@key" to "value"
-    }
-  ]
-}
-```
-
-#### patterns.expression
-Type: `Boolean`
-Default: `false`
-
-Indicates the type of matching.
-
-If detects regexp instance in `match` attribute, we assume to works with expression matcher (in any other case should be forced).
-
-#### variables
-Type: `Object`
-
-This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support), you can still using but for more control you should use the new `patterns` way.
-
-```javascript
-{
-  variables: {
-    'key': 'value' // replaces "@@key" to "value"
-  }
-}
-```
-
-#### prefix
-Type: `String`
-Default: `@@`
-
-The prefix added for matching (prevent bad replacements / easy way).
-
-> This only applies for simple variable lookup mechanism.
-
-#### usePrefix
-Type: `Boolean`
-Default: `true`
-
-If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup an simple string).
-
-> This only applies for simple variable lookup mechanism.
-
-#### preservePrefix
-Type: `Boolean`
-Default: `false`
-
-If set to `true`, we preserve the `prefix` in target.
-
-> This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
-
-#### delimiter
-Type: `String`
-Default: `.`
-
-The delimiter used to flatten when using object as replacement.
-
+@@options
 
 #### force
 Type: `Boolean`
@@ -239,36 +59,7 @@ Whether to copy or set the existing file permissions. Set to `true` to copy the 
 
 ### Built-in Replacements
 
-
-
-Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
-
- *  `__SOURCE_FILE__`:
-
-    Replace match with the source file.
-
- *  `__SOURCE_PATH__`:
-
-    Replace match with the path of source file.
-
- *  `__SOURCE_FILENAME__`:
-
-    Replace match with the filename of source file.
-
- *  `__TARGET_FILE__`:
-
-    Replace match with the target file.
-
- *  `__TARGET_PATH__`:
-
-    Replace match with the path of target file.
-
- *  `__TARGET_FILENAME__`:
-
-    Replace match with the filename of target file.
-
-> If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
-
+@@built-in
 
 > If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
@@ -530,7 +321,7 @@ replace: {
 File `src/app.js`:
 
 ```js
-// filename: README.md
+// filename: @@__SOURCE_FILENAME__
 
 var App = App || (function () {
 
@@ -562,7 +353,7 @@ replace: {
 
 ## Release History
 
- * 2014-03-12   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
+ * 2014-03-10   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
  * 2014-02-13   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
  * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
  * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.

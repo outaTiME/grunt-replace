@@ -12,7 +12,59 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  // Project configuration.
+  /*
+
+  // v1
+
+  var getSectionContents = function (name) {
+    var re = new RegExp('^#{3}\\s' + name + '$', 'igm');
+    if (re.exec(readme) !== null) {
+      var fromIndex = re.lastIndex;
+      var toIndex = readme.substr(fromIndex).search(/^#{3}\s(.*)$/m);
+      return readme.substr(fromIndex, toIndex);
+    }
+    return '_(Coming soon)_'; // empty
+  };
+
+  // v2
+
+  var getSectionContents = function (name) {
+    var re = new RegExp('(?:\\n#{3}\\s' + name + '\\n)\\n([\\s\\S]*?)\\n(?:\\n#{3}\\s|$)');
+    var match = re.exec(readme);
+    if (match !== null) {
+      return match[1];
+    }
+    return '_(Coming soon)_'; // empty
+  };
+
+  */
+
+  var fs = require('fs');
+  var filename = './node_modules/pattern-replace/README.md';
+  var readme = fs.readFileSync(filename).toString();
+  // initialize section
+  var sections = {};
+  // http://regex101.com/r/lM7rP6
+  var pattern = /(\n###\s)(.*)([\s\S]*?)(?=\1|$)/ig;
+  var match;
+  while ((match = pattern.exec(readme)) !== null) {
+    var section = match[2];
+    var contents = match[3];
+    // trace
+    var msg = "Found " + section + " → ";
+    msg += "Next match starts at " + pattern.lastIndex;
+    console.log(msg);
+    sections[section] = contents;
+  }
+
+  // took contents from readme section
+
+  var getSectionContents = function (name) {
+    return sections[name] || '_(Coming soon)_'; // empty
+  };
+
+  // config
+
   grunt.initConfig({
 
     jshint: {
@@ -549,6 +601,26 @@ module.exports = function (grunt) {
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/yaml.txt'], dest: 'tmp/'}
         ]
+      },
+
+      // README.md
+
+      readme: {
+        options: {
+          variables: {
+            'options': function () {
+              var source = getSectionContents('Replacer Options');
+              return source;
+            },
+            'built-in': function () {
+              var source = getSectionContents('Built-in Replacements');
+              return source;
+            }
+          }
+        },
+        files: [
+          {expand: true, cwd: 'docs', src: ['README.md'], dest: './'}
+        ]
       }
 
     },
@@ -561,7 +633,8 @@ module.exports = function (grunt) {
     watch: {
       files: '<config:lint.all>',
       tasks: 'default'
-    }
+    },
+
 
   });
 
@@ -579,5 +652,7 @@ module.exports = function (grunt) {
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
+
+  grunt.registerTask('dist', []);
 
 };
