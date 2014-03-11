@@ -59,7 +59,31 @@ Whether to copy or set the existing file permissions. Set to `true` to copy the 
 
 ### Built-in Replacements
 
-@@built-in
+Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
+
+ *  `__SOURCE_FILE__`:
+
+    Replace match with the source file.
+
+ *  `__SOURCE_PATH__`:
+
+    Replace match with the path of source file.
+
+ *  `__SOURCE_FILENAME__`:
+
+    Replace match with the filename of source file.
+
+ *  `__TARGET_FILE__`:
+
+    Replace match with the target file.
+
+ *  `__TARGET_PATH__`:
+
+    Replace match with the path of target file.
+
+ *  `__TARGET_FILENAME__`:
+
+    Replace match with the filename of target file.
 
 > If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 

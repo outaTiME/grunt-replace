@@ -76,23 +76,6 @@ You can specify a function as replacement. In this case, the function will be in
 }
 ```
 
-The arguments to the function are the same as [String.replace] but we also expose `source` and `target` for better processing:
-
-```javascript
-{
-  patterns: [
-    {
-      match: '__SOURCE_FILE__',
-      replacement: function (match, offset, string, source, target) {
-        return source;
-      }
-    }
-  ]
-}
-```
-
-> The previous code is already provided and was used for demonstration purposes only, check out the [Built-in Replacements](#built-in-replacements) for more information.
-
 Also supports object as replacement (we create string representation of object using [JSON.stringify]):
 
 ```javascript
@@ -243,8 +226,6 @@ Whether to copy or set the existing file permissions. Set to `true` to copy the 
 
 ### Built-in Replacements
 
-
-
 Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
 
  *  `__SOURCE_FILE__`:
@@ -270,7 +251,6 @@ Few matching rules are provided by default and can be used anytime (these will b
  *  `__TARGET_FILENAME__`:
 
     Replace match with the filename of target file.
-
 
 > If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
@@ -532,7 +512,7 @@ replace: {
 File `src/app.js`:
 
 ```js
-// filename: README.md
+// filename: @@__SOURCE_FILENAME__
 
 var App = App || (function () {
 

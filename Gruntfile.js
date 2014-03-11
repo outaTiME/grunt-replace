@@ -616,7 +616,8 @@ module.exports = function (grunt) {
               var source = getSectionContents('Built-in Replacements');
               return source;
             }
-          }
+          },
+          excludeBuiltins: true
         },
         files: [
           {expand: true, cwd: 'docs', src: ['README.md'], dest: './'}

@@ -26,8 +26,49 @@ module.exports = function (grunt) {
     var options = this.options({
       encoding: grunt.file.defaultEncoding,
       mode: false,
-      processContentExclude: []
+      processContentExclude: [],
+      patterns: [],
+      excludeBuiltins: false,
+      force: false
     });
+
+    // attach builtins
+
+    var patterns = options.patterns;
+
+    if (options.excludeBuiltins !== true) {
+      patterns.push({
+        match: '__SOURCE_FILE__',
+        replacement: function (match, offset, string, source, target) {
+          return source;
+        }
+      }, {
+        match: '__SOURCE_PATH__',
+        replacement: function (match, offset, string, source, target) {
+          return path.dirname(source);
+        }
+      }, {
+        match: '__SOURCE_FILENAME__',
+        replacement: function (match, offset, string, source, target) {
+          return path.basename(source);
+        }
+      }, {
+        match: '__TARGET_FILE__',
+        replacement: function (match, offset, string, source, target) {
+          return target;
+        }
+      }, {
+        match: '__TARGET_PATH__',
+        replacement: function (match, offset, string, source, target) {
+          return path.dirname(target);
+        }
+      }, {
+        match: '__TARGET_FILENAME__',
+        replacement: function (match, offset, string, source, target) {
+          return path.basename(target);
+        }
+      });
+    }
 
     // create replacer instance
 
@@ -80,15 +121,14 @@ module.exports = function (grunt) {
     grunt.file.copy(source, target, {
       encoding: options.encoding,
       process: function (contents) {
-        var result = replacer.replace(contents, {
-          source: source,
-          target: target
-        });
+        var result = replacer.replace(contents, [source, target]);
+        // force contents
+        if (result === false && options.force === true) {
+          result = contents;
+        }
         if (result !== false) {
           grunt.log.writeln('Replace ' + chalk.cyan(source) + ' → ' +
             chalk.cyan(target));
-        } else {
-          // not replace required
         }
         return result;
       },
