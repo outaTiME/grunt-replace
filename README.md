@@ -199,6 +199,12 @@ Default: `false`
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
 
+#### excludeBuiltins
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, we exclude built-in matching rules.
+
 #### force
 Type: `Boolean`
 Default: `false`

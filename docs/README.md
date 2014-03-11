@@ -32,6 +32,12 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 @@options
 
+#### excludeBuiltins
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, we exclude built-in matching rules.
+
 #### force
 Type: `Boolean`
 Default: `false`
