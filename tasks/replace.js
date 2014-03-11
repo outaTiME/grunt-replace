@@ -14,9 +14,7 @@ module.exports = function (grunt) {
 
   var path = require('path');
   var fs = require('fs');
-  var util = require('util');
   var chalk = require('chalk');
-  var _ = require('lodash');
   var Replacer = require('pattern-replace');
 
   grunt.registerMultiTask('replace', 'Replace text patterns with a given replacement.', function () {

@@ -12,48 +12,21 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  /*
-
-  // v1
-
-  var getSectionContents = function (name) {
-    var re = new RegExp('^#{3}\\s' + name + '$', 'igm');
-    if (re.exec(readme) !== null) {
-      var fromIndex = re.lastIndex;
-      var toIndex = readme.substr(fromIndex).search(/^#{3}\s(.*)$/m);
-      return readme.substr(fromIndex, toIndex);
-    }
-    return '_(Coming soon)_'; // empty
-  };
-
-  // v2
-
-  var getSectionContents = function (name) {
-    var re = new RegExp('(?:\\n#{3}\\s' + name + '\\n)\\n([\\s\\S]*?)\\n(?:\\n#{3}\\s|$)');
-    var match = re.exec(readme);
-    if (match !== null) {
-      return match[1];
-    }
-    return '_(Coming soon)_'; // empty
-  };
-
-  */
-
   var fs = require('fs');
   var filename = './node_modules/pattern-replace/README.md';
   var readme = fs.readFileSync(filename).toString();
   // initialize section
   var sections = {};
-  // http://regex101.com/r/lM7rP6
-  var pattern = /(\n###\s)(.*)([\s\S]*?)(?=\1|$)/ig;
+  // http://regex101.com/r/wJ2wW8
+  var pattern = /(\n#{3}\s)(.*)([\s\S]*?)(?=\1|$)/ig;
   var match;
   while ((match = pattern.exec(readme)) !== null) {
     var section = match[2];
     var contents = match[3];
     // trace
-    var msg = "Found " + section + " → ";
+    /* var msg = "Found " + section + " → ";
     msg += "Next match starts at " + pattern.lastIndex;
-    console.log(msg);
+    console.log(msg); */
     sections[section] = contents;
   }
 
