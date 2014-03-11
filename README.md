@@ -37,8 +37,6 @@ Type: `Array`
 
 Define patterns that will be used to replace the contents of source files.
 
-The matches will be sorted to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
-
 #### patterns.match
 Type: `String|RegExp`
 
@@ -211,6 +209,12 @@ Default: `.`
 
 The delimiter used to flatten when using object as replacement.
 
+#### preserveOrder
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
+
 
 #### force
 Type: `Boolean`
@@ -266,8 +270,6 @@ Few matching rules are provided by default and can be used anytime (these will b
  *  `__TARGET_FILENAME__`:
 
     Replace match with the filename of target file.
-
-> If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
 
 > If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
@@ -562,7 +564,7 @@ replace: {
 
 ## Release History
 
- * 2014-03-12   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
+ * 2014-03-10   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
  * 2014-02-13   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
  * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
  * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
