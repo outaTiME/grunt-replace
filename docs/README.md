@@ -1,6 +1,6 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
-> Replace text patterns with a given replacement using [pattern-replace](https://github.com/outaTiME/pattern-replace).
+> Replace text patterns using [pattern-replace](https://github.com/outaTiME/pattern-replace).
 
 
 
@@ -383,6 +383,7 @@ replace: {
 
 ## Release History
 
+ * 2014-03-12   v0.7.2   Typo error, replace task name again.
  * 2014-03-11   v0.7.1   Task name update.
  * 2014-03-11   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
  * 2014-02-13   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
