@@ -17,7 +17,7 @@ module.exports = function (grunt) {
   var chalk = require('chalk');
   var Replacer = require('pattern-replace');
 
-  grunt.registerMultiTask('replace', 'Replace text patterns with a given replacement.', function () {
+  grunt.registerMultiTask('replace', 'Replace text patterns with a given replacement using pattern-replace.', function () {
 
     // took options
 
