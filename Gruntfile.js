@@ -584,10 +584,6 @@ module.exports = function (grunt) {
             'options': function () {
               var source = getSectionContents('Replacer Options');
               return source;
-            },
-            'built-in': function () {
-              var source = getSectionContents('Built-in Replacements');
-              return source;
             }
           },
           excludeBuiltins: true
