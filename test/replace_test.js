@@ -1,6 +1,14 @@
 
+/*
+ * grunt-replace
+ * http://gruntjs.com/
+ *
+ * Copyright (c) 2014 outaTiME
+ * Licensed under the MIT license.
+ * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
+ */
+
 var grunt = require('grunt');
-var util = require('util');
 
 exports['replace'] = {
 

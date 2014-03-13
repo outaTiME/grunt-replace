@@ -14,7 +14,7 @@ module.exports = function (grunt) {
 
   var fs = require('fs');
   var filename = './node_modules/pattern-replace/README.md';
-  var readme = fs.readFileSync(filename).toString();
+  var readme = fs.readFileSync(filename, 'utf8');
   // initialize section
   var sections = {};
   // http://regex101.com/r/wJ2wW8
