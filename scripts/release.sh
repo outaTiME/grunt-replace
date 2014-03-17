@@ -17,7 +17,7 @@ TOTAL_CHANGES=$(($CHANGES + $CHANGES_CACHED))
 if [ $TOTAL_CHANGES -ne "0" ]
 then
   git add --all
-  git commit -am "README.md generation for $npm_package_version version"
+  git commit -am "README.md generation for $npm_package_version version."
 fi
 
 git tag $npm_package_version
