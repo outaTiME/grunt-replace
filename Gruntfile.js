@@ -12,30 +12,6 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  var fs = require('fs');
-  var filename = './node_modules/pattern-replace/README.md';
-  var readme = fs.readFileSync(filename, 'utf8');
-  // initialize section
-  var sections = {};
-  // http://regex101.com/r/wJ2wW8
-  var pattern = /(\n#{3}\s)(.*)([\s\S]*?)(?=\1|$)/ig;
-  var match;
-  while ((match = pattern.exec(readme)) !== null) {
-    var section = match[2];
-    var contents = match[3];
-    // trace
-    /* var msg = "Found " + section + " → ";
-    msg += "Next match starts at " + pattern.lastIndex;
-    console.log(msg); */
-    sections[section] = contents;
-  }
-
-  // took contents from readme section
-
-  var getSectionContents = function (name) {
-    return sections[name] || '_(Coming soon)_'; // empty
-  };
-
   // config
 
   grunt.initConfig({
@@ -573,23 +549,6 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/yaml.txt'], dest: 'tmp/'}
-        ]
-      },
-
-      // README.md
-
-      readme: {
-        options: {
-          variables: {
-            'options': function () {
-              var source = getSectionContents('Replacer Options');
-              return source;
-            }
-          },
-          excludeBuiltins: true
-        },
-        files: [
-          {expand: true, cwd: 'docs', src: ['README.md'], dest: './'}
         ]
       }
 

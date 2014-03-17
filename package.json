@@ -1,7 +1,7 @@
 {
   "name": "grunt-replace",
   "description": "Replace text patterns using pattern-replace.",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "author": {
     "name": "outaTiME",
@@ -24,6 +24,7 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
+    "release": "scripts/release.sh",
     "test": "grunt test"
   },
   "dependencies": {
