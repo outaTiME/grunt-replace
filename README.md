@@ -550,7 +550,6 @@ replace: {
 
 ## Release History
 
- * 2014-03-17   v0.7.3   New script files for README.md generation.
  * 2014-03-12   v0.7.2   Typo error, replace task name again.
  * 2014-03-11   v0.7.1   Task name update.
  * 2014-03-11   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
