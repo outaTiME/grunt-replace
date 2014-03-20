@@ -149,7 +149,6 @@ NETWORK:
 *
 ```
 
-
 File `src/humans.txt`:
 
 ```

@@ -316,7 +316,6 @@ NETWORK:
 *
 ```
 
-
 File `src/humans.txt`:
 
 ```
@@ -365,7 +364,7 @@ replace: {
 
 #### Cache busting
 
-File `src/assets/index.html`:
+File `src/index.html`:
 
 ```html
 <head>
@@ -388,7 +387,7 @@ replace: {
       ]
     },
     files: [
-      {src: ['src/assets/index.html'], dest: 'build/index.html'}
+      {src: ['src/index.html'], dest: 'build/index.html'}
     ]
   }
 }
