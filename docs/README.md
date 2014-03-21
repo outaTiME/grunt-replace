@@ -4,29 +4,41 @@
 
 
 
-## Getting Started
-This plugin requires Grunt `~0.4.0`
+## Install
 
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+From NPM:
 
 ```shell
 npm install grunt-replace --save-dev
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```js
-grunt.loadNpmTasks('grunt-replace');
-```
-
-*This plugin was designed to work with Grunt 0.4.x. If you're still using grunt v0.3.x it's strongly recommended that [you upgrade](http://gruntjs.com/upgrading-from-0.3-to-0.4), but in case you can't please use [v0.3.2](https://github.com/outaTiME/grunt-replace/tree/grunt-0.3-stable).*
-
-
-
 ## Replace Task
-_Run this task with the `grunt replace` command._
 
-Task targets, files and options may be specified according to the grunt [Configuring tasks](http://gruntjs.com/configuring-tasks) guide.
+Assuming installation via NPM, you can use `grunt-replace` in your gruntfile like this:
+
+```javascript
+module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-replace');
+  grunt.initConfig({
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'foo',
+              replacement: 'bar'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'}
+        ]
+      }
+    }
+  });
+  grunt.registerTask('default', 'replace');
+};
+```
 
 ### Options
 
@@ -382,6 +394,7 @@ replace: {
 
 ## Release History
 
+ * 2014-03-21   v0.7.4   Test cases in Mocha, readme updated and code cleanup.
  * 2014-03-17   v0.7.3   Update script files for readme file generation.
  * 2014-03-12   v0.7.2   Typo error, replace task name again.
  * 2014-03-11   v0.7.1   Task name update.

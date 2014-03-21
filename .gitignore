@@ -1,15 +1,3 @@
-##
-# OS generated files
-
-.DS_Store
-Icon?
 node_modules
 npm-debug.log
 tmp
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes

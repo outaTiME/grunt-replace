@@ -1,16 +1,17 @@
 
 /*
  * grunt-replace
- * http://gruntjs.com/
  *
  * Copyright (c) 2014 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
  */
 
-module.exports = function (grunt) {
+'use strict';
 
-  'use strict';
+// plugin
+
+module.exports = function (grunt) {
 
   var path = require('path');
   var fs = require('fs');
@@ -126,7 +127,7 @@ module.exports = function (grunt) {
         }
         if (result !== false) {
           grunt.log.writeln('Replace ' + chalk.cyan(source) + ' → ' +
-            chalk.cyan(target));
+            chalk.green(target));
         }
         return result;
       },
