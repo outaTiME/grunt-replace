@@ -14,13 +14,17 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        '<%= mochaTest.test.src %>'
-      ],
       options: {
         jshintrc: '.jshintrc'
+      },
+      gruntfile: {
+        src: 'Gruntfile.js'
+      },
+      tasks: {
+        src: ['tasks/**/*.js']
+      },
+      test: {
+        src: ['test/**/*.js']
       }
     },
 
@@ -54,22 +58,33 @@ module.exports = function (grunt) {
         options: {
           reporter: 'spec'
         },
-        src: ['test/*_test.js']
+        src: '<%= jshint.test.src %>'
       }
     },
 
     watch: {
-      files: '<config:lint.all>',
-      tasks: 'default'
+      gruntfile: {
+        files: '<%= jshint.gruntfile.src %>',
+        tasks: ['jshint:gruntfile']
+      },
+      tasks: {
+        files: '<%= jshint.tasks.src %>',
+        tasks: ['jshint:src', 'mochaTest']
+      },
+      test: {
+        files: '<%= jshint.test.src %>',
+        tasks: ['jshint:test', 'mochaTest']
+      }
     }
 
   });
 
   grunt.loadTasks('tasks');
 
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('test', ['clean', 'replace', 'mochaTest']);
   grunt.registerTask('default', ['jshint', 'test']);

@@ -1,6 +1,6 @@
 # grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
 
-> Replace text patterns using [pattern-replace](https://github.com/outaTiME/pattern-replace).
+> Replace text patterns with [applause](https://github.com/outaTiME/applause).
 
 
 
@@ -298,8 +298,6 @@ replace: {
 
 #### Lookup for `foo` instead of `@@foo`
 
-The `String` matching type or `expression` in `false` generates a simple variable lookup mechanism `@@string`, to skip this mode use one of the below rules ... make your choice:
-
 Gruntfile:
 
 ```js
@@ -390,10 +388,11 @@ replace: {
     ]
   }
 }
-```
+```x
 
 ## Release History
 
+ * 2014-03-22   v0.7.5   Modular core renamed to [applause](https://github.com/outaTiME/applause). Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.7.4   Test cases in Mocha, readme updated and code cleanup.
  * 2014-03-17   v0.7.3   Update script files for readme file generation.
  * 2014-03-12   v0.7.2   Typo error, replace task name again.

@@ -16,9 +16,9 @@ module.exports = function (grunt) {
   var path = require('path');
   var fs = require('fs');
   var chalk = require('chalk');
-  var Replacer = require('pattern-replace');
+  var Applause = require('applause');
 
-  grunt.registerMultiTask('replace', 'Replace text patterns using pattern-replace.', function () {
+  grunt.registerMultiTask('replace', 'Replace text patterns with applause.', function () {
 
     // took options
 
@@ -69,9 +69,9 @@ module.exports = function (grunt) {
       });
     }
 
-    // create replacer instance
+    // create applause instance
 
-    var replacer = new Replacer(options);
+    var applause = Applause.create(options);
 
     // took code from copy task
 
@@ -89,7 +89,7 @@ module.exports = function (grunt) {
         if (grunt.file.isDir(src)) {
           grunt.file.mkdir(dest);
         } else {
-          replace(src, dest, options, replacer);
+          replace(src, dest, options, applause);
           if (options.mode !== false) {
             fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode);
           }
@@ -116,11 +116,11 @@ module.exports = function (grunt) {
     }
   };
 
-  var replace = function (source, target, options, replacer) {
+  var replace = function (source, target, options, applause) {
     grunt.file.copy(source, target, {
       encoding: options.encoding,
       process: function (contents) {
-        var result = replacer.replace(contents, [source, target]);
+        var result = applause.replace(contents, [source, target]);
         // force contents
         if (result === false && options.force === true) {
           result = contents;

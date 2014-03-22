@@ -9,7 +9,7 @@
  */
 
 var fs = require('fs');
-var filename = 'node_modules/pattern-replace/README.md';
+var filename = 'node_modules/applause/README.md';
 var readme = fs.readFileSync(filename, 'utf8');
 // initialize section
 var sections = {};
@@ -28,7 +28,7 @@ while ((match = pattern.exec(readme)) !== null) {
 
 // write readme
 
-var Replacer = require('pattern-replace');
+var Applause = require('applause');
 var options = {
   variables: {
     'options': function () {
@@ -37,7 +37,7 @@ var options = {
     }
   }
 };
-var replacer = new Replacer(options);
+var applause = Applause.create(options);
 var contents = fs.readFileSync('docs/README.md', 'utf8');
-var result = replacer.replace(contents);
+var result = applause.replace(contents);
 fs.writeFileSync('README.md', result, 'utf8');
