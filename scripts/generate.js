@@ -32,7 +32,7 @@ var Applause = require('applause');
 var options = {
   variables: {
     'options': function () {
-      var name = 'Replacer Options';
+      var name = 'Applause Options';
       return sections[name] || '_(Coming soon)_'; // empty
     }
   }
