@@ -170,7 +170,7 @@ If an attribute `cson` found in pattern definition will be converted and then pr
 #### variables
 Type: `Object`
 
-This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support), you can still using but for more control you should use the new `patterns` way.
+This is the old way to define patterns using plain object (simple variable lookup mechanism and no regexp support). You can still use this but for more control you should use the new `patterns` way.
 
 ```javascript
 {
