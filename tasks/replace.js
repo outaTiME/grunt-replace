@@ -28,7 +28,7 @@ module.exports = function (grunt) {
       processContentExclude: [],
       patterns: [],
       excludeBuiltins: false,
-      force: false
+      force: true
     });
 
     // attach builtins

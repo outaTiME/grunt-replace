@@ -52,7 +52,7 @@ If set to `true`, we exclude built-in matching rules.
 
 #### force
 Type: `Boolean`
-Default: `false`
+Default: `true`
 
 Force the copy of files even when those files don't have any match found for replacement.
 
@@ -392,6 +392,7 @@ replace: {
 
 ## Release History
 
+ * 2014-06-10   v0.7.8   Third party dependencies updated and force flag now are true by default.
  * 2014-03-23   v0.7.6   Readme updated.
  * 2014-03-22   v0.7.5   Modular core renamed to [applause](https://github.com/outaTiME/applause). Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.7.4   Test cases in Mocha, readme updated and code cleanup.
