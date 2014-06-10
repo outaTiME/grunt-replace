@@ -392,7 +392,8 @@ replace: {
 
 ## Release History
 
- * 2014-06-10   v0.7.8   Third party dependencies updated and force flag now are true by default.
+ * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
+ * 2014-04-20   v0.7.7   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
  * 2014-03-23   v0.7.6   Readme updated.
  * 2014-03-22   v0.7.5   Modular core renamed to [applause](https://github.com/outaTiME/applause). Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
  * 2014-03-21   v0.7.4   Test cases in Mocha, readme updated and code cleanup.
