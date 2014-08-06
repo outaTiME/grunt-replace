@@ -28,7 +28,8 @@ module.exports = function (grunt) {
       processContentExclude: [],
       patterns: [],
       excludeBuiltins: false,
-      force: true
+      force: true,
+      verbose: true
     });
 
     // attach builtins
@@ -125,7 +126,7 @@ module.exports = function (grunt) {
         if (result === false && options.force === true) {
           result = contents;
         }
-        if (result !== false) {
+        if (result !== false && options.verbose === true) {
           grunt.log.writeln('Replace ' + chalk.cyan(source) + ' → ' +
             chalk.green(target));
         }
