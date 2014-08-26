@@ -292,12 +292,6 @@ Default: `false`
 
 Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
 
-#### verbose
-Type: `Boolean`
-Default: `true`
-
-If set to `false`, the output for each replaced file will be suppressed.
-
 ### Built-in Replacements
 
 Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
@@ -615,6 +609,7 @@ replace: {
 
 ## Release History
 
+ * 2014-08-26   v0.7.9   Fixes backwards incompatible changes introduced in NPM.
  * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
  * 2014-04-20   v0.7.7   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
  * 2014-03-23   v0.7.6   Readme updated.
