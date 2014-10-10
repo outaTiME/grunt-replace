@@ -609,6 +609,7 @@ replace: {
 
 ## Release History
 
+ * 2014-10-10   v0.8.0   Escape regexp when matching type is `String`.
  * 2014-08-26   v0.7.9   Fixes backwards incompatible changes introduced in NPM.
  * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
  * 2014-04-20   v0.7.7   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
