@@ -130,6 +130,9 @@ module.exports = function (grunt) {
           grunt.log.writeln('Replace ' + chalk.cyan(source) + ' → ' +
             chalk.green(target));
         }
+        if (options.bom) {
+          contents = '\uFEFF' + contents;
+        }
         return result;
       },
       noProcess: options.noProcess || options.processContentExclude

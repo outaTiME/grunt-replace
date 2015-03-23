@@ -75,6 +75,12 @@ Default: `false`
 
 Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
 
+#### bom
+Type: `Boolean`
+Default: `false`
+
+Insert BOM into the front of file.
+
 ### Built-in Replacements
 
 Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
