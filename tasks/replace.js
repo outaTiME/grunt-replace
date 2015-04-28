@@ -98,6 +98,12 @@ module.exports = function (grunt) {
       });
     });
 
+    patterns.forEach(function (pattern){
+      if (pattern.found !== true){
+        grunt.log.warn('Unable to match pattern: ' + pattern.match);
+      }
+    });
+
   });
 
   var detectDestType = function (dest) {
