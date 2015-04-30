@@ -2,7 +2,7 @@
 /*
  * grunt-replace
  *
- * Copyright (c) 2014 outaTiME
+ * Copyright (c) 2015 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
  */
@@ -41,6 +41,23 @@ module.exports = function (grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
+        ]
+      },
+      warning: {
+        options: {
+          patterns: [
+            /* {
+              match: 'key',
+              replacement: 'value'
+            }, */
+            {
+              match: 'undefined-key',
+              replacement: 'value'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/warning.txt'], dest: 'tmp/'}
         ]
       },
       'built-in': {

@@ -2,7 +2,7 @@
 /*
  * grunt-replace
  *
- * Copyright (c) 2014 outaTiME
+ * Copyright (c) 2015 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
  */
@@ -16,6 +16,7 @@ module.exports = function (grunt) {
   var path = require('path');
   var fs = require('fs');
   var chalk = require('chalk');
+  var _ = require('lodash');
   var Applause = require('applause');
 
   grunt.registerMultiTask('replace', 'Replace text patterns with applause.', function () {
@@ -24,12 +25,13 @@ module.exports = function (grunt) {
 
     var options = this.options({
       encoding: grunt.file.defaultEncoding,
-      mode: false,
+      // processContent/processContentExclude deprecated renamed to process/noProcess
       processContentExclude: [],
+      mode: false,
       patterns: [],
       excludeBuiltins: false,
       force: true,
-      verbose: true
+      silent: false
     });
 
     // attach builtins
@@ -41,74 +43,122 @@ module.exports = function (grunt) {
         match: '__SOURCE_FILE__',
         replacement: function (match, offset, string, source, target) {
           return source;
-        }
+        },
+        builtin: true
       }, {
         match: '__SOURCE_PATH__',
         replacement: function (match, offset, string, source, target) {
           return path.dirname(source);
-        }
+        },
+        builtin: true
       }, {
         match: '__SOURCE_FILENAME__',
         replacement: function (match, offset, string, source, target) {
           return path.basename(source);
-        }
+        },
+        builtin: true
       }, {
         match: '__TARGET_FILE__',
         replacement: function (match, offset, string, source, target) {
           return target;
-        }
+        },
+        builtin: true
       }, {
         match: '__TARGET_PATH__',
         replacement: function (match, offset, string, source, target) {
           return path.dirname(target);
-        }
+        },
+        builtin: true
       }, {
         match: '__TARGET_FILENAME__',
         replacement: function (match, offset, string, source, target) {
           return path.basename(target);
-        }
+        },
+        builtin: true
       });
     }
 
     // create applause instance
 
-    var applause = Applause.create(options);
+    var applause = Applause.create(_.extend({}, options, {
+      // private
+      detail: true
+    }));
 
     // took code from copy task
 
-    var dest;
-    var isExpandedPair;
+    var tally = {
+      dirs: 0,
+      files: 0,
+      replacements: 0,
+      details: []
+    };
 
     this.files.forEach(function (filePair) {
-      isExpandedPair = filePair.orig.expand || false;
+      var dest = filePair.dest;
+      var isExpandedPair = filePair.orig.expand || false;
       filePair.src.forEach(function (src) {
-        if (detectDestType(filePair.dest) === 'directory') {
-          dest = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest, src));
-        } else {
-          dest = filePair.dest;
+        src = unixifyPath(src);
+        dest = unixifyPath(dest);
+        if (detectDestType(dest) === 'directory') {
+          dest = (isExpandedPair) ? dest : path.join(dest, src);
         }
         if (grunt.file.isDir(src)) {
           grunt.file.mkdir(dest);
+          tally.dirs++;
         } else {
-          replace(src, dest, options, applause);
-          if (options.mode !== false) {
-            fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode);
-          }
+          var res = replace(src, dest, options, applause);
+          tally.details = tally.details.concat(res.detail);
+          tally.replacements += res.count;
+          tally.files++;
+        }
+        if (options.mode !== false) {
+          fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode);
         }
       });
     });
 
-    patterns.forEach(function (pattern){
-      if (pattern.found !== true){
-        grunt.log.warn('Unable to match pattern: ' + pattern.match);
+    // warn for unmatched patterns in the file list
+
+    if (options.silent !== true) {
+      var count = 0;
+      patterns.forEach(function (pattern) {
+        if (pattern.builtin !== true) { // exclude builtins
+          var found = _.find(tally.details, 'source', pattern);
+          if (!found) {
+            count++;
+          }
+        }
+      });
+      if (count > 0) {
+        var strWarn = [
+          'Unable to match ',
+          count,
+          count === 1 ? ' pattern' : ' patterns'
+        ];
+        if (applause.options.usePrefix === true) {
+          strWarn.push(
+            ', remember for simple matches (String) we are using the prefix ',
+            applause.options.prefix,
+            ' for replacement lookup'
+          );
+        }
+        grunt.log.warn(strWarn.join(''));
       }
-    });
+      var str = [
+        chalk.cyan(tally.replacements),
+        tally.replacements === 1 ? ' replacement' : ' replacements',
+        ' in ',
+        chalk.cyan(tally.files),
+        tally.files === 1 ? ' file' : ' files'
+      ];
+      grunt.log.writeln(str.join(''));
+    }
 
   });
 
   var detectDestType = function (dest) {
-    var lastChar = dest.slice(-1);
-    if (lastChar === '/') {
+    if (_.endsWith(dest, '/')) {
       return 'directory';
     } else {
       return 'file';
@@ -124,22 +174,25 @@ module.exports = function (grunt) {
   };
 
   var replace = function (source, target, options, applause) {
+    var res;
     grunt.file.copy(source, target, {
       encoding: options.encoding,
-      process: function (contents) {
-        var result = applause.replace(contents, [source, target]);
+      process: function (content) {
+        res = applause.replace(content, [source, target]);
+        var result = res.content;
         // force contents
         if (result === false && options.force === true) {
-          result = contents;
+          result = content;
         }
-        if (result !== false && options.verbose === true) {
-          grunt.log.writeln('Replace ' + chalk.cyan(source) + ' → ' +
+        if (result !== false) {
+          grunt.verbose.writeln('Replace ' + chalk.cyan(source) + ' → ' +
             chalk.green(target));
         }
         return result;
       },
       noProcess: options.noProcess || options.processContentExclude
     });
+    return res;
   };
 
 };
