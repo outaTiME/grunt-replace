@@ -621,7 +621,7 @@ replace: {
 
 ## Release History
 
- * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Applause v0.4.0.
+ * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Update to [applause](https://github.com/outaTiME/applause) v0.4.0.
  * 2014-10-10   v0.8.0   Escape regexp when matching type is `String`.
  * 2014-08-26   v0.7.9   Fixes backwards incompatible changes introduced in NPM.
  * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
