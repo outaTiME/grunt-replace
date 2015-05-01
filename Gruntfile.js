@@ -46,10 +46,10 @@ module.exports = function (grunt) {
       warning: {
         options: {
           patterns: [
-            /* {
+            {
               match: 'key',
               replacement: 'value'
-            }, */
+            },
             {
               match: 'undefined-key',
               replacement: 'value'

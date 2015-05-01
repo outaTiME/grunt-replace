@@ -67,7 +67,7 @@ If matching type is `String` we use a simple variable lookup mechanism `@@string
 }
 ```
 
-#### patterns.replacement
+#### patterns.replacement or patterns.replace
 Type: `String|Function|Object`
 
 Indicates the replacement for match, for more information about replacement check out the [String.replace].
@@ -260,6 +260,12 @@ Default: `false`
 
 If set to `true`, we preserve the patterns definition order, otherwise these will be sorted (in ascending order) to prevent replacement issues like `head` / `header` (typo regexps will be resolved at last).
 
+#### detail
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, return a object response with the `content` and `detail` of replace operation.
+
 
 #### excludeBuiltins
 Type: `Boolean`
@@ -291,6 +297,12 @@ Type: `Boolean` or `Number`
 Default: `false`
 
 Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
+
+#### silent
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, removes the output from stdout.
 
 ### Built-in Replacements
 
@@ -609,6 +621,7 @@ replace: {
 
 ## Release History
 
+ * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Applause v0.4.0.
  * 2014-10-10   v0.8.0   Escape regexp when matching type is `String`.
  * 2014-08-26   v0.7.9   Fixes backwards incompatible changes introduced in NPM.
  * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
