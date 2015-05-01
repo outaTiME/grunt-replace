@@ -143,16 +143,20 @@ module.exports = function (grunt) {
             ' for replacement lookup'
           );
         }
+        strWarn.push(
+          '.'
+        );
         grunt.log.warn(strWarn.join(''));
       }
       var str = [
-        chalk.cyan(tally.replacements),
+        tally.replacements,
         tally.replacements === 1 ? ' replacement' : ' replacements',
         ' in ',
-        chalk.cyan(tally.files),
-        tally.files === 1 ? ' file' : ' files'
+        tally.files,
+        tally.files === 1 ? ' file' : ' files',
+        '.',
       ];
-      grunt.log.writeln(str.join(''));
+      grunt.log.ok(str.join(''));
     }
 
   });

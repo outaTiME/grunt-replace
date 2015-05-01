@@ -1,7 +1,7 @@
 {
   "name": "grunt-replace",
   "description": "Replace text patterns with applause.",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "homepage": "http://github.com/outaTiME/grunt-replace",
   "author": {
     "name": "outaTiME",
