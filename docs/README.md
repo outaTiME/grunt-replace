@@ -398,6 +398,7 @@ replace: {
 
 ## Release History
 
+ * 2015-05-07   v0.9.2   Fix regression issue with empty string in replacement.
  * 2015-05-01   v0.9.1   Better output.
  * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Update to [applause](https://github.com/outaTiME/applause) v0.4.0.
  * 2014-10-10   v0.8.0   Escape regexp when matching type is `String`.
