@@ -31,7 +31,8 @@ module.exports = function (grunt) {
       patterns: [],
       excludeBuiltins: false,
       force: true,
-      silent: false
+      silent: false,
+      pedantic: false
     });
 
     // attach builtins
@@ -120,7 +121,7 @@ module.exports = function (grunt) {
 
     // warn for unmatched patterns in the file list
 
-    if (options.silent !== true) {
+    if (options.silent !== true && options.pedantic !== false) {
       var count = 0;
       patterns.forEach(function (pattern) {
         if (pattern.builtin !== true) { // exclude builtins
@@ -146,7 +147,11 @@ module.exports = function (grunt) {
         strWarn.push(
           '.'
         );
-        grunt.log.warn(strWarn.join(''));
+        if (options.pedantic === true) {
+          grunt.fail.warn(strWarn.join(''));
+        } else if (options.silent !== true) {
+          grunt.log.warn(strWarn.join(''));
+        }
       }
       var str = [
         tally.replacements,
