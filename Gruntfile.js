@@ -60,6 +60,24 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/warning.txt'], dest: 'tmp/'}
         ]
       },
+      fail: {
+        options: {
+          pedantic: true,
+          patterns: [
+            {
+              match: 'key',
+              replacement: 'value'
+            },
+            {
+              match: 'undefined-key',
+              replacement: 'value'
+            }
+          ]
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/fail.txt'], dest: 'tmp/'}
+        ]
+      },
       'built-in': {
         options: {
           // pass
@@ -103,7 +121,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('test', ['clean', 'replace', 'mochaTest']);
+  grunt.registerTask('test', ['clean', 'replace:simple', 'replace:built-in', 'mochaTest']);
   grunt.registerTask('default', ['jshint', 'test']);
 
 };

@@ -13,6 +13,8 @@
 
 var assert = require('assert');
 var grunt = require('grunt');
+var path = require('path');
+var exec = require('child_process').exec;
 
 // test
 
@@ -83,6 +85,33 @@ describe('grunt-replace', function () {
     result = grunt.file.read('tmp/built-in_target_filename.txt');
     assert.equal(result, expect);
     done();
+
+  });
+
+  it('should warn when no matches exist', function (done) {
+
+    exec('grunt replace:warning', {
+      cwd: path.join(__dirname, '..')
+    }, function(error, stdout) {
+
+      assert.equal(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
+      done();
+
+    });
+
+  });
+
+  it('should fail with options.pedantic when no matches exist', function (done) {
+
+    exec('grunt replace:fail', {
+      cwd: path.join(__dirname, '..')
+    }, function(error, stdout) {
+
+      assert.equal(error.code, 6);
+      assert.notEqual(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
+      done();
+
+    });
 
   });
 
