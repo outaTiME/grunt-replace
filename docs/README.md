@@ -81,6 +81,12 @@ Default: `false`
 
 If set to `true`, removes the output from stdout.
 
+#### pedantic
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, the task will fail with a `grunt.fail.warn` when no matches are present.
+
 ### Built-in Replacements
 
 Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
@@ -398,6 +404,7 @@ replace: {
 
 ## Release History
 
+ * 2015-08-06   v0.9.3   New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.9.2   Fix regression issue with empty string in replacement.
  * 2015-05-01   v0.9.1   Better output.
  * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Update to [applause](https://github.com/outaTiME/applause) v0.4.0.
