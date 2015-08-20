@@ -625,35 +625,35 @@ replace: {
 
 ## Release History
 
- * 2015-08-19   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.
- * 2015-08-06   v0.9.3    New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
- * 2015-05-07   v0.9.2    Fix regression issue with empty string in replacement.
- * 2015-05-01   v0.9.1    Better output.
- * 2015-05-01   v0.9.0    Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Update to [applause](https://github.com/outaTiME/applause) v0.4.0.
- * 2014-10-10   v0.8.0    Escape regexp when matching type is `String`.
- * 2014-08-26   v0.7.9    Fixes backwards incompatible changes introduced in NPM.
- * 2014-06-10   v0.7.8    Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
- * 2014-04-20   v0.7.7    JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
- * 2014-03-23   v0.7.6    Readme updated.
- * 2014-03-22   v0.7.5    Modular core renamed to [applause](https://github.com/outaTiME/applause). Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
- * 2014-03-21   v0.7.4    Test cases in Mocha, readme updated and code cleanup.
- * 2014-03-17   v0.7.3    Update script files for readme file generation.
- * 2014-03-12   v0.7.2    Typo error, replace task name again.
- * 2014-03-11   v0.7.1    Task name update.
- * 2014-03-11   v0.7.0    New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
- * 2014-02-13   v0.6.2    Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
- * 2014-02-06   v0.6.1    Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
- * 2014-02-05   v0.6.0    Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
- * 2013-09-18   v0.5.1    New pattern matching for JSON object.
- * 2013-09-17   v0.5.0    Regular expression matching now supported and notation has been updated but is backward compatible.
- * 2013-05-03   v0.4.4    Fix escape $ before performing regexp replace (thanks [@warpech](https://github.com/warpech)).
- * 2013-04-14   v0.4.3    Detect path destinations correctly on Windows.
- * 2013-04-02   v0.4.2    Add peerDependencies and update description.
- * 2013-04-02   v0.4.1    Add trace when force flag.
- * 2013-02-28   v0.4.0    First official release for Grunt 0.4.0.
- * 2012-11-20   v0.3.2    New examples added.
- * 2012-09-25   v0.3.1    Rename grunt-contrib-lib dep to grunt-lib-contrib, add force flag.
- * 2012-09-25   v0.3.0    General cleanup and consolidation. Global options depreciated.
+ * 2015-08-19   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.
+ * 2015-08-06   v0.9.3   New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
+ * 2015-05-07   v0.9.2   Fix regression issue with empty string in replacement.
+ * 2015-05-01   v0.9.1   Better output.
+ * 2015-05-01   v0.9.0   Output available via --verbose flag. The mode option now also applies to directories. Fix path issue on Windows. Display warning message when no matches and overall of replacements. Update to [applause](https://github.com/outaTiME/applause) v0.4.0.
+ * 2014-10-10   v0.8.0   Escape regexp when matching type is `String`.
+ * 2014-08-26   v0.7.9   Fixes backwards incompatible changes introduced in NPM.
+ * 2014-06-10   v0.7.8   Remove node v.8.0 support and third party dependencies updated. Force flag now are true by default.
+ * 2014-04-20   v0.7.7   JSON / YAML / CSON as function supported. Readme updated (thanks [@milanlandaverde](https://github.com/milanlandaverde)).
+ * 2014-03-23   v0.7.6   Readme updated.
+ * 2014-03-22   v0.7.5   Modular core renamed to [applause](https://github.com/outaTiME/applause). Performance improvements. Expression flag removed. New pattern matching for CSON object. More test cases, readme updated and code cleanup.
+ * 2014-03-21   v0.7.4   Test cases in Mocha, readme updated and code cleanup.
+ * 2014-03-17   v0.7.3   Update script files for readme file generation.
+ * 2014-03-12   v0.7.2   Typo error, replace task name again.
+ * 2014-03-11   v0.7.1   Task name update.
+ * 2014-03-11   v0.7.0   New [pattern-replace](https://github.com/outaTiME/pattern-replace) modular core for replacements.
+ * 2014-02-13   v0.6.2   Attach process data for function replacements (source / target). Add delimiter option for object as replacement. Dependencies updated.
+ * 2014-02-06   v0.6.1   Rename excludePrefix to preservePrefix (more readable) and adds usePrefix flag. Support the noProcess option like [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy).
+ * 2014-02-05   v0.6.0   Object replacement allowed. New excludePrefix flag (thanks [@shinnn](https://github.com/shinnn)). Encoding / Mode options added.
+ * 2013-09-18   v0.5.1   New pattern matching for JSON object.
+ * 2013-09-17   v0.5.0   Regular expression matching now supported and notation has been updated but is backward compatible.
+ * 2013-05-03   v0.4.4   Fix escape $ before performing regexp replace (thanks [@warpech](https://github.com/warpech)).
+ * 2013-04-14   v0.4.3   Detect path destinations correctly on Windows.
+ * 2013-04-02   v0.4.2   Add peerDependencies and update description.
+ * 2013-04-02   v0.4.1   Add trace when force flag.
+ * 2013-02-28   v0.4.0   First official release for Grunt 0.4.0.
+ * 2012-11-20   v0.3.2   New examples added.
+ * 2012-09-25   v0.3.1   Rename grunt-contrib-lib dep to grunt-lib-contrib, add force flag.
+ * 2012-09-25   v0.3.0   General cleanup and consolidation. Global options depreciated.
 
 ---
 
