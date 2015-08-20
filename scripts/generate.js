@@ -30,12 +30,13 @@ while ((match = pattern.exec(readme)) !== null) {
 
 var Applause = require('applause');
 var options = {
-  variables: {
-    'options': function () {
+  patterns: [{
+    match: 'options',
+    replacement: function () {
       var name = 'Applause Options';
       return sections[name] || '_(Coming soon)_'; // empty
     }
-  }
+  }]
 };
 var applause = Applause.create(options);
 var contents = fs.readFileSync('docs/README.md', 'utf8');

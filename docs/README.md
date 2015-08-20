@@ -1,8 +1,6 @@
-# grunt-replace [![Build Status](https://secure.travis-ci.org/outaTiME/grunt-replace.png?branch=master)](http://travis-ci.org/outaTiME/grunt-replace)
+# grunt-replace [![Build Status](https://travis-ci.org/outaTiME/grunt-replace.svg?branch=master)](https://travis-ci.org/outaTiME/grunt-replace)
 
 > Replace text patterns with [applause](https://github.com/outaTiME/applause).
-
-
 
 ## Install
 
@@ -404,6 +402,7 @@ replace: {
 
 ## Release History
 
+ * 2015-08-06   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.
  * 2015-08-06   v0.9.3   New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
  * 2015-05-07   v0.9.2   Fix regression issue with empty string in replacement.
  * 2015-05-01   v0.9.1   Better output.

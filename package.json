@@ -1,25 +1,13 @@
 {
   "name": "grunt-replace",
   "description": "Replace text patterns with applause.",
-  "version": "0.9.3",
-  "homepage": "http://github.com/outaTiME/grunt-replace",
+  "version": "0.10.0",
   "author": {
     "name": "outaTiME",
     "url": "http://outa.im/"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/outaTiME/grunt-replace.git"
-  },
-  "bugs": {
-    "url": "http://github.com/outaTiME/grunt-replace/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT"
-    }
-  ],
+  "repository": "outaTiME/grunt-replace",
+  "license": "MIT",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -30,7 +18,7 @@
   "dependencies": {
     "chalk": "^1.0.0",
     "lodash": "^3.1.0",
-    "applause": "0.4.3"
+    "applause": "1.0.3"
   },
   "devDependencies": {
     "grunt": "^0.4.0",
@@ -59,7 +47,6 @@
     "flatten"
   ],
   "files": [
-    "tasks",
-    "LICENSE-MIT"
+    "tasks"
   ]
 }
