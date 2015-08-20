@@ -32,6 +32,40 @@ describe('grunt-replace', function () {
 
   });
 
+  it('should verbose when "silent" is false', function (done) {
+
+    exec('grunt replace:verbose', {
+      cwd: path.join(__dirname, '..')
+    }, function(error, stdout) {
+      assert.notEqual(stdout.indexOf('1 replacement in 1 file.'), -1);
+      done();
+    });
+
+  });
+
+  it('should warn when no matches exist', function (done) {
+
+    exec('grunt replace:warning', {
+      cwd: path.join(__dirname, '..')
+    }, function(error, stdout) {
+      assert.equal(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
+      done();
+    });
+
+  });
+
+  it('should fail when no matches exist and "pedantic" is true', function (done) {
+
+    exec('grunt replace:fail', {
+      cwd: path.join(__dirname, '..')
+    }, function(error, stdout) {
+      assert.equal(error.code, 6);
+      assert.notEqual(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
+      done();
+    });
+
+  });
+
   // built-in
 
   it('should replace using built-in replacement (__SOURCE_FILE__)', function (done) {
@@ -85,33 +119,6 @@ describe('grunt-replace', function () {
     result = grunt.file.read('tmp/built-in_target_filename.txt');
     assert.equal(result, expect);
     done();
-
-  });
-
-  it('should warn when no matches exist', function (done) {
-
-    exec('grunt replace:warning', {
-      cwd: path.join(__dirname, '..')
-    }, function(error, stdout) {
-
-      assert.equal(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
-      done();
-
-    });
-
-  });
-
-  it('should fail with options.pedantic when no matches exist', function (done) {
-
-    exec('grunt replace:fail', {
-      cwd: path.join(__dirname, '..')
-    }, function(error, stdout) {
-
-      assert.equal(error.code, 6);
-      assert.notEqual(stdout.indexOf('Warning: Unable to match 1 pattern'), -1);
-      done();
-
-    });
 
   });
 

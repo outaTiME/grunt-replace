@@ -43,6 +43,16 @@ module.exports = function (grunt) {
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'tmp/'}
         ]
       },
+      verbose: {
+        options: {
+          variables: {
+            key: 'value'
+          }
+        },
+        files: [
+          {expand: true, flatten: true, src: ['test/fixtures/verbose.txt'], dest: 'tmp/'}
+        ]
+      },
       warning: {
         options: {
           patterns: [

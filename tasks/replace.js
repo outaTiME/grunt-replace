@@ -121,7 +121,7 @@ module.exports = function (grunt) {
 
     // warn for unmatched patterns in the file list
 
-    if (options.silent !== true && options.pedantic !== false) {
+    if (options.silent !== true) {
       var count = 0;
       patterns.forEach(function (pattern) {
         if (pattern.builtin !== true) { // exclude builtins
@@ -149,7 +149,7 @@ module.exports = function (grunt) {
         );
         if (options.pedantic === true) {
           grunt.fail.warn(strWarn.join(''));
-        } else if (options.silent !== true) {
+        } else {
           grunt.log.warn(strWarn.join(''));
         }
       }
