@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         options: {
           patterns: [
             {
-              match: 'foo',
+              match: 'foo', // Looks for @@foo
               replacement: 'bar'
             }
           ]
@@ -42,10 +42,10 @@ module.exports = function (grunt) {
 
 ### Options
 
-function () {
-      var name = 'Applause Options';
-      return sections[name] || '_(Coming soon)_'; // empty
-    }
+#### patterns
+Type: `Array`
+
+Note: Applause is used for pattern matching. The API documentation for patterns is available [here](https://github.com/outaTiME/applause#patterns).
 
 #### excludeBuiltins
 Type: `Boolean`
