@@ -1,4 +1,4 @@
-# grunt-replace [![Build Status](https://travis-ci.org/outaTiME/grunt-replace.svg?branch=master)](https://travis-ci.org/outaTiME/grunt-replace)
+# grunt-replace [![Build Status](https://travis-ci.org/outaTiME/grunt-replace.svg?branch=master)](https://travis-ci.org/outaTiME/grunt-replace) [![npm version](https://badge.fury.io/js/grunt-replace.svg)](http://badge.fury.io/js/grunt-replace)
 
 > Replace text patterns with [applause](https://github.com/outaTiME/applause).
 
