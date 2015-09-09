@@ -98,13 +98,16 @@ Also supports object as replacement (we create string representation of object u
 }
 ```
 
+> The replacement only resolve the [special replacement patterns] when using regexp for matching.
+
 [String.replace]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 [JSON.stringify]: http://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[special replacement patterns]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter
 
 #### patterns.json
 Type: `Object`
 
-If an attribute `json` found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
+If an attribute `json` is found in pattern definition we flatten the object using `delimiter` concatenation and each key–value pair will be used for the replacement (simple variable lookup mechanism and no regexp support).
 
 ```javascript
 {
@@ -154,7 +157,7 @@ For deferred invocations is possible to define functions:
 #### patterns.yaml
 Type: `String`
 
-If an attribute `yaml` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
+If an attribute `yaml` found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
 
 ```javascript
 {
@@ -183,7 +186,7 @@ For deferred invocations is possible to define functions:
 #### patterns.cson
 Type: `String`
 
-If an attribute `cson` found in pattern definition will be converted and then processed like [json attribute](#patternsjson).
+If an attribute `cson` is found in pattern definition it will be converted and then processed like [json attribute](#patternsjson).
 
 ```javascript
 {
@@ -234,7 +237,7 @@ The prefix added for matching (prevent bad replacements / easy way).
 Type: `Boolean`
 Default: `true`
 
-If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup an simple string).
+If set to `false`, we match the pattern without `prefix` concatenation (useful when you want to lookup a simple string).
 
 > This only applies for simple variable lookup mechanism.
 
@@ -244,7 +247,7 @@ Default: `false`
 
 If set to `true`, we preserve the `prefix` in target.
 
-> This only applies for simple variable lookup mechanism and `patterns.replacement` is an string.
+> This only applies for simple variable lookup mechanism and when `patterns.replacement` is a string.
 
 #### delimiter
 Type: `String`
@@ -262,7 +265,7 @@ If set to `true`, we preserve the patterns definition order, otherwise these wil
 Type: `Boolean`
 Default: `false`
 
-If set to `true`, return a object response with the `content` and `detail` of replace operation.
+If set to `true`, return an object response with the `content` and `detail` of replace operation.
 
 
 #### excludeBuiltins
@@ -625,6 +628,7 @@ replace: {
 
 ## Release History
 
+ * 2015-09-09   v0.11.0   Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-20   v0.10.2   Restore verbose after new pedantic option.
  * 2015-08-19   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.
  * 2015-08-06   v0.9.3   New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.

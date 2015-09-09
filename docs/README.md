@@ -402,6 +402,7 @@ replace: {
 
 ## Release History
 
+ * 2015-09-09   v0.11.0   Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-20   v0.10.2   Restore verbose after new pedantic option.
  * 2015-08-19   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.
  * 2015-08-06   v0.9.3   New pedantic option (thanks [@donkeybanana](https://github.com/donkeybanana)). Fix issue with special characters attributes ($$, $&, $`, $', $n or $nn) on JSON, YAML and CSON.
