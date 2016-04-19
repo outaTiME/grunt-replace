@@ -40,4 +40,4 @@ var options = {
 };
 var applause = Applause.create(options);
 var result = applause.replace(fs.readFileSync('docs/README.md', 'utf8'));
-fs.writeFileSync('README.md', result, 'utf8');
+fs.writeFileSync('README.md', result.content, 'utf8');
