@@ -628,6 +628,7 @@ replace: {
 
 ## Release History
 
+ * 2016-04-19   v1.0.1   Fix bad README.md file.
  * 2016-04-19   v1.0.0   Add timestamp option to disable preserving timestamp when copying. Bump devDependencies. Point main to task and remove peerDeps.
  * 2015-09-09   v0.11.0   Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-20   v0.10.2   Restore verbose after new pedantic option.
