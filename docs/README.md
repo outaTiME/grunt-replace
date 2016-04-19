@@ -73,6 +73,12 @@ Default: `false`
 
 Whether to copy or set the existing file permissions. Set to `true` to copy the existing file permissions. Or set to the mode, i.e.: `0644`, that copied files will be set to.
 
+#### timestamp
+Type: `Boolean`
+Default: `false`
+
+Whether to preserve the timestamp attributes(atime and mtime) when copying files. Set to true to preserve files timestamp. But timestamp will not be preserved when the file contents or name are changed during copying.
+
 #### silent
 Type: `Boolean`
 Default: `false`
@@ -402,6 +408,7 @@ replace: {
 
 ## Release History
 
+ * 2016-04-19   v1.0.0   Add timestamp option to disable preserving timestamp when copying. Bump devDependencies. Point main to task and remove peerDeps.
  * 2015-09-09   v0.11.0   Improvements in handling patterns. Fix plain object representation issue. More test cases.
  * 2015-08-20   v0.10.2   Restore verbose after new pedantic option.
  * 2015-08-19   v0.10.0   Last [applause](https://github.com/outaTiME/applause) integration and package.json update.

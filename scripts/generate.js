@@ -3,7 +3,7 @@
  * grunt-replace
  * http://gruntjs.com/
  *
- * Copyright (c) 2015 outaTiME
+ * Copyright (c) 2016 outaTiME
  * Licensed under the MIT license.
  * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
  */
@@ -32,13 +32,12 @@ var Applause = require('applause');
 var options = {
   patterns: [{
     match: 'options',
-    replacement: function () {
+    replacement: function() {
       var name = 'Applause Options';
       return sections[name] || '_(Coming soon)_'; // empty
     }
   }]
 };
 var applause = Applause.create(options);
-var contents = fs.readFileSync('docs/README.md', 'utf8');
-var result = applause.replace(contents);
+var result = applause.replace(fs.readFileSync('docs/README.md', 'utf8'));
 fs.writeFileSync('README.md', result, 'utf8');
