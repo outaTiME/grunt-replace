@@ -312,6 +312,47 @@ replace: {
 }
 ```
 
+#### Regular expression Multiple Ranges
+
+File `index.html`:
+
+```
+<!-- START Raw JS -->
+<script src="local/1.js"></script>
+<script src="local/2.js"></script>
+<! END Raw JS -->
+
+... other stuff
+
+<!-- START Raw JS -->
+<script src="local/3.js"></script>
+<script src="local/4.js"></script>
+<! END Raw JS -->
+```
+
+Gruntfile:
+
+```js
+replace: {
+  dist: {
+    options: {
+      patterns: [
+        {
+          match: /<!-- START Raw JS -->(.|\n|\r)*?<!-- END Raw JS -->/g,
+          replacement: '',
+        }
+      ]
+    },
+    files: [
+      {expand: true, flatten: true, src: ['src/index.html'], dest: 'dist'}
+    ]
+  }
+}
+```
+
+This matches all the lines in between the `<!-- Raw JS -->` tags we defined. It is useful if you have multiple blocks of javascript imports that you want to omit in from your `index.html` in your build (i.e. because you are concatenating them all in one file.
+You must include the `?` to ensure lazy matching (i.e. match the first possible match) and `/g` to ensure that after a match is found, the rest of the string is searched for more [more info](http://javascript.info/tutorial/greedy-and-lazy).
+
 #### Lookup for `foo` instead of `@@foo`
 
 Gruntfile:
