@@ -9,8 +9,9 @@ module.exports = function (grunt) {
           }
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/simple.txt'],
-            dest: 'temp'}
+          {
+            expand: true, flatten: true, src: ['test/fixtures/simple.txt'], dest: 'temp'
+          }
         ]
       },
       verbose: {
@@ -20,8 +21,9 @@ module.exports = function (grunt) {
           }
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/verbose.txt'],
-            dest: 'temp'}
+          {
+            expand: true, flatten: true, src: ['test/fixtures/verbose.txt'], dest: 'temp'
+          }
         ]
       },
       warning: {
@@ -38,8 +40,9 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/warning.txt'],
-            dest: 'temp'}
+          {
+            expand: true, flatten: true, src: ['test/fixtures/warning.txt'], dest: 'temp'
+          }
         ]
       },
       fail: {
@@ -57,8 +60,9 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/fail.txt'],
-            dest: 'temp'}
+          {
+            expand: true, flatten: true, src: ['test/fixtures/fail.txt'], dest: 'temp'
+          }
         ]
       },
       'built-in': {
@@ -66,8 +70,9 @@ module.exports = function (grunt) {
           // Pass
         },
         files: [
-          {expand: true, flatten: true, src: ['test/fixtures/built-in_*.txt'],
-            dest: 'temp'}
+          {
+            expand: true, flatten: true, src: ['test/fixtures/built-in_*.txt'], dest: 'temp'
+          }
         ]
       }
     }

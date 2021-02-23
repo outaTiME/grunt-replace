@@ -1,4 +1,5 @@
 # grunt-replace
+
 [![Build Status](https://img.shields.io/travis/outaTiME/grunt-replace.svg)](https://travis-ci.org/outaTiME/grunt-replace)
 [![Version](https://img.shields.io/npm/v/grunt-replace.svg)](https://www.npmjs.com/package/grunt-replace)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10-blue.svg)
@@ -33,7 +34,9 @@ module.exports = function (grunt) {
           ]
         },
         files: [
-          {expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'}
+          {
+            expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'
+          }
         ]
       }
     }
@@ -145,23 +148,23 @@ NETWORK:
 *
 ```
 
-Gruntfile, define pattern (for timestamp) and the source files for lookup:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: 'timestamp',
-          replacement: '<%= grunt.template.today() %>'
-        }
-      ]
-    },
-    files: [
-      {expand: true, flatten: true, src: ['src/manifest.appcache'], dest: 'build/'}
+```javascript
+{
+  options: {
+    patterns: [
+      {
+        match: 'timestamp',
+        replacement: '<%= grunt.template.today() %>'
+      }
     ]
-  }
+  },
+  files: [
+    {
+      expand: true, flatten: true, src: ['src/manifest.appcache'], dest: 'build/'
+    }
+  ]
 }
 ```
 
@@ -191,7 +194,7 @@ File `src/humans.txt`:
 
 /* TEAM */
   Web Developer / Graphic Designer: Ariel Oscar Falduto
-  Site: http://www.outa.im
+  Site: https://www.outa.im
   Twitter: @outa7iME
   Contact: afalduto at gmail dot com
   From: Buenos Aires, Argentina
@@ -204,27 +207,27 @@ File `src/humans.txt`:
 
 ```
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: 'version',
-          replacement: '<%= pkg.version %>'
-        },
-        {
-          match: 'timestamp',
-          replacement: '<%= grunt.template.today() %>'
-        }
-      ]
-    },
-    files: [
-      {expand: true, flatten: true, src: ['src/manifest.appcache', 'src/humans.txt'], dest: 'build/'}
+```javascript
+{
+  options: {
+    patterns: [
+      {
+        match: 'version',
+        replacement: '<%= pkg.version %>'
+      },
+      {
+        match: 'timestamp',
+        replacement: '<%= grunt.template.today() %>'
+      }
     ]
-  }
+  },
+  files: [
+    {
+      expand: true, flatten: true, src: ['src/manifest.appcache', 'src/humans.txt'], dest: 'build/'
+    }
+  ]
 }
 ```
 
@@ -239,23 +242,23 @@ File `src/assets/index.html`:
 </head>
 ```
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: 'timestamp',
-          replacement: '<%= new Date().getTime() %>'
-        }
-      ]
-    },
-    files: [
-      {src: ['src/assets/index.html'], dest: 'build/index.html'}
+```javascript
+{
+  options: {
+    patterns: [
+      {
+        match: 'timestamp',
+        replacement: '<%= new Date().getTime() %>'
+      }
     ]
-  }
+  },
+  files: [
+    {
+      src: ['src/assets/index.html'], dest: 'build/index.html'
+    }
+  ]
 }
 ```
 
@@ -269,23 +272,23 @@ File `src/index.html`:
 </body>
 ```
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: 'include',
-          replacement: '<%= grunt.file.read("includes/content.html") %>'
-        }
-      ]
-    },
-    files: [
-      {expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'}
+```javascript
+{
+  options: {
+    patterns: [
+      {
+        match: 'include',
+        replacement: '<%= grunt.file.read("includes/content.html") %>'
+      }
     ]
-  }
+  },
+  files: [
+    {
+      expand: true, flatten: true, src: ['src/index.html'], dest: 'build/'
+    }
+  ]
 }
 ```
 
@@ -297,51 +300,48 @@ File `src/username.txt`:
 John Smith
 ```
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      patterns: [
-        {
-          match: /(\w+)\s(\w+)/,
-          replacement: '$2, $1' // replaces "John Smith" with "Smith, John"
-        }
-      ]
-    },
-    files: [
-      {expand: true, flatten: true, src: ['src/username.txt'], dest: 'build/'}
+```javascript
+{
+  options: {
+    patterns: [
+      {
+        match: /(\w+)\s(\w+)/,
+        replacement: '$2, $1' // Replaces "John Smith" with "Smith, John"
+      }
     ]
-  }
+  },
+  files: [
+    {
+      expand: true, flatten: true, src: ['src/username.txt'], dest: 'build/'
+    }
+  ]
 }
 ```
 
 ### Lookup for `foo` instead of `@@foo`
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-// option 1 (explicitly using an regexp)
-replace: {
-  dist: {
+```javascript
+{
+  'opt-1': {
     options: {
       patterns: [
         {
-          match: /foo/g,
+          match: /foo/g, // Explicitly using a regexp
           replacement: 'bar'
         }
       ]
     },
     files: [
-      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
+      {
+        expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'
+      }
     ]
-  }
-}
-
-// option 2 (easy way)
-replace: {
-  dist: {
+  },
+  'opt-2': {
     options: {
       patterns: [
         {
@@ -349,17 +349,15 @@ replace: {
           replacement: 'bar'
         }
       ],
-      usePrefix: false
+      usePrefix: false // Using the option provided
     },
     files: [
-      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
+      {
+        expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'
+      }
     ]
-  }
-}
-
-// option 3 (old way)
-replace: {
-  dist: {
+  },
+  'opt-3': {
     options: {
       patterns: [
         {
@@ -367,10 +365,12 @@ replace: {
           replacement: 'bar'
         }
       ],
-      prefix: '' // remove prefix
+      prefix: '' // Removing the prefix manually
     },
     files: [
-      {expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'}
+      {
+        expand: true, flatten: true, src: ['src/foo.txt'], dest: 'build/'
+      }
     ]
   }
 }
@@ -380,34 +380,30 @@ replace: {
 
 File `src/app.js`:
 
-```js
-// filename: @@__SOURCE_FILENAME__
+```javascript
+// Filename: @@__SOURCE_FILENAME__
 
 var App = App || (function () {
-
   return {
-
-    // app contents
-
+    // App contents
   };
-
-}());
+})();
 
 window.App = App;
 ```
 
-Gruntfile:
+Task configuration on gruntfile:
 
-```js
-replace: {
-  dist: {
-    options: {
-      // pass, we use built-in replacements
-    },
-    files: [
-      {expand: true, flatten: true, src: ['src/**/*.js'], dest: 'build/'}
-    ]
-  }
+```javascript
+{
+  options: {
+    // Pass, we use built-in replacements
+  },
+  files: [
+    {
+      expand: true, flatten: true, src: ['src/**/*.js'], dest: 'build/'
+    }
+  ]
 }
 ```
 
