@@ -1,4 +1,2 @@
 node_modules
-npm-debug.log
-tmp
-.DS_Store
+yarn.lock

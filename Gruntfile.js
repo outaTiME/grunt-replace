@@ -1,37 +1,6 @@
-
-/*
- * grunt-replace
- *
- * Copyright (c) 2016 outaTiME
- * Licensed under the MIT license.
- * https://github.com/outaTiME/grunt-replace/blob/master/LICENSE-MIT
- */
-
 'use strict';
-
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   grunt.initConfig({
-
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc'
-      },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      },
-      tasks: {
-        src: ['tasks/**/*.js']
-      },
-      test: {
-        src: ['test/**/*.js']
-      }
-    },
-
-    clean: {
-      test: ['tmp']
-    },
-
     replace: {
       simple: {
         options: {
@@ -41,7 +10,7 @@ module.exports = function(grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/simple.txt'],
-            dest: 'tmp/'}
+            dest: 'temp'}
         ]
       },
       verbose: {
@@ -52,7 +21,7 @@ module.exports = function(grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/verbose.txt'],
-            dest: 'tmp/'}
+            dest: 'temp'}
         ]
       },
       warning: {
@@ -70,7 +39,7 @@ module.exports = function(grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/warning.txt'],
-            dest: 'tmp/'}
+            dest: 'temp'}
         ]
       },
       fail: {
@@ -89,46 +58,20 @@ module.exports = function(grunt) {
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/fail.txt'],
-            dest: 'tmp/'}
+            dest: 'temp'}
         ]
       },
       'built-in': {
         options: {
-          // pass
+          // Pass
         },
         files: [
           {expand: true, flatten: true, src: ['test/fixtures/built-in_*.txt'],
-            dest: 'tmp/'}
+            dest: 'temp'}
         ]
       }
-    },
-
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec'
-        },
-        src: '<%= jshint.test.src %>'
-      }
     }
-
   });
-
   grunt.loadTasks('tasks');
-
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-mocha-test');
-
-  grunt.registerTask('test', [
-    'clean',
-    'replace:simple',
-    'replace:built-in',
-    'mochaTest'
-  ]);
-  grunt.registerTask('default', [
-    'jshint',
-    'test'
-  ]);
-
+  grunt.registerTask('default', ['replace:simple', 'replace:built-in']);
 };

@@ -1,34 +1,24 @@
 {
   "name": "grunt-replace",
+  "version": "2.0.0",
   "description": "Replace text patterns with applause.",
-  "version": "1.0.1",
+  "license": "MIT",
+  "repository": "outaTiME/grunt-replace",
   "author": {
     "name": "outaTiME",
+    "email": "afalduto@gmail.com",
     "url": "http://outa.im/"
   },
-  "repository": "outaTiME/grunt-replace",
-  "license": "MIT",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=10"
   },
-  "main": "tasks/replace.js",
   "scripts": {
-    "release": "scripts/release.sh",
-    "test": "grunt test"
+    "test": "eslint . && grunt && ava && del-cli temp",
+    "release": "release-it"
   },
-  "dependencies": {
-    "chalk": "^1.1.0",
-    "lodash": "^4.11.0",
-    "applause": "1.2.2",
-    "file-sync-cmp": "^0.1.0"
-  },
-  "devDependencies": {
-    "grunt": "^1.0.0",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-mocha-test": "^0.12.0",
-    "mocha": "^2.4.5"
-  },
+  "files": [
+    "tasks"
+  ],
   "keywords": [
     "gruntplugin",
     "replace",
@@ -43,28 +33,31 @@
     "json",
     "yaml",
     "cson",
-    "flatten"
+    "flatten",
+    "applause"
   ],
-  "files": [
-    "tasks"
-  ],
+  "dependencies": {
+    "applause": "^2.0.0",
+    "chalk": "^4.1.0",
+    "file-sync-cmp": "^0.1.0",
+    "lodash": "^4.11.0"
+  },
+  "devDependencies": {
+    "ava": "^3.15.0",
+    "del-cli": "^3.0.1",
+    "eslint": "^7.20.0",
+    "eslint-config-xo": "^0.35.0",
+    "eslint-config-xo-space": "^0.27.0",
+    "grunt": "^1.0.0",
+    "release-it": "^14.4.1"
+  },
+  "peerDependencies": {
+    "grunt": ">=1"
+  },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended"
-    ],
-    "env": {
-      "node": true,
-      "mocha": true
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "single"
-      ],
-      "indent": [
-        2,
-        2
-      ]
-    }
+      "xo",
+      "xo-space"
+    ]
   }
 }
