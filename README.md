@@ -99,7 +99,7 @@ Default: `false`
 
 If set to `true`, the task will fail with a `grunt.fail.warn` when no matches are present.
 
-## Built-in Replacements
+## Built-in replacements
 
 Few matching rules are provided by default and can be used anytime (these will be affected by the `options` given):
 
@@ -129,7 +129,7 @@ Few matching rules are provided by default and can be used anytime (these will b
 
 > If you are looking how to use an `built-in` replacements, check out the [How to insert filename in target](#how-to-insert-filename-in-target) usage.
 
-## Usage Examples
+## Examples
 
 ### Basic
 
