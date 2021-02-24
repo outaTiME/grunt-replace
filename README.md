@@ -204,7 +204,6 @@ File `src/humans.txt`:
   Standards: HTML5, CSS3, robotstxt.org, humanstxt.org
   Components: H5BP, Modernizr, jQuery, Bootstrap, LESS, Jade, Grunt
   Software: Sublime Text, Photoshop, LiveReload
-
 ```
 
 Task configuration on gruntfile:
