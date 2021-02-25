@@ -7,7 +7,7 @@
   "author": {
     "name": "outaTiME",
     "email": "afalduto@gmail.com",
-    "url": "http://outa.im/"
+    "url": "https://outa.im"
   },
   "engines": {
     "node": ">=10"
@@ -50,9 +50,6 @@
     "eslint-config-xo-space": "^0.27.0",
     "grunt": "^1.0.0",
     "release-it": "^14.4.1"
-  },
-  "peerDependencies": {
-    "grunt": ">=1"
   },
   "eslintConfig": {
     "extends": [
