@@ -156,7 +156,7 @@ Task configuration on gruntfile:
     patterns: [
       {
         match: 'timestamp',
-        replacement: '<%= grunt.template.today() %>'
+        replacement: '<%= Date.now() %>'
       }
     ]
   },
@@ -218,7 +218,7 @@ Task configuration on gruntfile:
       },
       {
         match: 'timestamp',
-        replacement: '<%= grunt.template.today() %>'
+        replacement: '<%= Date.now() %>'
       }
     ]
   },
@@ -249,7 +249,7 @@ Task configuration on gruntfile:
     patterns: [
       {
         match: 'timestamp',
-        replacement: '<%= new Date().getTime() %>'
+        replacement: '<%= Date.now() %>'
       }
     ]
   },
