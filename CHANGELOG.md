@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 — 2021-02-28
+
+_This version does not introduce any user-facing changes._
+
 ## 2.0.0 — 2021-02-23
 
 ### 🎉 New features

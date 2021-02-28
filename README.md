@@ -232,7 +232,7 @@ Task configuration on gruntfile:
 
 ### Cache busting
 
-File `src/assets/index.html`:
+File `src/index.html`:
 
 ```html
 <head>
@@ -255,7 +255,7 @@ Task configuration on gruntfile:
   },
   files: [
     {
-      src: ['src/assets/index.html'], dest: 'build/index.html'
+      src: ['src/index.html'], dest: 'build/index.html'
     }
   ]
 }

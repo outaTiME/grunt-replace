@@ -47,16 +47,9 @@ module.exports = function (grunt) {
       process: function (content) {
         res = applause.replace(content, [source, target]);
         var result = res.content;
-        var count = res.count;
         // Force contents
-        if (count === 0) {
-        // No matches
-          if (options.force === true) {
-            result = content;
-          } else {
-          // ignore copy
-            result = false;
-          }
+        if (result === false && options.force === true) {
+          result = content;
         }
 
         if (result !== false) {

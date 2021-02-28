@@ -2,6 +2,7 @@ var test = require('ava');
 var grunt = require('grunt');
 var path = require('path');
 var exec = require('child_process').exec;
+var rimraf = require('rimraf');
 
 test('should replace simple key with value', function (t) {
   var result = grunt.file.read('temp/simple.txt');
@@ -66,4 +67,8 @@ test('should replace using built-in replacement (__TARGET_PATH__)', function (t)
 test('should replace using built-in replacement (__TARGET_FILENAME__)', function (t) {
   var result = grunt.file.read('temp/built-in_target_filename.txt');
   t.is(result, 'built-in_target_filename.txt\n');
+});
+
+test.after.always.cb(function (t) {
+  rimraf('temp', t.end);
 });
