@@ -40,7 +40,7 @@
     "applause": "^2.0.0",
     "chalk": "^4.1.0",
     "file-sync-cmp": "^0.1.0",
-    "lodash": "^4.11.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "ava": "^3.15.0",
