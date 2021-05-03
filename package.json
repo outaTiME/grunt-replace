@@ -14,7 +14,8 @@
   },
   "scripts": {
     "test": "eslint . && grunt && ava",
-    "release": "release-it"
+    "release": "release-it",
+    "prepare": "husky install"
   },
   "files": [
     "tasks"
@@ -62,6 +63,11 @@
       "xo-space"
     ]
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "release-it": {
     "hooks": {
       "after:init": [
@@ -79,11 +85,6 @@
         "preset": "angular",
         "infile": "CHANGELOG.md"
       }
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }

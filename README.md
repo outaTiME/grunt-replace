@@ -1,9 +1,10 @@
 # grunt-replace
 
-[![Build Status](https://img.shields.io/travis/outaTiME/grunt-replace.svg)](https://travis-ci.org/outaTiME/grunt-replace)
+[![Build Status](https://img.shields.io/github/workflow/status/outaTiME/grunt-replace/CI)](https://github.com/outaTiME/grunt-replace/actions/workflows/main.yml)
 [![Version](https://img.shields.io/npm/v/grunt-replace.svg)](https://www.npmjs.com/package/grunt-replace)
 ![Prerequisite](https://img.shields.io/badge/node-%3E%3D10-blue.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Twitter: outa7iME](https://img.shields.io/twitter/follow/outa7iME.svg?style=social)](https://twitter.com/outa7iME)
 
 > Replace text patterns with [applause](https://github.com/outaTiME/applause).
