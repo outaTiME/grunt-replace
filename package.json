@@ -1,6 +1,6 @@
 {
   "name": "grunt-replace",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Replace text patterns with applause.",
   "license": "MIT",
   "repository": "outaTiME/grunt-replace",
